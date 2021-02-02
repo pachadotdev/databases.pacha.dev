@@ -1,0 +1,397 @@
+---
+title: "SQL Databases for Students and Educators"
+author: "Pachá"
+date: "2021-02-02"
+output:
+  rmdformats::downcute:    
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+# About
+
+<img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200">
+
+Publicly accessible databases often impose query limits or require registration. Even when I maintain public and limit-free APIs, I never wanted to host a public database because I tend to think that the connection strings are a problem for the user.
+
+I've decided to host different light/medium size by using PostgreSQL, MySQL and SQL Server backends (in strict descending order of preference!). 
+
+Why 3 database backends? I think there are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.
+
+Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachamaltese](https://twitter.com/pachamaltese). See the SQL dumps on each section to have the data locally.
+
+# NYCflights13
+
+A database that contains airline on-time data for all flights departing NYC in 2013. Also includes useful 'metadata' on airlines, airports, weather, and planes.
+
+This database is used in [R4DS](https://r4ds.had.co.nz/) and I have a [blog post](https://pacha.dev/blog/2020/08/09/a-crash-course-on-postgresql-for-r-users/) with the steps to create it in PostgreSQL and even a diagram of the database schema. 
+
+Check the structure of the tables in the next preview.
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "nycflights13",
+  host = "databases.pacha.dev"
+)
+
+tbl(con, "airlines") %>% glimpse()
+tbl(con, "airports") %>% glimpse()
+tbl(con, "flights") %>% glimpse()
+tbl(con, "planes") %>% glimpse()
+tbl(con, "weather") %>% glimpse()
+
+dbDisconnect(con)
+```
+
+# Intendo database
+
+It's a dummy database that we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid.
+
+This database can be helpful for workshops and showing how to create an R package focused on the particular needs of an organization, including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.
+
+Check the structure of the tables in the next preview.
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "intendo",
+  host = "databases.pacha.dev"
+)
+
+tbl(con, "daily_users") %>% glimpse()
+tbl(con, "revenue") %>% glimpse()
+tbl(con, "users") %>% glimpse()
+
+dbDisconnect(con)
+```
+
+# Loan Application
+
+A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.
+
+This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find the database schema and more information. The database full name is "PKDD'99 Financial Dataset or Loan Application", and this particular version corresponds to Financial_ijs by Janez Kranjc.
+
+Check the structure of the tables in the next preview.
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "loan_application",
+  host = "databases.pacha.dev"
+)
+
+tbl(con, "accounts") %>% glimpse()
+tbl(con, "cards") %>% glimpse()
+tbl(con, "clients") %>% glimpse()
+tbl(con, "disps") %>% glimpse()
+tbl(con, "districts") %>% glimpse()
+tbl(con, "loans") %>% glimpse()
+tbl(con, "orders") %>% glimpse()
+tbl(con, "tkeys") %>% glimpse()
+tbl(con, "trans") %>% glimpse()
+
+dbDisconnect(con)
+```
+
+# Chilemapas
+
+This database is a PostGIS (PostgreSQL + GIS) version of the datasets from [chilemapas](https://pacha.dev/chilemapas/).
+
+```{r}
+library(RPostgres)
+library(sf)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "chilemapas",
+  host = "databases.pacha.dev"
+)
+
+map_metropolitan <- st_read(con,
+  query = "SELECT * FROM mapa_comunas WHERE codigo_region = '13'")
+
+pop_metropolitan <- dbGetQuery(con,
+  "SELECT * FROM censo_2017_comunas WHERE LEFT(codigo_comuna,2) = '13'")
+
+dbDisconnect(con)
+
+colors <- c("#DCA761", "#CFB567", "#BFBC71", "#9EA887", "#819897")
+
+g <- pop_metropolitan %>% 
+  gather(tramo_edad, poblacion, -codigo_comuna) %>% 
+  group_by(codigo_comuna) %>% 
+  summarise_if(is.numeric, sum) %>% 
+  left_join(map_metropolitan, by = "codigo_comuna") %>% 
+  ggplot() +
+  geom_sf(aes(fill = poblacion, geometry = geom)) +
+  scale_fill_gradientn(colours = rev(colors), name = "Pop") +
+  labs(title = "Population in the Metropolitan Region") +
+  theme_minimal(base_size = 13)
+
+g
+```
+
+# CENSO 2017
+
+This database is a PostGIS (PostgreSQL + GIS) version of the [Chilean Census 2017 DVD](https://www.ine.cl/prensa/2019/09/16/ine-pone-a-disposici%C3%B3n-la-base-de-microdatos-del-censo-2017). The information was converted from REDATAM by using [REDATAM Converter](https://github.com/discontinuos/redatam-converter) created by Pablo De Grande. The only modification to these files, which include detailed geometries, was to merge separated shp files per region to a single table per level (i.e. instead of providing the tables `R01_comunas_c17`, ..., `R15_comunas_c17` I merged the 15 regions in a single table `comunas_c17`).
+
+Changes with respect to the original database:
+
+* Tidy column names (i.e. `comuna_ref_id` instead of `COMUNA_REF_ID`)
+* Added geographical unit names (i.e. provide `nom_comuna` in the `comunas` table to ease filtering)
+
+I also provide a [variables description file](https://databases.pacha.dev/censo2017-descripcion-variables.xml) where you can explore the tree structure of the REDATAM data and the labels (i.e. variable `p15` means "highest educational level attained", where `13` means "professional degree").
+
+```{r warning=FALSE}
+library(RPostgres)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(stringr)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "censo2017",
+  host = "databases.pacha.dev"
+)
+
+dbListTables(con)
+
+f_mapa_santiago <- "mapa_santiago.rds"
+f_nivel_educacional <- "nivel_educacional.rds"
+
+if (!file.exists(f_mapa_santiago)) {
+  mapa_santiago <- st_read(con,
+    query = "select * from public.mapa_zonas where provincia = '131'")
+  
+  saveRDS(mapa_santiago, f_mapa_santiago)
+} else {
+  mapa_santiago <- readRDS(f_mapa_santiago)
+}
+
+if (!file.exists(f_nivel_educacional)) {
+  # Joins to go up tree in the REDATAM data
+  nivel_educacional <- tbl(con, "zonas") %>% 
+    select(geocodigo, zonaloc_ref_id) %>% 
+    mutate(
+      geocodigo = as.character(geocodigo),
+      provincia = substr(geocodigo, 1, 3),
+      comuna = substr(geocodigo, 1, 5)
+    ) %>%
+    filter(provincia == "131") %>% # Santiago is 131
+    inner_join(
+      tbl(con, "viviendas") %>% 
+        select(zonaloc_ref_id, vivienda_ref_id), by = "zonaloc_ref_id"
+    ) %>%
+    inner_join(
+      tbl(con, "hogares") %>% 
+        select(vivienda_ref_id, hogar_ref_id), by = "vivienda_ref_id"
+    ) %>%
+    inner_join(
+      tbl(con, "personas") %>% 
+        select(hogar_ref_id, nivel_educ = p15), by = "hogar_ref_id"
+    ) %>%
+  
+    # Aggregate to create variables of interest
+    group_by(comuna, geocodigo, nivel_educ) %>%
+    summarise(cuenta = n()) %>%
+    group_by(geocodigo) %>%
+    mutate(proporcion = cuenta / sum(cuenta)) %>%
+    collect()
+  
+  saveRDS(nivel_educacional, f_nivel_educacional)
+} else {
+  nivel_educacional <- readRDS(f_nivel_educacional)
+}
+
+dbDisconnect(con)
+
+nivel_educacional <- nivel_educacional %>% 
+  mutate(geocodigo = as.numeric(geocodigo))
+
+mapa_santiago <- mapa_santiago %>%
+  left_join(nivel_educacional, by = "geocodigo")
+
+colors <- c("#DCA761","#C6C16D","#8B9C94","#628CA5","#5A6C7A")
+colors2 <- c("#5A2D27","#888238","#BCD7EA","#6D7F7F","#5A6C7A")
+colors3 <- c("#e2b745","#e3bb88","#988e42","#4e3d1d", "#5A6C7A")
+
+g <- ggplot() +
+  geom_sf(data = mapa_santiago %>% 
+            select(geocodigo, geometry) %>% 
+            left_join(
+              mapa_santiago %>% 
+                st_drop_geometry() %>% 
+                select(geocodigo, nivel_educ, proporcion) %>% 
+                filter(nivel_educ == 14),
+              by = "geocodigo"
+            ),
+          aes(fill = proporcion, geometry = geometry),
+          size = 0.1) +
+  scale_fill_gradientn(colours = rev(colors), name = "Share") +
+  labs(title = "Share of Inhabitants Holding a PhD Degree\nper Census Zone in the Province of Santiago") +
+  theme_minimal(base_size = 13)
+
+g
+
+g2 <- ggplot() +
+  geom_sf(data = mapa_santiago %>% 
+            select(geocodigo, geometry) %>% 
+            left_join(
+              mapa_santiago %>% 
+                st_drop_geometry() %>% 
+                select(geocodigo, nivel_educ, proporcion) %>% 
+                filter(nivel_educ == 13),
+              by = "geocodigo"
+            ),
+          aes(fill = proporcion, geometry = geometry),
+          size = 0.1) +
+  scale_fill_gradientn(colours = rev(colors2), name = "Share") +
+  labs(title = "Share of Inhabitants Holding a Master's Degree\nper Census Zone in the Province of Santiago") +
+  theme_minimal(base_size = 13)
+
+g2
+
+g3 <- ggplot() +
+  geom_sf(data = mapa_santiago %>% 
+            select(geocodigo, geometry) %>% 
+            left_join(
+              mapa_santiago %>% 
+                st_drop_geometry() %>% 
+                select(geocodigo, nivel_educ, proporcion) %>% 
+                filter(nivel_educ == 12),
+              by = "geocodigo"
+            ),
+          aes(fill = proporcion, geometry = geometry),
+          size = 0.1) +
+  scale_fill_gradientn(colours = rev(colors3), name = "Share") +
+  labs(title = "Share of Inhabitants Holding a Professional Degree\nper Census Zone in the Province of Santiago") +
+  theme_minimal(base_size = 13)
+
+g3
+```
+
+# SQL dumps
+
+## NYCflights13
+
+* [PostgreSQL](https://databases.pacha.dev/nycflights13-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/nycflights13-postgresql.md5))
+* [MySQL/MariaDB](https://databases.pacha.dev/nycflights13-mysql.zip) (10 MB, check the download with the [md5sum](https://databases.pacha.dev/nycflights13-mysql.md5))
+
+## Intendo
+
+* [PostgreSQL](https://databases.pacha.dev/intendo-postgresql.zip) (107 MB, check the download with the [md5sum](https://databases.pacha.dev/intendo-postgresql.md5))
+* [MySQL/MariaDB](https://databases.pacha.dev/intendo-mysql.zip) (102 MB, check the download with the [md5sum](https://databases.pacha.dev/intendo-mysql.md5))
+
+## Loan application
+
+* [PostgreSQL](https://databases.pacha.dev/loan_application-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/loan_application-postgresql.md5))
+* [MySQL/MariaDB](https://databases.pacha.dev/loan_application-mysql.zip) (10 MB, check the download with the [md5sum](https://databases.pacha.dev/loan_application-mysql.md5))
+
+## Chilemapas
+
+* [PostgreSQL](https://databases.pacha.dev/chilemapas-postgresql.zip) (5.2 MB, check the download with the [md5sum](https://databases.pacha.dev/chilemapas-postgresql.md5))
+
+## CENSO 2017
+
+* [PostgreSQL](https://databases.pacha.dev/censo2017-postgresql.zip) (587 MB, check the download with the [md5sum](https://databases.pacha.dev/censo2017-postgresql.md5))
+* See the *variables description* in the CENSO 2017 section
+
+# Using the dumps locally
+
+You can create a generic user (let's say `student`) and grant read-only access.
+
+## PostgreSQL (and PostGIS)
+
+```
+# sudo -i -u postgres 
+# psql -d intendo
+GRANT CONNECT ON DATABASE intendo TO student;
+GRANT USAGE ON SCHEMA public TO student;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO student;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO student;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO student;
+REVOKE CREATE ON SCHEMA public FROM public;
+GRANT CREATE ON SCHEMA public to teacher;
+```
+
+Both `chilemapas` and `censo2017` databases need extensions enabled. Here's a detailed [video](https://www.youtube.com/watch?v=NvM09ken26o&feature=youtu.be) made by CityPlanner.
+
+In short, you need to create the extension before importing the SQL dump:
+```
+# sudo apt install postgresql-postgis postgresql-10-postgis-2.4
+# sudo -i -u postgres
+# psql -d censo2017
+CREATE EXTENSION postgis SCHEMA public;
+```
+
+## MySQL/MariaDB
+
+```
+# sudo mysql
+USE nycflights13;
+GRANT SELECT ON nycflights13.* TO student;
+```
+
+## SQL Server
+
+```
+# sqlcmd -S localhost -U SA
+USE nycflights13;
+CREATE USER student FOR LOGIN student;
+GRANT SELECT ON SCHEMA :: dbo TO student;
+```
+
+# Cite this work
+
+This work is licensed under [Creative Commons  Attribution 4.0 International (CC BY 4.0) ](https://creativecommons.org/licenses/by/4.0/).
+
+BibTeX entry:
+```
+@misc{databases_pacha,
+  title = {SQL Databases for Students and Educators},
+  url = {https://databases.pacha.dev/},
+  author = {Vargas, Mauricio},
+  doi = {10.5281/zenodo.4136985},
+  publisher = {Self-published},
+  year = {2021},
+  month = {Feb},
+  note = {Accessed: February 2, 2021}
+}
+```
+
+# Support this work
+
+You can ask me for more databases by sending me a Tweet (my username is [\@pachamaltese](https://twitter.com/pachamaltese)).
+
+I also have a [Buy me a coffee](https://www.buymeacoffee.com/pacha) profile. If you like my work, buy me a coffee, it shall be used to produce more of it. Thank you for your support!
+
+# Grants
+
+This project has received partial funding from Digital Ocean, which covers this and other educational initiatives such as [Open Trade Statistics](https://tradestatistics.io).
