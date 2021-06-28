@@ -92,6 +92,12 @@ map2(
       ) %>% 
       collect() %>% 
       group_by(year, month) %>% 
-      write_dataset("intendo/revenue", hive_style = F)
+      write_dataset("intendo/users", hive_style = F)
   }
 )
+
+d <- open_dataset("intendo/users", partitioning = c("year", "month"))
+
+d %>% 
+  filter(year == 2015, month == 6) %>% 
+  collect()
