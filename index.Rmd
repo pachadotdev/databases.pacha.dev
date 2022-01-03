@@ -21,7 +21,7 @@ I've decided to host different light/medium size by using PostgreSQL, MySQL and 
 
 Why 3 database backends? I think there are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.
 
-Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachamaltese](https://twitter.com/pachamaltese). See the SQL dumps on each section to have the data locally.
+Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachadotdev](https://twitter.com/pachadotdev). See the SQL dumps on each section to have the data locally.
 
 # NYCflights13
 
@@ -259,42 +259,6 @@ g <- ggplot() +
   theme_minimal(base_size = 13)
 
 g
-
-g2 <- ggplot() +
-  geom_sf(data = mapa_santiago %>% 
-            select(geocodigo, geometry) %>% 
-            left_join(
-              mapa_santiago %>% 
-                st_drop_geometry() %>% 
-                select(geocodigo, nivel_educ, proporcion) %>% 
-                filter(nivel_educ == 13),
-              by = "geocodigo"
-            ),
-          aes(fill = proporcion, geometry = geometry),
-          size = 0.1) +
-  scale_fill_gradientn(colours = rev(colors2), name = "Share") +
-  labs(title = "Share of Inhabitants Holding a Master's Degree\nper Census Zone in the Province of Santiago") +
-  theme_minimal(base_size = 13)
-
-g2
-
-g3 <- ggplot() +
-  geom_sf(data = mapa_santiago %>% 
-            select(geocodigo, geometry) %>% 
-            left_join(
-              mapa_santiago %>% 
-                st_drop_geometry() %>% 
-                select(geocodigo, nivel_educ, proporcion) %>% 
-                filter(nivel_educ == 12),
-              by = "geocodigo"
-            ),
-          aes(fill = proporcion, geometry = geometry),
-          size = 0.1) +
-  scale_fill_gradientn(colours = rev(colors3), name = "Share") +
-  labs(title = "Share of Inhabitants Holding a Professional Degree\nper Census Zone in the Province of Santiago") +
-  theme_minimal(base_size = 13)
-
-g3
 ```
 
 # SQL dumps
@@ -388,7 +352,7 @@ BibTeX entry:
 
 # Support this work
 
-You can ask me for more databases by sending me a Tweet (my username is [\@pachamaltese](https://twitter.com/pachamaltese)).
+You can ask me for more databases by sending me a Tweet (my username is [\@pachadotdev](https://twitter.com/pachadotdev)).
 
 I also have a [Buy me a coffee](https://www.buymeacoffee.com/pacha) profile. If you like my work, buy me a coffee, it shall be used to produce more of it. Thank you for your support!
 
