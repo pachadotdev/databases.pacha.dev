@@ -164,7 +164,7 @@ Changes with respect to the original database:
 * Tidy column names (i.e. `comuna_ref_id` instead of `COMUNA_REF_ID`)
 * Added geographical unit names (i.e. provide `nom_comuna` in the `comunas` table to ease filtering)
 
-I also provide a [variables description file](https://databases.pacha.dev/censo2017-descripcion-variables.xml) where you can explore the tree structure of the REDATAM data and the labels (i.e. variable `p15` means "highest educational level attained", where `13` means "professional degree").
+I also provide a [variables description file](https://databases.pacha.dev/censo2017/censo2017-descripcion-variables.xml) where you can explore the tree structure of the REDATAM data and the labels (i.e. variable `p15` means "highest educational level attained", where `13` means "professional degree").
 
 ```{r warning=FALSE}
 library(RPostgres)
@@ -183,8 +183,8 @@ con <- dbConnect(
 
 dbListTables(con)
 
-f_mapa_santiago <- "mapa_santiago.rds"
-f_nivel_educacional <- "nivel_educacional.rds"
+f_mapa_santiago <- "censo2017/mapa_santiago.rds"
+f_nivel_educacional <- "censo2017/nivel_educacional.rds"
 
 if (!file.exists(f_mapa_santiago)) {
   mapa_santiago <- st_read(con,
@@ -265,26 +265,23 @@ g
 
 ## NYCflights13
 
-* [PostgreSQL](https://databases.pacha.dev/nycflights13-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/nycflights13-postgresql.md5))
-* [MySQL/MariaDB](https://databases.pacha.dev/nycflights13-mysql.zip) (10 MB, check the download with the [md5sum](https://databases.pacha.dev/nycflights13-mysql.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/nycflights13-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/nycflights13-postgresql.md5))
 
 ## Intendo
 
-* [PostgreSQL](https://databases.pacha.dev/intendo-postgresql.zip) (107 MB, check the download with the [md5sum](https://databases.pacha.dev/intendo-postgresql.md5))
-* [MySQL/MariaDB](https://databases.pacha.dev/intendo-mysql.zip) (102 MB, check the download with the [md5sum](https://databases.pacha.dev/intendo-mysql.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgresql.zip) (107 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgresql.md5))
 
 ## Loan application
 
-* [PostgreSQL](https://databases.pacha.dev/loan_application-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/loan_application-postgresql.md5))
-* [MySQL/MariaDB](https://databases.pacha.dev/loan_application-mysql.zip) (10 MB, check the download with the [md5sum](https://databases.pacha.dev/loan_application-mysql.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/loan_application-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/loan_application-postgresql.md5))
 
 ## Chilemapas
 
-* [PostgreSQL](https://databases.pacha.dev/chilemapas-postgresql.zip) (5.2 MB, check the download with the [md5sum](https://databases.pacha.dev/chilemapas-postgresql.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/chilemapas-postgresql.zip) (5.2 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/chilemapas-postgresql.md5))
 
 ## CENSO 2017
 
-* [PostgreSQL](https://databases.pacha.dev/censo2017-postgresql.zip) (587 MB, check the download with the [md5sum](https://databases.pacha.dev/censo2017-postgresql.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/censo2017-postgresql.zip) (587 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017-postgresql.md5))
 * See the *variables description* in the CENSO 2017 section
 
 # Using the dumps locally
