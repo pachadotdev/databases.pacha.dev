@@ -43,22 +43,22 @@ con <- dbConnect(
   host = "databases.pacha.dev"
 )
 
-tbl(con, "airlines") %>% glimpse()
-tbl(con, "airports") %>% glimpse()
-tbl(con, "flights") %>% glimpse()
+dbListTables(con)
+
 tbl(con, "planes") %>% glimpse()
-tbl(con, "weather") %>% glimpse()
 
 dbDisconnect(con)
 ```
 
 # Intendo database
 
-It's a dummy database that we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid.
+It's a dummy database that originally we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this
+database at [intendo](https://github.com/rich-iannone/intendo).
 
 This database can be helpful for workshops and showing how to create an R package focused on the particular needs of an organization, including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.
 
-Check the structure of the tables in the next preview.
+Check the structure of the tables in the next preview. The tables ending with
+"_f" contain deliberated errors.
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -72,9 +72,9 @@ con <- dbConnect(
   host = "databases.pacha.dev"
 )
 
-tbl(con, "daily_users") %>% glimpse()
-tbl(con, "revenue") %>% glimpse()
-tbl(con, "users") %>% glimpse()
+dbListTables(con)
+
+tbl(con, "sj_user_summary_large") %>% glimpse()
 
 dbDisconnect(con)
 ```
@@ -99,15 +99,9 @@ con <- dbConnect(
   host = "databases.pacha.dev"
 )
 
-tbl(con, "accounts") %>% glimpse()
-tbl(con, "cards") %>% glimpse()
+dbListTables(con)
+
 tbl(con, "clients") %>% glimpse()
-tbl(con, "disps") %>% glimpse()
-tbl(con, "districts") %>% glimpse()
-tbl(con, "loans") %>% glimpse()
-tbl(con, "orders") %>% glimpse()
-tbl(con, "tkeys") %>% glimpse()
-tbl(con, "trans") %>% glimpse()
 
 dbDisconnect(con)
 ```
