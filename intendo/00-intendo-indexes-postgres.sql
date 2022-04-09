@@ -13,3 +13,8 @@ CREATE INDEX sj_user_summary_large_f_player_id ON sj_user_summary_large_f (playe
 
 CREATE INDEX sj_users_daily_large_player_id ON sj_users_daily_large (player_id);
 CREATE INDEX sj_users_daily_large_f_player_id ON sj_users_daily_large_f (player_id);
+
+ALTER TABLE sj_users_daily_large 
+ADD CONSTRAINT fk_player_id
+FOREIGN KEY (player_id) 
+REFERENCES sj_user_summary_large (player_id);
