@@ -11,7 +11,7 @@
     
     <title>SQL Databases for Students and Educators</title>
 
-        <script src="index_files/header-attrs-2.11/header-attrs.js"></script>
+        <script src="index_files/header-attrs-2.13/header-attrs.js"></script>
         <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="index_files/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -120,28 +120,22 @@
           <div class="SidebarItems" id="toc">
             <ul>
             <li><a href="#about">About</a></li>
-            <li><a href="#nycflights13">NYCflights13</a></li>
             <li><a href="#intendo-database">Intendo database</a></li>
-            <li><a href="#loan-application">Loan Application</a></li>
-            <li><a href="#chilemapas">Chilemapas</a></li>
-            <li><a href="#censo-2017">CENSO 2017</a></li>
             <li><a href="#sql-dumps">SQL dumps</a>
             <ul>
-            <li><a href="#nycflights13-1">NYCflights13</a></li>
             <li><a href="#intendo">Intendo</a></li>
-            <li><a href="#loan-application-1">Loan application</a></li>
-            <li><a href="#chilemapas-1">Chilemapas</a></li>
-            <li><a href="#censo-2017-1">CENSO 2017</a></li>
             </ul></li>
-            <li><a href="#using-the-dumps-locally">Using the dumps locally</a>
+            <li><a href="#using-the-dumps-locally">Using the dumps
+            locally</a>
             <ul>
-            <li><a href="#postgresql-and-postgis">PostgreSQL (and PostGIS)</a></li>
+            <li><a href="#postgresql-and-postgis">PostgreSQL (and
+            PostGIS)</a></li>
             <li><a href="#mysqlmariadb">MySQL/MariaDB</a></li>
             <li><a href="#sql-server">SQL Server</a></li>
             </ul></li>
             <li><a href="#cite-this-work">Cite this work</a></li>
-            <li><a href="#support-this-work">Support this work</a></li>
-            <li><a href="#grants">Grants</a></li>
+            <li><a href="#access-and-support">Access and
+            support</a></li>
             </ul>
           </div>
           <div data-position="sidebar:post-end" class="InjectedComponents"><div class="dark-theme-toggler"><div class="toggle "><div class="toggle-track"><div class="toggle-track-check"><img  src="data:image/png;base64,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" role="presentation" style="pointer-events: none;" width="16" height="16"></div> <div class="toggle-track-x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAABwNJREFUWAmtV1tsFFUY/s6Z2d22zLYlZakUCRVaQcqlWIiCiS1gTEB9UAO+GR9En3iQGI0xJiSiRB98MjEq8cEQTSBeHhQM0V7whtEGDWC90BYitxahtNtu25058/v/ZzvLbilawJNM5+yZ89+//1LgJhYRNLW1uDfBAvpGiIk2O5auvfFxqIH3ZJ8/u06GN6Z9+wVl5SjcD1IbZa/UPkPyYl2uR4dreoD2bnbYxTlBBRytkHXtAREphP5KuH4lddx9h70yxX05t7yYXwGb6W8nx1jibpl2rFlGBxcG9M18okOrn7Bnk/BAO/4bI0UeEE1zjBp3UmvjOxJXJdaKN/ZiIu4tOZrAb4aTdZAZArKmWeiiJZ6jt5tiagdCS9+6cgO1Ne6Mvhe+ixTIfyDVhipnK9p+P0Edqx9RW/YZtQVGmOLChRxNNlyPsTEgPQKMB3dbEHa0h1awYmQ83enTd2vmUtvKd1Glv2RkzBb+kZGRrKtjzG60Wguhd/lJZBingbcfWWe72vjT75bJDrhYtvA0hrurETDr5HyF2Knb1MM4ab//xIoOqueA0edRnkkinTyJdYvqLFDZO4zUPFCvVoDjJq4T7TE61IWh4x5KqxX5KVKkX8WZ/t2ov2cb3MHt4dhIyOxIJxJOOF6xRx/99BksXLoecWcXytILMNBDqKpnGZWPquYfPxY8iXGR9fK+SgFrgcRPXPjVqhehL+3EmZ5RGJQi1QBU8TPThQnOQzm+5UXGIcetUeEAfP13VwzpI+w1jGJWdSliNfvVhiMPiOsllJag4M/UGHiqM6dlBb2OTLKHHV6KkvogrJ4XhBWniWK/Gp1MQyf93FOeUXKmKk/FzJxbQtKLjFXYT4USupy8fQVir2ynVEBiZMG0qtOHMS/AW4Gwrk7BG3C1F0B5nqNKE0CME4MfVRLPnXkBKe+ipvoFhNQywOhdghvLi0F8ReyVXV4BKTBRbbe5f64zR/DHsdZw1hJfeWlHl/GNRJzDxrd5m192z78TMaVnKELZoINZS4BzQ7vtnZljSnha/pPCbkuxzXcupYwI5tIeCpGc0Yp9tWHZQy/rmYhRfNgg4bHJBYLzGkxsRJF4XKlE2jBOHNSv3kY7Tj6vthzPFl61BrYwqFlmEQhtSVXmLiksxLmtRgYXI1ULU61JJ4eVKmG3/5sCVgpbMT6OMJ2E08/29Xf3w6v4FnHdCjfWgXu/O8Z5mLdCkeRs2khHe1DqOtQwbHWTAnM5S2HNmhALYo5KjkPFrMMKjZl6HxhWIAb0BqE+/73GrBRQUsKYiBu4JX8ycI6wtw+i5ef3NZpsrKVSHYCP37jwGDgeE1SA0S/xtl5SU2fs1ApEp0qTLVRjgyycDSsLHMSwmFltZMStR3uLLg6BdLhDa5dC6ryU2pHBe1BVO9tUcwfitJt2CLJZUHoG6T7Op75u0IyK31TCPcwFqgPk/KCaD3dFOuZBCO7xvCT/j048b3I3c7F2+WuOW7qdgkucFYlcQ4qop3yzTX7WaKfOCccye3Ts1Etq0+a/BHCF1yPgF3tAUkR6OrtGmo6gl94qqcXKh3rDyrOkPa58URoWcov2Mo6M+0QjrqKB+b7++oMa9Sz+ZkM0mie6aAtnGUvhmxaI+TogPOSQedgWioGSHFLn3v4kLh4HRspNmOGv41k+55siLFp2z6xYeJjhljFcbmxJlr4ga06TbevSByz/glQq4BJx46/c+237PbBqEYKxX3HpmKZEnQnr65X20hqJYaNcLoFOLiJk2LuBbyg7Q0OEn+hm0P3honxFD6rdxYorKpeIoi4YSSvyQHQIbM5t4+YNxLj/OxhVOOE4585qGpjnq+wSx6Q9CtNxTjd5klB+g6Mv36r0+b9cZFi44WYkHdG2ZWb3TtOUOXyVAlKlpGvJIAJ3eBMyfYS5C0qRZGtC85j+4sOasDe9xznPYezhhO/2Q6eP2fSOvYHOjtuQ1a9Q1VKynVDaMc8E0tptdxUsTFpFIYjcZKcbnoaQTNdiqCwNlL4G7oziSqGnT1ALf34vhk4R5zU3qYV9ONp9K88RtouShE68JwaU8dFw5W617shWa9ykeaBIn2hcsvPgL00k45QdTCZuSVcTRNs+8fnyLvooQfR5iujAnR9bxfY2xOVOxFS8SK3Le0l48VyYu1M8HRe5JD8wKPTjYnifaK3Wfn/GChYQ8ZAi6WRzWgqLV5YrsVLnZaVSoXU1g9gOIDwFySiGi+Zdrnzr7J3r+SMuszlcQCRn8lNGcTuSy2jOI7o9mxjZo+vR3ej3tN+ifRSOyUTS0+VMOid93cCubeiy/6TImS0QxRSCq2vxKr45zV+FQnjWH6D2xg+E9EatLcLAdHTgtGGD80D6jM0+aOl4wJgO/f96R2aJKCQ3yvgftRhdFMOpd6oAAAAASUVORK5CYII=" role="presentation" style="pointer-events: none;" width="16" height="16"></div></div> <div class="toggle-thumb"></div></div> <input type="checkbox" aria-label="Switch between Dark and Default theme" class="toggler-screen-reader-only"></div></div>
@@ -167,49 +161,55 @@
 <div id="about" class="section level1">
 <h1>About</h1>
 <p><img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200"></p>
-<p>Publicly accessible databases often impose query limits or require registration. Even when I maintain public and limit-free APIs, I never wanted to host a public database because I tend to think that the connection strings are a problem for the user.</p>
-<p>I’ve decided to host different light/medium size by using PostgreSQL, MySQL and SQL Server backends (in strict descending order of preference!).</p>
-<p>Why 3 database backends? I think there are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.</p>
-<p>Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is <a href="https://twitter.com/pachadotdev">@pachadotdev</a>. See the SQL dumps on each section to have the data locally.</p>
-</div>
-<div id="nycflights13" class="section level1">
-<h1>NYCflights13</h1>
-<p>A database that contains airline on-time data for all flights departing NYC in 2013. Also includes useful ‘metadata’ on airlines, airports, weather, and planes.</p>
-<p>This database is used in <a href="https://r4ds.had.co.nz/">R4DS</a> and I have a <a href="https://pacha.dev/blog/2020/08/09/a-crash-course-on-postgresql-for-r-users/">blog post</a> with the steps to create it in PostgreSQL and even a diagram of the database schema.</p>
-<p>Check the structure of the tables in the next preview.</p>
-<pre class="r"><code>library(dplyr)
-library(RPostgres)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;nycflights13&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;airlines&quot; &quot;airports&quot; &quot;flights&quot;  &quot;planes&quot;   &quot;weather&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;planes&quot;) %&gt;% glimpse()</code></pre>
-<pre><code>## Rows: ??
-## Columns: 9
-## Database: postgres  [pacha@databases.pacha.dev:5432/nycflights13]
-## $ tailnum      &lt;chr&gt; &quot;N10156&quot;, &quot;N102UW&quot;, &quot;N103US&quot;, &quot;N104UW&quot;, &quot;N10575&quot;, &quot;N105UW…
-## $ year         &lt;int&gt; 2004, 1998, 1999, 1999, 2002, 1999, 1999, 1999, 1999, 199…
-## $ type         &lt;chr&gt; &quot;Fixed wing multi engine&quot;, &quot;Fixed wing multi engine&quot;, &quot;Fi…
-## $ manufacturer &lt;chr&gt; &quot;EMBRAER&quot;, &quot;AIRBUS INDUSTRIE&quot;, &quot;AIRBUS INDUSTRIE&quot;, &quot;AIRBU…
-## $ model        &lt;chr&gt; &quot;EMB-145XR&quot;, &quot;A320-214&quot;, &quot;A320-214&quot;, &quot;A320-214&quot;, &quot;EMB-145…
-## $ engines      &lt;int&gt; 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, …
-## $ seats        &lt;int&gt; 55, 182, 182, 182, 55, 182, 182, 182, 182, 182, 55, 55, 5…
-## $ speed        &lt;int&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…
-## $ engine       &lt;chr&gt; &quot;Turbo-fan&quot;, &quot;Turbo-fan&quot;, &quot;Turbo-fan&quot;, &quot;Turbo-fan&quot;, &quot;Turb…</code></pre>
-<pre class="r"><code>dbDisconnect(con)</code></pre>
+<p>Publicly accessible databases often impose query limits or require
+registration. Even when I maintain public and limit-free APIs, I never
+wanted to host a public database because I tend to think that the
+connection strings are a problem for the user.</p>
+<p>I’ve decided to host different light/medium size by using PostgreSQL,
+MySQL and SQL Server backends (in strict descending order of
+preference!).</p>
+<p>Why 3 database backends? I think there are a ton of small edge cases
+when moving between DB back ends and so testing lots with live databases
+is quite valuable. With this resource you can benchmark speed,
+compression, and DDL types.</p>
+<p>Please send me a tweet if you need the connection strings for your
+lectures or workshops. My Twitter username is <a
+href="https://twitter.com/pachadotdev">@pachadotdev</a>. See the SQL
+dumps on each section to have the data locally.</p>
+<!-- # NYCflights13 -->
+<!-- A database that contains airline on-time data for all flights departing NYC in 2013. Also includes useful 'metadata' on airlines, airports, weather, and planes. -->
+<!-- This database is used in [R4DS](https://r4ds.had.co.nz/) and I have a [blog post](https://pacha.dev/blog/2020/08/09/a-crash-course-on-postgresql-for-r-users/) with the steps to create it in PostgreSQL and even a diagram of the database schema.  -->
+<!-- Check the structure of the tables in the next preview. -->
+<!-- ```{r, message=FALSE} -->
+<!-- library(dplyr) -->
+<!-- library(RPostgres) -->
+<!-- con <- dbConnect( -->
+<!--   Postgres(), -->
+<!--   user = Sys.getenv("dbedu_usr"), -->
+<!--   password = Sys.getenv("dbedu_pwd"), -->
+<!--   dbname = "nycflights13", -->
+<!--   host = "databases.pacha.dev" -->
+<!-- ) -->
+<!-- dbListTables(con) -->
+<!-- tbl(con, "planes") %>% glimpse() -->
+<!-- dbDisconnect(con) -->
+<!-- ``` -->
 </div>
 <div id="intendo-database" class="section level1">
 <h1>Intendo database</h1>
-<p>It’s a dummy database that originally we used at the <a href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My Organization’s First R Package</a> and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this database at <a href="https://github.com/rich-iannone/intendo">intendo</a>.</p>
-<p>This database can be helpful for workshops and showing how to create an R package focused on the particular needs of an organization, including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.</p>
-<p>Check the structure of the tables in the next preview. The tables ending with "_f" contain deliberated errors.</p>
+<p>It’s a dummy database that originally we used at the <a
+href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My
+Organization’s First R Package</a> and contains managerial information
+of a company called Intendo, which creates mobile games. The tables
+contain information for the 2015 year for all sorts of information for
+their only game: Super Jetroid. See the recent updated to this database
+at <a href="https://github.com/rich-iannone/intendo">intendo</a>.</p>
+<p>This database can be helpful for workshops and showing how to create
+an R package focused on the particular needs of an organization,
+including easier data access, shared functions for data transformation
+and analysis, and a common look and feel for reporting.</p>
+<p>Check the structure of the tables in the next preview. The tables
+ending with “_f” contain deliberated errors.</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
 
@@ -222,14 +222,14 @@ con &lt;- dbConnect(
 )
 
 dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;sj_all_sessions_large&quot;   &quot;sj_user_summary_large_f&quot;
-## [3] &quot;sj_user_summary_large&quot;   &quot;sj_users_daily_large_f&quot; 
-## [5] &quot;sj_users_daily_large&quot;    &quot;sj_all_revenue_large_f&quot; 
-## [7] &quot;sj_all_sessions_large_f&quot; &quot;sj_all_revenue_large&quot;</code></pre>
+<pre><code>## [1] &quot;sj_all_revenue_large_f&quot;  &quot;sj_all_revenue_large&quot;   
+## [3] &quot;sj_all_sessions_large_f&quot; &quot;sj_all_sessions_large&quot;  
+## [5] &quot;sj_user_summary_large_f&quot; &quot;sj_user_summary_large&quot;  
+## [7] &quot;sj_users_daily_large_f&quot;  &quot;sj_users_daily_large&quot;</code></pre>
 <pre class="r"><code>tbl(con, &quot;sj_user_summary_large&quot;) %&gt;% glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 6
-## Database: postgres  [pacha@databases.pacha.dev:5432/intendo]
+## Database: postgres  [teacher@databases.pacha.dev:5432/intendo]
 ## $ player_id   &lt;chr&gt; &quot;IRZKSAOYUJME796&quot;, &quot;CJVYRASDZTXO674&quot;, &quot;ECPANOIXLZHF896&quot;, &quot;…
 ## $ first_login &lt;dttm&gt; 2015-01-01 00:18:41, 2015-01-01 01:13:01, 2015-01-01 01:3…
 ## $ start_day   &lt;date&gt; 2015-01-01, 2015-01-01, 2015-01-01, 2015-01-01, 2015-01-0…
@@ -237,258 +237,221 @@ dbListTables(con)</code></pre>
 ## $ acquisition &lt;chr&gt; &quot;crosspromo&quot;, &quot;facebook&quot;, &quot;google&quot;, &quot;organic&quot;, &quot;other_camp…
 ## $ device_name &lt;chr&gt; &quot;Samsung Galaxy Note 4&quot;, &quot;3rd Gen iPad&quot;, &quot;iPhone 6&quot;, &quot;Sams…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
-</div>
-<div id="loan-application" class="section level1">
-<h1>Loan Application</h1>
-<p>A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.</p>
-<p>This database comes from the <a href="https://relational.fit.cvut.cz/dataset/Financial">Relational Dataset Repository</a> where you can find the database schema and more information. The database full name is “PKDD’99 Financial Dataset or Loan Application”, and this particular version corresponds to Financial_ijs by Janez Kranjc.</p>
-<p>Check the structure of the tables in the next preview.</p>
-<pre class="r"><code>library(dplyr)
-library(RPostgres)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;loan_application&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;accounts&quot;  &quot;cards&quot;     &quot;clients&quot;   &quot;disps&quot;     &quot;districts&quot; &quot;loans&quot;    
-## [7] &quot;orders&quot;    &quot;tkeys&quot;     &quot;trans&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;clients&quot;) %&gt;% glimpse()</code></pre>
-<pre><code>## Rows: ??
-## Columns: 4
-## Database: postgres  [pacha@databases.pacha.dev:5432/loan_application]
-## $ id           &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17…
-## $ birth_number &lt;chr&gt; &quot;706213&quot;, &quot;450204&quot;, &quot;406009&quot;, &quot;561201&quot;, &quot;605703&quot;, &quot;190922…
-## $ district_id  &lt;int&gt; 18, 1, 1, 5, 5, 12, 15, 51, 60, 57, 57, 40, 54, 76, 21, 2…
-## $ tkey_id      &lt;int&gt; NA, 21, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N…</code></pre>
-<pre class="r"><code>dbDisconnect(con)</code></pre>
-</div>
-<div id="chilemapas" class="section level1">
-<h1>Chilemapas</h1>
-<p>This database is a PostGIS (PostgreSQL + GIS) version of the datasets from <a href="https://pacha.dev/chilemapas/">chilemapas</a>.</p>
-<pre class="r"><code>library(RPostgres)
-library(sf)</code></pre>
-<pre><code>## Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</code></pre>
-<pre class="r"><code>library(dplyr)
-library(tidyr)
-library(ggplot2)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;chilemapas&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-map_metropolitan &lt;- st_read(con,
-  query = &quot;SELECT * FROM mapa_comunas WHERE codigo_region = &#39;13&#39;&quot;)
-
-pop_metropolitan &lt;- dbGetQuery(con,
-  &quot;SELECT * FROM censo_2017_comunas WHERE LEFT(codigo_comuna,2) = &#39;13&#39;&quot;)
-
-dbDisconnect(con)
-
-colors &lt;- c(&quot;#DCA761&quot;, &quot;#CFB567&quot;, &quot;#BFBC71&quot;, &quot;#9EA887&quot;, &quot;#819897&quot;)
-
-g &lt;- pop_metropolitan %&gt;% 
-  gather(tramo_edad, poblacion, -codigo_comuna) %&gt;% 
-  group_by(codigo_comuna) %&gt;% 
-  summarise_if(is.numeric, sum) %&gt;% 
-  left_join(map_metropolitan, by = &quot;codigo_comuna&quot;) %&gt;% 
-  ggplot() +
-  geom_sf(aes(fill = poblacion, geometry = geom)) +
-  scale_fill_gradientn(colours = rev(colors), name = &quot;Pop&quot;) +
-  labs(title = &quot;Population in the Metropolitan Region&quot;) +
-  theme_minimal(base_size = 13)
-
-g</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
-</div>
-<div id="censo-2017" class="section level1">
-<h1>CENSO 2017</h1>
-<p>This database is a PostGIS (PostgreSQL + GIS) version of the <a href="https://www.ine.cl/prensa/2019/09/16/ine-pone-a-disposici%C3%B3n-la-base-de-microdatos-del-censo-2017">Chilean Census 2017 DVD</a>. The information was converted from REDATAM by using <a href="https://github.com/discontinuos/redatam-converter">REDATAM Converter</a> created by Pablo De Grande. The only modification to these files, which include detailed geometries, was to merge separated shp files per region to a single table per level (i.e. instead of providing the tables <code>R01_comunas_c17</code>, …, <code>R15_comunas_c17</code> I merged the 15 regions in a single table <code>comunas_c17</code>).</p>
-<p>Changes with respect to the original database:</p>
-<ul>
-<li>Tidy column names (i.e. <code>comuna_ref_id</code> instead of <code>COMUNA_REF_ID</code>)</li>
-<li>Added geographical unit names (i.e. provide <code>nom_comuna</code> in the <code>comunas</code> table to ease filtering)</li>
-</ul>
-<p>I also provide a <a href="https://databases.pacha.dev/censo2017/censo2017-descripcion-variables.xml">variables description file</a> where you can explore the tree structure of the REDATAM data and the labels (i.e. variable <code>p15</code> means “highest educational level attained”, where <code>13</code> means “professional degree”).</p>
-<pre class="r"><code>library(RPostgres)
-library(sf)
-library(dplyr)
-library(ggplot2)
-library(stringr)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;censo2017&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>##  [1] &quot;hogares&quot;           &quot;personas&quot;          &quot;provincias&quot;       
-##  [4] &quot;regiones&quot;          &quot;mapa_regiones&quot;     &quot;viviendas&quot;        
-##  [7] &quot;mapa_zonas&quot;        &quot;geography_columns&quot; &quot;geometry_columns&quot; 
-## [10] &quot;spatial_ref_sys&quot;   &quot;raster_columns&quot;    &quot;raster_overviews&quot; 
-## [13] &quot;mapa_comunas&quot;      &quot;mapa_provincias&quot;   &quot;comunas&quot;          
-## [16] &quot;zonas&quot;</code></pre>
-<pre class="r"><code>f_mapa_santiago &lt;- &quot;censo2017/mapa_santiago.rds&quot;
-f_nivel_educacional &lt;- &quot;censo2017/nivel_educacional.rds&quot;
-
-if (!file.exists(f_mapa_santiago)) {
-  mapa_santiago &lt;- st_read(con,
-    query = &quot;select * from public.mapa_zonas where provincia = &#39;131&#39;&quot;)
-  
-  saveRDS(mapa_santiago, f_mapa_santiago)
-} else {
-  mapa_santiago &lt;- readRDS(f_mapa_santiago)
-}
-
-if (!file.exists(f_nivel_educacional)) {
-  # Joins to go up tree in the REDATAM data
-  nivel_educacional &lt;- tbl(con, &quot;zonas&quot;) %&gt;% 
-    select(geocodigo, zonaloc_ref_id) %&gt;% 
-    mutate(
-      geocodigo = as.character(geocodigo),
-      provincia = substr(geocodigo, 1, 3),
-      comuna = substr(geocodigo, 1, 5)
-    ) %&gt;%
-    filter(provincia == &quot;131&quot;) %&gt;% # Santiago is 131
-    inner_join(
-      tbl(con, &quot;viviendas&quot;) %&gt;% 
-        select(zonaloc_ref_id, vivienda_ref_id), by = &quot;zonaloc_ref_id&quot;
-    ) %&gt;%
-    inner_join(
-      tbl(con, &quot;hogares&quot;) %&gt;% 
-        select(vivienda_ref_id, hogar_ref_id), by = &quot;vivienda_ref_id&quot;
-    ) %&gt;%
-    inner_join(
-      tbl(con, &quot;personas&quot;) %&gt;% 
-        select(hogar_ref_id, nivel_educ = p15), by = &quot;hogar_ref_id&quot;
-    ) %&gt;%
-  
-    # Aggregate to create variables of interest
-    group_by(comuna, geocodigo, nivel_educ) %&gt;%
-    summarise(cuenta = n()) %&gt;%
-    group_by(geocodigo) %&gt;%
-    mutate(proporcion = cuenta / sum(cuenta)) %&gt;%
-    collect()
-  
-  saveRDS(nivel_educacional, f_nivel_educacional)
-} else {
-  nivel_educacional &lt;- readRDS(f_nivel_educacional)
-}
-
-dbDisconnect(con)
-
-nivel_educacional &lt;- nivel_educacional %&gt;% 
-  mutate(geocodigo = as.numeric(geocodigo))
-
-mapa_santiago &lt;- mapa_santiago %&gt;%
-  left_join(nivel_educacional, by = &quot;geocodigo&quot;)
-
-colors &lt;- c(&quot;#DCA761&quot;,&quot;#C6C16D&quot;,&quot;#8B9C94&quot;,&quot;#628CA5&quot;,&quot;#5A6C7A&quot;)
-colors2 &lt;- c(&quot;#5A2D27&quot;,&quot;#888238&quot;,&quot;#BCD7EA&quot;,&quot;#6D7F7F&quot;,&quot;#5A6C7A&quot;)
-colors3 &lt;- c(&quot;#e2b745&quot;,&quot;#e3bb88&quot;,&quot;#988e42&quot;,&quot;#4e3d1d&quot;, &quot;#5A6C7A&quot;)
-
-g &lt;- ggplot() +
-  geom_sf(data = mapa_santiago %&gt;% 
-            select(geocodigo, geometry) %&gt;% 
-            left_join(
-              mapa_santiago %&gt;% 
-                st_drop_geometry() %&gt;% 
-                select(geocodigo, nivel_educ, proporcion) %&gt;% 
-                filter(nivel_educ == 14),
-              by = &quot;geocodigo&quot;
-            ),
-          aes(fill = proporcion, geometry = geometry),
-          size = 0.1) +
-  scale_fill_gradientn(colours = rev(colors), name = &quot;Share&quot;) +
-  labs(title = &quot;Share of Inhabitants Holding a PhD Degree\nper Census Zone in the Province of Santiago&quot;) +
-  theme_minimal(base_size = 13)
-
-g</code></pre>
-<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+<!-- # Loan Application -->
+<!-- A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions. -->
+<!-- This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find the database schema and more information. The database full name is "PKDD'99 Financial Dataset or Loan Application", and this particular version corresponds to Financial_ijs by Janez Kranjc. -->
+<!-- Check the structure of the tables in the next preview. -->
+<!-- ```{r, message=FALSE} -->
+<!-- library(dplyr) -->
+<!-- library(RPostgres) -->
+<!-- con <- dbConnect( -->
+<!--   Postgres(), -->
+<!--   user = Sys.getenv("dbedu_usr"), -->
+<!--   password = Sys.getenv("dbedu_pwd"), -->
+<!--   dbname = "loan_application", -->
+<!--   host = "databases.pacha.dev" -->
+<!-- ) -->
+<!-- dbListTables(con) -->
+<!-- tbl(con, "clients") %>% glimpse() -->
+<!-- dbDisconnect(con) -->
+<!-- ``` -->
+<!-- # Chilemapas -->
+<!-- This database is a PostGIS (PostgreSQL + GIS) version of the datasets from [chilemapas](https://pacha.dev/chilemapas/). -->
+<!-- ```{r} -->
+<!-- library(RPostgres) -->
+<!-- library(sf) -->
+<!-- library(dplyr) -->
+<!-- library(tidyr) -->
+<!-- library(ggplot2) -->
+<!-- con <- dbConnect( -->
+<!--   Postgres(), -->
+<!--   user = Sys.getenv("dbedu_usr"), -->
+<!--   password = Sys.getenv("dbedu_pwd"), -->
+<!--   dbname = "chilemapas", -->
+<!--   host = "databases.pacha.dev" -->
+<!-- ) -->
+<!-- map_metropolitan <- st_read(con, -->
+<!--   query = "SELECT * FROM mapa_comunas WHERE codigo_region = '13'") -->
+<!-- pop_metropolitan <- dbGetQuery(con, -->
+<!--   "SELECT * FROM censo_2017_comunas WHERE LEFT(codigo_comuna,2) = '13'") -->
+<!-- dbDisconnect(con) -->
+<!-- colors <- c("#DCA761", "#CFB567", "#BFBC71", "#9EA887", "#819897") -->
+<!-- g <- pop_metropolitan %>%  -->
+<!--   gather(tramo_edad, poblacion, -codigo_comuna) %>%  -->
+<!--   group_by(codigo_comuna) %>%  -->
+<!--   summarise_if(is.numeric, sum) %>%  -->
+<!--   left_join(map_metropolitan, by = "codigo_comuna") %>%  -->
+<!--   ggplot() + -->
+<!--   geom_sf(aes(fill = poblacion, geometry = geom)) + -->
+<!--   scale_fill_gradientn(colours = rev(colors), name = "Pop") + -->
+<!--   labs(title = "Population in the Metropolitan Region") + -->
+<!--   theme_minimal(base_size = 13) -->
+<!-- g -->
+<!-- ``` -->
+<!-- # CENSO 2017 -->
+<!-- This database is a PostGIS (PostgreSQL + GIS) version of the [Chilean Census 2017 DVD](https://www.ine.cl/prensa/2019/09/16/ine-pone-a-disposici%C3%B3n-la-base-de-microdatos-del-censo-2017). The information was converted from REDATAM by using [REDATAM Converter](https://github.com/discontinuos/redatam-converter) created by Pablo De Grande. The only modification to these files, which include detailed geometries, was to merge separated shp files per region to a single table per level (i.e. instead of providing the tables `R01_comunas_c17`, ..., `R15_comunas_c17` I merged the 15 regions in a single table `comunas_c17`). -->
+<!-- Changes with respect to the original database: -->
+<!-- * Tidy column names (i.e. `comuna_ref_id` instead of `COMUNA_REF_ID`) -->
+<!-- * Added geographical unit names (i.e. provide `nom_comuna` in the `comunas` table to ease filtering) -->
+<!-- I also provide a [variables description file](https://databases.pacha.dev/censo2017/censo2017-descripcion-variables.xml) where you can explore the tree structure of the REDATAM data and the labels (i.e. variable `p15` means "highest educational level attained", where `13` means "professional degree"). -->
+<!-- ```{r warning=FALSE} -->
+<!-- library(RPostgres) -->
+<!-- library(sf) -->
+<!-- library(dplyr) -->
+<!-- library(ggplot2) -->
+<!-- library(stringr) -->
+<!-- con <- dbConnect( -->
+<!--   Postgres(), -->
+<!--   user = Sys.getenv("dbedu_usr"), -->
+<!--   password = Sys.getenv("dbedu_pwd"), -->
+<!--   dbname = "censo2017", -->
+<!--   host = "databases.pacha.dev" -->
+<!-- ) -->
+<!-- dbListTables(con) -->
+<!-- f_mapa_santiago <- "censo2017/mapa_santiago.rds" -->
+<!-- f_nivel_educacional <- "censo2017/nivel_educacional.rds" -->
+<!-- if (!file.exists(f_mapa_santiago)) { -->
+<!--   mapa_santiago <- st_read(con, -->
+<!--     query = "select * from public.mapa_zonas where provincia = '131'") -->
+<!--   saveRDS(mapa_santiago, f_mapa_santiago) -->
+<!-- } else { -->
+<!--   mapa_santiago <- readRDS(f_mapa_santiago) -->
+<!-- } -->
+<!-- if (!file.exists(f_nivel_educacional)) { -->
+<!--   # Joins to go up tree in the REDATAM data -->
+<!--   nivel_educacional <- tbl(con, "zonas") %>%  -->
+<!--     select(geocodigo, zonaloc_ref_id) %>%  -->
+<!--     mutate( -->
+<!--       geocodigo = as.character(geocodigo), -->
+<!--       provincia = substr(geocodigo, 1, 3), -->
+<!--       comuna = substr(geocodigo, 1, 5) -->
+<!--     ) %>% -->
+<!--     filter(provincia == "131") %>% # Santiago is 131 -->
+<!--     inner_join( -->
+<!--       tbl(con, "viviendas") %>%  -->
+<!--         select(zonaloc_ref_id, vivienda_ref_id), by = "zonaloc_ref_id" -->
+<!--     ) %>% -->
+<!--     inner_join( -->
+<!--       tbl(con, "hogares") %>%  -->
+<!--         select(vivienda_ref_id, hogar_ref_id), by = "vivienda_ref_id" -->
+<!--     ) %>% -->
+<!--     inner_join( -->
+<!--       tbl(con, "personas") %>%  -->
+<!--         select(hogar_ref_id, nivel_educ = p15), by = "hogar_ref_id" -->
+<!--     ) %>% -->
+<!--     # Aggregate to create variables of interest -->
+<!--     group_by(comuna, geocodigo, nivel_educ) %>% -->
+<!--     summarise(cuenta = n()) %>% -->
+<!--     group_by(geocodigo) %>% -->
+<!--     mutate(proporcion = cuenta / sum(cuenta)) %>% -->
+<!--     collect() -->
+<!--   saveRDS(nivel_educacional, f_nivel_educacional) -->
+<!-- } else { -->
+<!--   nivel_educacional <- readRDS(f_nivel_educacional) -->
+<!-- } -->
+<!-- dbDisconnect(con) -->
+<!-- nivel_educacional <- nivel_educacional %>%  -->
+<!--   mutate(geocodigo = as.numeric(geocodigo)) -->
+<!-- mapa_santiago <- mapa_santiago %>% -->
+<!--   left_join(nivel_educacional, by = "geocodigo") -->
+<!-- colors <- c("#DCA761","#C6C16D","#8B9C94","#628CA5","#5A6C7A") -->
+<!-- colors2 <- c("#5A2D27","#888238","#BCD7EA","#6D7F7F","#5A6C7A") -->
+<!-- colors3 <- c("#e2b745","#e3bb88","#988e42","#4e3d1d", "#5A6C7A") -->
+<!-- g <- ggplot() + -->
+<!--   geom_sf(data = mapa_santiago %>%  -->
+<!--             select(geocodigo, geometry) %>%  -->
+<!--             left_join( -->
+<!--               mapa_santiago %>%  -->
+<!--                 st_drop_geometry() %>%  -->
+<!--                 select(geocodigo, nivel_educ, proporcion) %>%  -->
+<!--                 filter(nivel_educ == 14), -->
+<!--               by = "geocodigo" -->
+<!--             ), -->
+<!--           aes(fill = proporcion, geometry = geometry), -->
+<!--           size = 0.1) + -->
+<!--   scale_fill_gradientn(colours = rev(colors), name = "Share") + -->
+<!--   labs(title = "Share of Inhabitants Holding a PhD Degree\nper Census Zone in the Province of Santiago") + -->
+<!--   theme_minimal(base_size = 13) -->
+<!-- g -->
+<!-- ``` -->
 </div>
 <div id="sql-dumps" class="section level1">
 <h1>SQL dumps</h1>
-<div id="nycflights13-1" class="section level2">
-<h2>NYCflights13</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/nycflights13-postgresql.zip">PostgreSQL</a> (9.6 MB, check the download with the <a href="https://databases.pacha.dev/dumps/nycflights13-postgresql.md5">md5sum</a>)</li>
-</ul>
-</div>
+<!-- ## NYCflights13 -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/nycflights13-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/nycflights13-postgresql.md5)) -->
 <div id="intendo" class="section level2">
 <h2>Intendo</h2>
 <ul>
-<li><a href="https://databases.pacha.dev/dumps/intendo-postgresql.zip">PostgreSQL</a> (107 MB, check the download with the <a href="https://databases.pacha.dev/dumps/intendo-postgresql.md5">md5sum</a>)</li>
+<li><a
+href="https://databases.pacha.dev/dumps/intendo-postgresql.zip">PostgreSQL</a>
+(107 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/intendo-postgresql.md5">md5sum</a>)</li>
 </ul>
-</div>
-<div id="loan-application-1" class="section level2">
-<h2>Loan application</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/loan_application-postgresql.zip">PostgreSQL</a> (9.6 MB, check the download with the <a href="https://databases.pacha.dev/dumps/loan_application-postgresql.md5">md5sum</a>)</li>
-</ul>
-</div>
-<div id="chilemapas-1" class="section level2">
-<h2>Chilemapas</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/chilemapas-postgresql.zip">PostgreSQL</a> (5.2 MB, check the download with the <a href="https://databases.pacha.dev/dumps/chilemapas-postgresql.md5">md5sum</a>)</li>
-</ul>
-</div>
-<div id="censo-2017-1" class="section level2">
-<h2>CENSO 2017</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/censo2017-postgresql.zip">PostgreSQL</a> (587 MB, check the download with the <a href="https://databases.pacha.dev/dumps/censo2017-postgresql.md5">md5sum</a>)</li>
-<li>See the <em>variables description</em> in the CENSO 2017 section</li>
-</ul>
+<!-- ## Loan application -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/loan_application-postgresql.zip) (9.6 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/loan_application-postgresql.md5)) -->
+<!-- ## Chilemapas -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/chilemapas-postgresql.zip) (5.2 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/chilemapas-postgresql.md5)) -->
+<!-- ## CENSO 2017 -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017-postgresql.zip) (587 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017-postgresql.md5)) -->
+<!-- * See the *variables description* in the CENSO 2017 section -->
 </div>
 </div>
 <div id="using-the-dumps-locally" class="section level1">
 <h1>Using the dumps locally</h1>
-<p>You can create a generic user (let’s say <code>student</code>) and grant read-only access.</p>
+<p>You can create a generic user (let’s say <code>student</code>) and
+grant read-only access.</p>
 <div id="postgresql-and-postgis" class="section level2">
 <h2>PostgreSQL (and PostGIS)</h2>
 <pre><code># sudo -i -u postgres 
 # psql -d intendo
+CREATE ROLE student;
+CREATE ROLE teacher;
+ALTER ROLE student WITH PASSWORD &#39;SomePassword&#39;;
+ALTER ROLE teacher WITH PASSWORD &#39;SomePassword&#39;;
+ALTER ROLE student WITH LOGIN;
+ALTER ROLE teacher WITH LOGIN;
+
 GRANT CONNECT ON DATABASE intendo TO student;
 GRANT USAGE ON SCHEMA public TO student;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO student;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO student;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO student;
 REVOKE CREATE ON SCHEMA public FROM public;
+
+GRANT CONNECT ON DATABASE intendo TO teacher;
+GRANT USAGE ON SCHEMA public TO teacher;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO teacher;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO teacher;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO teacher;
 GRANT CREATE ON SCHEMA public to teacher;</code></pre>
-<p>Both <code>chilemapas</code> and <code>censo2017</code> databases need extensions enabled. Here’s a detailed <a href="https://www.youtube.com/watch?v=NvM09ken26o&amp;feature=youtu.be">video</a> made by CityPlanner.</p>
-<p>In short, you need to create the extension before importing the SQL dump:</p>
-<pre><code># sudo apt install postgresql-postgis postgresql-10-postgis-2.4
-# sudo -i -u postgres
-# psql -d censo2017
-CREATE EXTENSION postgis SCHEMA public;</code></pre>
+<!-- Both `chilemapas` and `censo2017` databases need extensions enabled. Here's a detailed [video](https://www.youtube.com/watch?v=NvM09ken26o&feature=youtu.be) made by CityPlanner. -->
+<!-- In short, you need to create the extension before importing the SQL dump: -->
+<!-- ``` -->
+<!-- # sudo apt install postgresql-postgis postgresql-10-postgis-2.4 -->
+<!-- # sudo -i -u postgres -->
+<!-- # psql -d censo2017 -->
+<!-- CREATE EXTENSION postgis SCHEMA public; -->
+<!-- ``` -->
 </div>
 <div id="mysqlmariadb" class="section level2">
 <h2>MySQL/MariaDB</h2>
 <pre><code># sudo mysql
-USE nycflights13;
-GRANT SELECT ON nycflights13.* TO student;</code></pre>
+USE intendo;
+GRANT SELECT ON intendo.* TO student;</code></pre>
 </div>
 <div id="sql-server" class="section level2">
 <h2>SQL Server</h2>
 <pre><code># sqlcmd -S localhost -U SA
-USE nycflights13;
+USE intendo;
 CREATE USER student FOR LOGIN student;
 GRANT SELECT ON SCHEMA :: dbo TO student;</code></pre>
 </div>
 </div>
 <div id="cite-this-work" class="section level1">
 <h1>Cite this work</h1>
-<p>This work is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>.</p>
+<p>This work is licensed under <a
+href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
+Attribution 4.0 International (CC BY 4.0)</a>.</p>
 <p>BibTeX entry:</p>
 <pre><code>@misc{databases_pacha,
   title = {SQL Databases for Students and Educators},
@@ -498,17 +461,18 @@ GRANT SELECT ON SCHEMA :: dbo TO student;</code></pre>
   publisher = {Self-published},
   year = {2021},
   month = {Feb},
-  note = {Accessed: February 2, 2021}
+  note = {Accessed: Month DD, YYYY}
 }</code></pre>
 </div>
-<div id="support-this-work" class="section level1">
-<h1>Support this work</h1>
-<p>You can ask me for more databases by sending me a Tweet (my username is <a href="https://twitter.com/pachadotdev">@pachadotdev</a>).</p>
-<p>I also have a <a href="https://www.buymeacoffee.com/pacha">Buy me a coffee</a> profile. If you like my work, buy me a coffee, it shall be used to produce more of it. Thank you for your support!</p>
-</div>
-<div id="grants" class="section level1">
-<h1>Grants</h1>
-<p>This project has received partial funding from Digital Ocean, which covers this and other educational initiatives such as <a href="https://tradestatistics.io">Open Trade Statistics</a>.</p>
+<div id="access-and-support" class="section level1">
+<h1>Access and support</h1>
+<p>If you need access to the online DBs (i.e., not configuring your
+local copy), send me an email to <em>ma vargas 11 at uc dot cl</em> or a
+tweet to <a
+href="https://twitter.com/pachadotdev">@pachadotdev</a>).</p>
+<p>I also have a <a href="https://www.buymeacoffee.com/pacha">Buy me a
+coffee</a> profile. If you like my work, buy me a coffee, it shall be
+used to produce more of it. Thank you for your support!</p>
 </div>
 </div>
 

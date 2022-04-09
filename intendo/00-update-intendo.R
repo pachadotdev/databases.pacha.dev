@@ -15,21 +15,21 @@ sj_user_summary_large <- readRDS("../intendo/data-large/sj_user_summary_large.rd
 sj_users_daily_large_f <- readRDS("../intendo/data-large/sj_users_daily_large_f.rds")
 sj_users_daily_large <- readRDS("../intendo/data-large/sj_users_daily_large.rds")
 
-# con <- dbConnect(
-#   Postgres(),
-#   user = Sys.getenv("dbedu_usr"),
-#   password = Sys.getenv("dbedu_pwd"),
-#   dbname = "intendo",
-#   host = "databases.pacha.dev"
-# )
-
 con <- dbConnect(
-  MySQL(),
+  Postgres(),
   user = Sys.getenv("dbedu_usr"),
   password = Sys.getenv("dbedu_pwd"),
   dbname = "intendo",
   host = "databases.pacha.dev"
 )
+
+# con <- dbConnect(
+#   MySQL(),
+#   user = Sys.getenv("dbedu_usr"),
+#   password = Sys.getenv("dbedu_pwd"),
+#   dbname = "intendo",
+#   host = "databases.pacha.dev"
+# )
 
 # con <- dbConnect(
 #   odbc(),
