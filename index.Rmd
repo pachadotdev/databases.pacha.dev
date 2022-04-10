@@ -23,7 +23,7 @@ Why 3 database backends? I think there are a ton of small edge cases when moving
 
 Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachadotdev](https://twitter.com/pachadotdev). See the SQL dumps on each section to have the data locally.
 
-# Intendo database
+# Intendo
 
 It's a dummy database that originally we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this
 database at [intendo](https://github.com/rich-iannone/intendo).
@@ -52,6 +52,34 @@ tbl(con, "sj_user_summary_large") %>% glimpse()
 dbDisconnect(con)
 ```
 
+# Financial (aka Loan Application)
+
+<!-- # Loan Application -->
+# SQL dumps
+
+A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.
+
+This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find the database schema and more information. The database full name is "PKDD'99 Financial Dataset or Loan Application", and this particular version corresponds to Financial_ijs by Janez Kranjc.
+
+Check the structure of the tables in the next preview.
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "financial",
+  host = "databases.pacha.dev"
+)
+
+dbListTables(con)
+
+tbl(con, "clients") %>% glimpse()
+```
+
 # SQL dumps
 
 ## Intendo
@@ -60,7 +88,17 @@ dbDisconnect(con)
 
 * [MySQL/MariaDB](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz) (178 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5))
 
-* [SQL Server](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz) (206 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5))
+* [SQL Server](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5))
+
+## Financial
+
+* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql.gz) (11 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5))
+
+* [MySQL/MariaDB](https://databases.pacha.dev/dumps/financial-mysql.sql.gz) (178 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-mysql.sql.gz.md5))
+
+* SQL Server: Coming Soon
+
+<!-- * [SQL Server](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz.md5)) -->
 
 # Using the dumps locally
 
@@ -68,6 +106,8 @@ dbDisconnect(con)
 
 ### PostgreSQL
 
+<!-- pg_dump intendo > intendo-postgres.sql -->
+ 
 ```bash
 sudo -i -u postgres
 gunzip -c intendo-postgres.sql.gz | psql intendo
@@ -75,16 +115,25 @@ gunzip -c intendo-postgres.sql.gz | psql intendo
 
 ### MySQL/MariaDB
 
+<!-- mysql intendo > intendo-mysql.sql -->
+
+From SQL:
+
+``` SQL
+# mysql 
+CREATE DATABASE intendo;
+```
+
+Then from bash:
 ```bash
 sudo su
 gunzip intendo-mysql.sql.gz
-mysql < intendo-mysql.sql
+mysql intendo < intendo-mysql.sql
 ```
 
 ### SQL Server
 
-<!-- BACKUP DATABASE intendo -->
-<!-- TO DISK = 'filepath';  -->
+<!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
 
 From bash:
 ```bash

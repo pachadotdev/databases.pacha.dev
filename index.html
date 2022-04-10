@@ -120,10 +120,14 @@
           <div class="SidebarItems" id="toc">
             <ul>
             <li><a href="#about">About</a></li>
-            <li><a href="#intendo-database">Intendo database</a></li>
-            <li><a href="#sql-dumps">SQL dumps</a>
-            <ul>
             <li><a href="#intendo">Intendo</a></li>
+            <li><a href="#financial-aka-loan-application">Financial (aka
+            Loan Application)</a></li>
+            <li><a href="#sql-dumps">SQL dumps</a></li>
+            <li><a href="#sql-dumps-1">SQL dumps</a>
+            <ul>
+            <li><a href="#intendo-1">Intendo</a></li>
+            <li><a href="#financial">Financial</a></li>
             </ul></li>
             <li><a href="#using-the-dumps-locally">Using the dumps
             locally</a>
@@ -179,8 +183,8 @@ lectures or workshops. My Twitter username is <a
 href="https://twitter.com/pachadotdev">@pachadotdev</a>. See the SQL
 dumps on each section to have the data locally.</p>
 </div>
-<div id="intendo-database" class="section level1">
-<h1>Intendo database</h1>
+<div id="intendo" class="section level1">
+<h1>Intendo</h1>
 <p>It’s a dummy database that originally we used at the <a
 href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My
 Organization’s First R Package</a> and contains managerial information
@@ -222,9 +226,48 @@ dbListTables(con)</code></pre>
 ## $ device_name &lt;chr&gt; &quot;Samsung Galaxy Note 4&quot;, &quot;3rd Gen iPad&quot;, &quot;iPhone 6&quot;, &quot;Sams…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
 </div>
+<div id="financial-aka-loan-application" class="section level1">
+<h1>Financial (aka Loan Application)</h1>
+<!-- # Loan Application -->
+</div>
 <div id="sql-dumps" class="section level1">
 <h1>SQL dumps</h1>
-<div id="intendo" class="section level2">
+<p>A database that contains Financial dataset contains 606 successful
+and 76 not successful loans along with their information and
+transactions.</p>
+<p>This database comes from the <a
+href="https://relational.fit.cvut.cz/dataset/Financial">Relational
+Dataset Repository</a> where you can find the database schema and more
+information. The database full name is “PKDD’99 Financial Dataset or
+Loan Application”, and this particular version corresponds to
+Financial_ijs by Janez Kranjc.</p>
+<p>Check the structure of the tables in the next preview.</p>
+<pre class="r"><code>library(dplyr)
+library(RPostgres)
+
+con &lt;- dbConnect(
+  Postgres(),
+  user = Sys.getenv(&quot;dbedu_usr&quot;),
+  password = Sys.getenv(&quot;dbedu_pwd&quot;),
+  dbname = &quot;financial&quot;,
+  host = &quot;databases.pacha.dev&quot;
+)
+
+dbListTables(con)</code></pre>
+<pre><code>## [1] &quot;disps&quot;     &quot;cards&quot;     &quot;clients&quot;   &quot;loans&quot;     &quot;orders&quot;    &quot;trans&quot;    
+## [7] &quot;tkeys&quot;     &quot;districts&quot; &quot;accounts&quot;</code></pre>
+<pre class="r"><code>tbl(con, &quot;clients&quot;) %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: ??
+## Columns: 4
+## Database: postgres  [teacher@databases.pacha.dev:5432/financial]
+## $ id           &lt;int64&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
+## $ birth_number &lt;chr&gt; &quot;706213    &quot;, &quot;450204    &quot;, &quot;406009    &quot;, &quot;561201    &quot;, &quot;…
+## $ district_id  &lt;int64&gt; 18, 1, 1, 5, 5, 12, 15, 51, 60, 57, 57, 40, 54, 76, 21,…
+## $ tkey_id      &lt;int64&gt; NA, 21, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+</div>
+<div id="sql-dumps-1" class="section level1">
+<h1>SQL dumps</h1>
+<div id="intendo-1" class="section level2">
 <h2>Intendo</h2>
 <ul>
 <li><p><a
@@ -237,9 +280,24 @@ href="https://databases.pacha.dev/dumps/intendo-mysql.sql.gz">MySQL/MariaDB</a>
 href="https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5">md5sum</a>)</p></li>
 <li><p><a
 href="https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz">SQL
-Server</a> (206 MB, check the download with the <a
+Server</a> (269 MB, check the download with the <a
 href="https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5">md5sum</a>)</p></li>
 </ul>
+</div>
+<div id="financial" class="section level2">
+<h2>Financial</h2>
+<ul>
+<li><p><a
+href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz">PostgreSQL</a>
+(11 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5">md5sum</a>)</p></li>
+<li><p><a
+href="https://databases.pacha.dev/dumps/financial-mysql.sql.gz">MySQL/MariaDB</a>
+(178 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/financial-mysql.sql.gz.md5">md5sum</a>)</p></li>
+<li><p>SQL Server: Coming Soon</p></li>
+</ul>
+<!-- * [SQL Server](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz.md5)) -->
 </div>
 </div>
 <div id="using-the-dumps-locally" class="section level1">
@@ -248,19 +306,24 @@ href="https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5">md5sum</a>
 <h2>Restore dumps</h2>
 <div id="postgresql" class="section level3">
 <h3>PostgreSQL</h3>
+<!-- pg_dump intendo > intendo-postgres.sql -->
 <pre class="bash"><code>sudo -i -u postgres
 gunzip -c intendo-postgres.sql.gz | psql intendo</code></pre>
 </div>
 <div id="mysqlmariadb" class="section level3">
 <h3>MySQL/MariaDB</h3>
+<!-- mysql intendo > intendo-mysql.sql -->
+<p>From SQL:</p>
+<pre class="sql"><code># mysql 
+CREATE DATABASE intendo;</code></pre>
+<p>Then from bash:</p>
 <pre class="bash"><code>sudo su
 gunzip intendo-mysql.sql.gz
-mysql &lt; intendo-mysql.sql</code></pre>
+mysql intendo &lt; intendo-mysql.sql</code></pre>
 </div>
 <div id="sql-server" class="section level3">
 <h3>SQL Server</h3>
-<!-- BACKUP DATABASE intendo -->
-<!-- TO DISK = 'filepath';  -->
+<!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
 <p>From bash:</p>
 <pre class="bash"><code>gunzip intendo-mysql.sql.gz
 sqlcmd -S localhost -U SA</code></pre>
