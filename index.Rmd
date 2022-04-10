@@ -21,7 +21,7 @@ I've decided to host different light/medium size by using PostgreSQL, MySQL and 
 
 Why 3 database backends? I think there are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.
 
-Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachadotdev](https://twitter.com/pachadotdev). See the SQL dumps on each section to have the data locally.
+Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachadotdev](https://twitter.com/pachadotdev).
 
 # Intendo
 
@@ -53,9 +53,6 @@ dbDisconnect(con)
 ```
 
 # Financial (aka Loan Application)
-
-<!-- # Loan Application -->
-# SQL dumps
 
 A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.
 
