@@ -1,4 +1,8 @@
 # All the need to partition tables and connect/disconnect a lot is because of SQL Server backend
+# see https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
+
+select_engine <- "sqlserver"
+
 library(RPostgres)
 # library(RMariaDB) # for some reason copies really slow
 library(RMySQL)
@@ -6,16 +10,15 @@ library(odbc)
 library(dplyr)
 library(tidyr)
 library(glue)
-# see https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
 
-sj_all_revenue_large_f <- readRDS("../intendo/data-large/sj_all_revenue_large_f.rds")
-sj_all_revenue_large <- readRDS("../intendo/data-large/sj_all_revenue_large.rds")
-sj_all_sessions_large_f <- readRDS("../intendo/data-large/sj_all_sessions_large_f.rds")
-sj_all_sessions_large <- readRDS("../intendo/data-large/sj_all_sessions_large.rds")
-sj_user_summary_large_f <- readRDS("../intendo/data-large/sj_user_summary_large_f.rds")
-sj_user_summary_large <- readRDS("../intendo/data-large/sj_user_summary_large.rds")
-sj_users_daily_large_f <- readRDS("../intendo/data-large/sj_users_daily_large_f.rds")
-sj_users_daily_large <- readRDS("../intendo/data-large/sj_users_daily_large.rds")
+sj_all_revenue_small_f <- readRDS("../intendo/data-small/sj_all_revenue_small_f.rds")
+sj_all_revenue_small <- readRDS("../intendo/data-small/sj_all_revenue_small.rds")
+sj_all_sessions_small_f <- readRDS("../intendo/data-small/sj_all_sessions_small_f.rds")
+sj_all_sessions_small <- readRDS("../intendo/data-small/sj_all_sessions_small.rds")
+sj_user_summary_small_f <- readRDS("../intendo/data-small/sj_user_summary_small_f.rds")
+sj_user_summary_small <- readRDS("../intendo/data-small/sj_user_summary_small.rds")
+sj_users_daily_small_f <- readRDS("../intendo/data-small/sj_users_daily_small_f.rds")
+sj_users_daily_small <- readRDS("../intendo/data-small/sj_users_daily_small.rds")
 
 fun_con <- function(type) {
   if (type == "postgres") {
@@ -53,7 +56,7 @@ fun_con <- function(type) {
   return(con)
 }
 
-con <- fun_con("sqlserver")
+con <- fun_con(select_engine)
 if(any(class(con) %in% c("MySQLConnection", "Microsoft SQL Server"))) {
   # MYSQL/SQL SERVER ONLY
   dbSendQuery(con, "USE intendo")  
@@ -69,18 +72,18 @@ for (t in tbls) {
 dbDisconnect(con)
 
 tictoc::tic()
-sj_all_revenue_large_f <- sj_all_revenue_large_f %>% 
+sj_all_revenue_small_f <- sj_all_revenue_small_f %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_all_revenue_large_f$n) {
+for (i in sj_all_revenue_small_f$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_all_revenue_large_f",
-    sj_all_revenue_large_f %>% 
+    "sj_all_revenue_small_f",
+    sj_all_revenue_small_f %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -92,18 +95,18 @@ for (i in sj_all_revenue_large_f$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_all_revenue_large <- sj_all_revenue_large %>% 
+sj_all_revenue_small <- sj_all_revenue_small %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_all_revenue_large$n) {
+for (i in sj_all_revenue_small$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_all_revenue_large",
-    sj_all_revenue_large %>% 
+    "sj_all_revenue_small",
+    sj_all_revenue_small %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -115,18 +118,18 @@ for (i in sj_all_revenue_large$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_all_sessions_large_f <- sj_all_sessions_large_f %>% 
+sj_all_sessions_small_f <- sj_all_sessions_small_f %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_all_sessions_large_f$n) {
+for (i in sj_all_sessions_small_f$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_all_sessions_large_f",
-    sj_all_sessions_large_f %>% 
+    "sj_all_sessions_small_f",
+    sj_all_sessions_small_f %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -138,18 +141,18 @@ for (i in sj_all_sessions_large_f$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_all_sessions_large <- sj_all_sessions_large %>% 
+sj_all_sessions_small <- sj_all_sessions_small %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_all_sessions_large$n) {
+for (i in sj_all_sessions_small$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_all_sessions_large",
-    sj_all_sessions_large %>% 
+    "sj_all_sessions_small",
+    sj_all_sessions_small %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -161,18 +164,18 @@ for (i in sj_all_sessions_large$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_user_summary_large_f <- sj_user_summary_large_f %>% 
+sj_user_summary_small_f <- sj_user_summary_small_f %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_user_summary_large_f$n) {
+for (i in sj_user_summary_small_f$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_user_summary_large_f",
-    sj_user_summary_large_f %>% 
+    "sj_user_summary_small_f",
+    sj_user_summary_small_f %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -184,18 +187,18 @@ for (i in sj_user_summary_large_f$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_user_summary_large <- sj_user_summary_large %>% 
+sj_user_summary_small <- sj_user_summary_small %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_user_summary_large$n) {
+for (i in sj_user_summary_small$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_user_summary_large",
-    sj_user_summary_large %>% 
+    "sj_user_summary_small",
+    sj_user_summary_small %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -207,18 +210,18 @@ for (i in sj_user_summary_large$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_users_daily_large_f <- sj_users_daily_large_f %>% 
+sj_users_daily_small_f <- sj_users_daily_small_f %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_users_daily_large_f$n) {
+for (i in sj_users_daily_small_f$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_users_daily_large_f",
-    sj_users_daily_large_f %>% 
+    "sj_users_daily_small_f",
+    sj_users_daily_small_f %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 
@@ -230,18 +233,18 @@ for (i in sj_users_daily_large_f$n) {
 tictoc::toc()
 
 tictoc::tic()
-sj_users_daily_large <- sj_users_daily_large %>% 
+sj_users_daily_small <- sj_users_daily_small %>% 
   mutate(n = row_number() %/% 50000) %>% 
   group_by(n) %>% 
   nest()
 
-for (i in sj_users_daily_large$n) {
+for (i in sj_users_daily_small$n) {
   cat(paste0(i, " "))
-  con <- fun_con("sqlserver")
+  con <- fun_con(select_engine)
   dbWriteTable(
     con, 
-    "sj_users_daily_large",
-    sj_users_daily_large %>% 
+    "sj_users_daily_small",
+    sj_users_daily_small %>% 
       ungroup() %>% 
       filter(n == i) %>% 
       select(data) %>% 

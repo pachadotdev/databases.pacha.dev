@@ -5,6 +5,7 @@ date: "2021-02-02"
 output:
   rmdformats::downcute:    
     self_contained: false
+    default_style: dark
 ---
 
 ```{r setup, include=FALSE}
@@ -47,7 +48,7 @@ con <- dbConnect(
 
 dbListTables(con)
 
-tbl(con, "sj_user_summary_large") %>% glimpse()
+tbl(con, "sj_user_summary_small") %>% glimpse()
 
 dbDisconnect(con)
 ```
@@ -81,11 +82,11 @@ tbl(con, "clients") %>% glimpse()
 
 ## Intendo
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz) (166 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz) (15 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5))
 
-* [MySQL/MariaDB](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz) (178 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5))
+* [MySQL/MariaDB](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz) (16 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5))
 
-* [SQL Server](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5))
+* [SQL Server](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz) (26 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5))
 
 ## Financial
 
@@ -112,7 +113,7 @@ gunzip -c intendo-postgres.sql.gz | psql intendo
 
 ### MySQL/MariaDB
 
-<!-- mysql intendo > intendo-mysql.sql -->
+<!-- mysqldump intendo > intendo-mysql.sql -->
 
 From SQL:
 
@@ -270,7 +271,15 @@ sudo ufw allow 1434/tcp
 sudo ufw allow 1434/udp
 ```
 
-# Problems with SQL Server
+# Problems with MySQL/Maria SQL Server
+
+## MySQL/MariaDB
+
+From R, the RMariaDB package copies around 20 times slower than RMySQL. Also using odbc for this SQL backend is not very efficient. Just use RMySQL even if (by any reason) you prefer it over MySQL.
+
+When you backup, at least with MariaDB, `mysqldump intendo > intendo-mysql.sql` is hundreds of times faster than `mysql intendo > intendo-mysql.sql`.
+
+## SQL Server
 
 Beware that SQL Server shows strange problems with Linux and Mac! For example, when I connect from a Mac, I experience random disconnections and the next error message:
 ```bash
