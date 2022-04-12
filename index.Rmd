@@ -190,6 +190,7 @@ GRANT SELECT ON intendo.* TO student;
 GRANT SELECT ON intendo.* TO teacher;
 GRANT CREATE ON intendo.* TO teacher;
 GRANT INSERT ON intendo.* TO teacher;
+GRANT ALTER ON intendo.* TO teacher;
 ```
 
 ### SQL Server
@@ -215,7 +216,11 @@ GRANT SELECT ON SCHEMA :: dbo TO teacher
 GO
 GRANT CREATE TABLE TO teacher
 GO
-GRANT ALTER,INSERT ON SCHEMA :: dbo TO teacher
+GRANT INSERT ON SCHEMA :: dbo TO teacher
+GO
+GRANT ALTER ON SCHEMA :: dbo TO teacher
+GO
+GRANT UPDATE ON SCHEMA :: dbo TO teacher
 GO
 
 # You'll also want to limit SQL Server memory
