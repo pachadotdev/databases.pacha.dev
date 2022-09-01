@@ -2,8 +2,8 @@
 # see https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
 
 # CHANGE THIS ACCORDINGLY: small, medium, large, xlarge
-select_engine <- "sqlserver"
-size <- "medium"
+select_engine <- "mysql"
+size <- "xlarge"
 
 if (select_engine == "postgres") library(RPostgres)
 if (select_engine == "mysql") library(RMySQL) # library(RMariaDB) for some reason copies really slow
@@ -32,7 +32,7 @@ fun_con <- function(type) {
       user = Sys.getenv("dbedu_usr"),
       password = Sys.getenv("dbedu_pwd"),
       dbname = "intendo",
-      host = "databases.pacha.dev"
+      host = "178.62.218.144"
     )
   } 
   

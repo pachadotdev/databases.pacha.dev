@@ -11,15 +11,12 @@
     
     <title>SQL Databases for Students and Educators</title>
 
-        <script src="index_files/header-attrs-2.13/header-attrs.js"></script>
+        <script src="index_files/header-attrs-2.15/header-attrs.js"></script>
         <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="index_files/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
         <script src="index_files/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-        <script src="index_files/jqueryui-1.11.4/jquery-ui.min.js"></script>
         <script src="index_files/navigation-1.1/tabsets.js"></script>
-        <link href="index_files/magnific-popup-1.1.0/magnific-popup.css" rel="stylesheet" />
-        <script src="index_files/magnific-popup-1.1.0/jquery.magnific-popup.min.js"></script>
         <link href="index_files/downcute-0.1/downcute.css" rel="stylesheet" />
         <link href="index_files/downcute-0.1/downcute_fonts_embed.css" rel="stylesheet" />
         <script src="index_files/downcute-0.1/downcute_styles.js"></script>
@@ -119,32 +116,58 @@
         <div class="Sidebar">
           <div class="SidebarItems" id="toc">
             <ul>
-            <li><a href="#about">About</a></li>
-            <li><a href="#intendo">Intendo</a></li>
-            <li><a href="#financial-aka-loan-application">Financial (aka
-            Loan Application)</a></li>
-            <li><a href="#sql-dumps">SQL dumps</a>
+            <li><a href="#about" id="toc-about">About</a></li>
+            <li><a href="#available-databases"
+            id="toc-available-databases">Available Databases</a>
             <ul>
-            <li><a href="#intendo-1">Intendo</a></li>
-            <li><a href="#financial">Financial</a></li>
+            <li><a href="#open-trade-statistics"
+            id="toc-open-trade-statistics">Open Trade
+            Statistics</a></li>
+            <li><a href="#intendo" id="toc-intendo">Intendo</a></li>
+            <li><a href="#financial-aka-loan-application"
+            id="toc-financial-aka-loan-application">Financial (aka Loan
+            Application)</a></li>
+            <li><a href="#censo-2017" id="toc-censo-2017">CENSO
+            2017</a></li>
             </ul></li>
-            <li><a href="#using-the-dumps-locally">Using the dumps
-            locally</a>
+            <li><a href="#sql-dumps" id="toc-sql-dumps">SQL dumps</a>
             <ul>
-            <li><a href="#restore-dumps">Restore dumps</a></li>
-            <li><a href="#create-users">Create users</a></li>
-            <li><a href="#allow-external-connections">Allow external
+            <li><a href="#open-trade-statistics-1"
+            id="toc-open-trade-statistics-1">Open Trade
+            Statistics</a></li>
+            <li><a href="#intendo-1" id="toc-intendo-1">Intendo</a></li>
+            <li><a href="#financial"
+            id="toc-financial">Financial</a></li>
+            <li><a href="#censo2017"
+            id="toc-censo2017">CENSO2017</a></li>
+            </ul></li>
+            <li><a href="#using-the-dumps-locally"
+            id="toc-using-the-dumps-locally">Using the dumps locally</a>
+            <ul>
+            <li><a href="#restore-dumps" id="toc-restore-dumps">Restore
+            dumps</a></li>
+            <li><a href="#create-users" id="toc-create-users">Create
+            users</a></li>
+            <li><a href="#allow-external-connections"
+            id="toc-allow-external-connections">Allow external
             connections</a></li>
+            <li><a href="#changing-database-location"
+            id="toc-changing-database-location">Changing database
+            location</a></li>
             </ul></li>
-            <li><a href="#problems-with-mysqlmaria-sql-server">Problems
-            with MySQL/Maria SQL Server</a>
+            <li><a href="#problems-with-mysqlmaria-and-sql-server"
+            id="toc-problems-with-mysqlmaria-and-sql-server">Problems
+            with MySQL/Maria and SQL Server</a>
             <ul>
-            <li><a href="#mysqlmariadb-2">MySQL/MariaDB</a></li>
-            <li><a href="#sql-server-3">SQL Server</a></li>
+            <li><a href="#mysqlmariadb"
+            id="toc-mysqlmariadb">MySQL/MariaDB</a></li>
+            <li><a href="#sql-server" id="toc-sql-server">SQL
+            Server</a></li>
             </ul></li>
-            <li><a href="#cite-this-work">Cite this work</a></li>
-            <li><a href="#access-and-support">Access and
-            support</a></li>
+            <li><a href="#cite-this-work" id="toc-cite-this-work">Cite
+            this work</a></li>
+            <li><a href="#access-and-support"
+            id="toc-access-and-support">Access and support</a></li>
             </ul>
           </div>
           <div data-position="sidebar:post-end" class="InjectedComponents"><div class="dark-theme-toggler"><div class="toggle checked"><div class="toggle-track"><div class="toggle-track-check"><img  src="data:image/png;base64,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" role="presentation" style="pointer-events: none;" width="16" height="16"></div> <div class="toggle-track-x"><img src="data:image/png;base64,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" role="presentation" style="pointer-events: none;" width="16" height="16"></div></div> <div class="toggle-thumb"></div></div> <input type="checkbox" aria-label="Switch between Dark and Default theme" class="toggler-screen-reader-only"></div></div>
@@ -167,6 +190,9 @@
    
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div class="page-content has-page-title">
+<p><em>Update 2022-09-30: The SQL Server educational license expired.
+From now on, only PostgreSQL and MariaDB databases will be
+available.</em></p>
 <div id="about" class="section level1">
 <h1>About</h1>
 <p><img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200"></p>
@@ -174,19 +200,188 @@
 registration. Even when I maintain public and limit-free APIs, I never
 wanted to host a public database because I tend to think that the
 connection strings are a problem for the user.</p>
-<p>I’ve decided to host different light/medium size by using PostgreSQL,
-MySQL and SQL Server backends (in strict descending order of
-preference!).</p>
-<p>Why 3 database backends? I think there are a ton of small edge cases
-when moving between DB back ends and so testing lots with live databases
-is quite valuable. With this resource you can benchmark speed,
+<p>I’ve decided to host different light/medium size by using PostgreSQL
+and MariaDB (a modern fork of MySQL) backends. I tend to prefer
+PostgreSQL because it easier to configure on client and server side,
+without strange tricks (see the <em>Problems with MySQL/Maria and SQL
+Server</em> section).</p>
+<p>Why these database backends? I think there are a ton of small edge
+cases when moving between DB back ends and so testing lots with live
+databases is quite valuable. With this resource you can benchmark speed,
 compression, and DDL types.</p>
 <p>Please send me a tweet if you need the connection strings for your
 lectures or workshops. My Twitter username is <a
 href="https://twitter.com/pachadotdev">@pachadotdev</a>.</p>
 </div>
-<div id="intendo" class="section level1">
-<h1>Intendo</h1>
+<div id="available-databases" class="section level1">
+<h1>Available Databases</h1>
+<div id="open-trade-statistics" class="section level2">
+<h2>Open Trade Statistics</h2>
+<p>Backends</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+PostgreSQL</li>
+<li><input type="checkbox" disabled="" />
+MariaDB</li>
+</ul>
+<p>It’s the database that powers <a
+href="https://shiny.tradestatistics.io/countryprofiles">Open Trade
+Statistics</a> and contains international trade data for commodities
+since 2002.</p>
+<p>This database can be helpful for evaluating the impact of free trade
+agreements, and other policy relevant modelling. The database is a
+modified version of the United Nations Commodity Trade Statistics
+Database (UN COMTRADE) and is targeted for Latin American Universities,
+who often have limited or no access to the original resource.</p>
+<p>The full description for each table is:</p>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="68%" />
+<col width="22%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">table</th>
+<th align="left">description</th>
+<th align="left">source</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">commodities</td>
+<td align="left">Commodities metadata (HS codes, 6 digits long)</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="even">
+<td align="left">commodities_short</td>
+<td align="left">Commodities metadata (HS codes, 4 digits long)</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="odd">
+<td align="left">countries</td>
+<td align="left">Countries metadata</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="even">
+<td align="left">distances</td>
+<td align="left">Distance between countries, alongside continuity,
+common language and if the countries were the same once</td>
+<td align="left">CEPII (with modifications)</td>
+</tr>
+<tr class="odd">
+<td align="left">partners</td>
+<td align="left">Partners for a given year</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="even">
+<td align="left">reporters</td>
+<td align="left">Reporters for a given year</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="odd">
+<td align="left">sections</td>
+<td align="left">Sections metadata (HS codes)</td>
+<td align="left">UN Comtrade (with modifications)</td>
+</tr>
+<tr class="even">
+<td align="left">sections_colors</td>
+<td align="left">Colors for sections (i.e. useful to visualize
+data)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="odd">
+<td align="left">rtas</td>
+<td align="left">Regional Trade Agreements per pair of countries and
+year</td>
+<td align="left">Design of Trade Agreements (DESTA) Database</td>
+</tr>
+<tr class="even">
+<td align="left">tariffs</td>
+<td align="left">Most Favoured Nation tarrifs (Year, Reporter and
+Commodity Code)</td>
+<td align="left">World Integrated Trade Solution</td>
+</tr>
+<tr class="odd">
+<td align="left">years</td>
+<td align="left">Minimum and maximum years with available data</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="even">
+<td align="left">yc</td>
+<td align="left">Commodity trade at aggregated level (Year and
+Commodity), raw trade flows (i.e. with transportation costs)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="odd">
+<td align="left">yr</td>
+<td align="left">Reporter trade at aggregated level (Year and Reporter),
+raw trade flows (i.e. with transportation costs)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="even">
+<td align="left">yrc</td>
+<td align="left">Reporter trade at commodity level (Year, Reporter and
+Commodity Code), raw trade flows (i.e. with transportation costs)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="odd">
+<td align="left">yrp</td>
+<td align="left">Reporter-Partner trade at aggregated level (Year,
+Reporter and Partner), raw trade flows (i.e. with transportation
+costs)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+<tr class="even">
+<td align="left">yrpc</td>
+<td align="left">Reporter-Partner trade at commodity level (Year,
+Reporter, Partner and Commodity Code), raw trade flows (i.e. with
+transportation costs)</td>
+<td align="left">Open Trade Statistics</td>
+</tr>
+</tbody>
+</table>
+<p>Access these tables by adapting the next code:</p>
+<pre class="r"><code>library(dplyr)
+library(RPostgres)
+
+con &lt;- dbConnect(
+  Postgres(),
+  user = Sys.getenv(&quot;dbedu_usr&quot;),
+  password = Sys.getenv(&quot;dbedu_pwd&quot;),
+  dbname = &quot;tradestatistics&quot;,
+  host = &quot;databases.pacha.dev&quot;
+)
+
+dbListTables(con)</code></pre>
+<pre><code>##  [1] &quot;distances&quot;         &quot;vaccine_inputs&quot;    &quot;commodities&quot;      
+##  [4] &quot;commodities_short&quot; &quot;gdp&quot;               &quot;rtas&quot;             
+##  [7] &quot;sections&quot;          &quot;sections_colors&quot;   &quot;yc&quot;               
+## [10] &quot;countries&quot;         &quot;countries_colors&quot;  &quot;yrpc&quot;             
+## [13] &quot;tariffs&quot;           &quot;yr&quot;                &quot;yrc&quot;              
+## [16] &quot;gdp_deflator&quot;      &quot;yrp&quot;</code></pre>
+<pre class="r"><code>tbl(con, &quot;yrpc&quot;) %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: ??
+## Columns: 7
+## Database: postgres  [teacher@databases.pacha.dev:5432/tradestatistics]
+## $ year                &lt;int&gt; 2002, 2002, 2002, 2002, 2002, 2002, 2002, 2002, 20…
+## $ reporter_iso        &lt;chr&gt; &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;…
+## $ partner_iso         &lt;chr&gt; &quot;ant&quot;, &quot;arg&quot;, &quot;atg&quot;, &quot;aus&quot;, &quot;aut&quot;, &quot;bra&quot;, &quot;brb&quot;, &quot;…
+## $ section_code        &lt;chr&gt; &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;9…
+## $ commodity_code      &lt;chr&gt; &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, …
+## $ trade_value_usd_imp &lt;dbl&gt; 242559, 0, 346, 659, 2056, 71380, 1112, 95223, 102…
+## $ trade_value_usd_exp &lt;dbl&gt; 38553, 2313, 1006, 419, 0, 0, 0, 0, 0, 0, 0, 40553…</code></pre>
+<pre class="r"><code>dbDisconnect(con)</code></pre>
+</div>
+<div id="intendo" class="section level2">
+<h2>Intendo</h2>
+<p>Backends</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+PostgreSQL</li>
+<li><input type="checkbox" disabled="" checked="" />
+MariaDB</li>
+</ul>
 <p>It’s a dummy database that originally we used at the <a
 href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My
 Organization’s First R Package</a> and contains managerial information
@@ -212,10 +407,22 @@ con &lt;- dbConnect(
 )
 
 dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;sj_users_daily_small_f&quot;  &quot;sj_all_revenue_small_f&quot; 
-## [3] &quot;sj_all_revenue_small&quot;    &quot;sj_users_daily_small&quot;   
-## [5] &quot;sj_all_sessions_small_f&quot; &quot;sj_all_sessions_small&quot;  
-## [7] &quot;sj_user_summary_small_f&quot; &quot;sj_user_summary_small&quot;</code></pre>
+<pre><code>##  [1] &quot;sj_all_revenue_small_f&quot;   &quot;sj_users_daily_small&quot;    
+##  [3] &quot;sj_user_summary_medium&quot;   &quot;sj_all_sessions_large_f&quot; 
+##  [5] &quot;sj_users_daily_large_f&quot;   &quot;sj_all_sessions_xlarge_f&quot;
+##  [7] &quot;sj_user_summary_xlarge_f&quot; &quot;sj_users_daily_xlarge_f&quot; 
+##  [9] &quot;sj_all_revenue_small&quot;     &quot;sj_all_revenue_medium_f&quot; 
+## [11] &quot;sj_all_sessions_small&quot;    &quot;sj_users_daily_medium_f&quot; 
+## [13] &quot;sj_all_sessions_large&quot;    &quot;sj_users_daily_large&quot;    
+## [15] &quot;sj_all_sessions_small_f&quot;  &quot;sj_all_revenue_medium&quot;   
+## [17] &quot;sj_users_daily_medium&quot;    &quot;sj_user_summary_large_f&quot; 
+## [19] &quot;sj_all_revenue_xlarge_f&quot;  &quot;sj_user_summary_xlarge&quot;  
+## [21] &quot;sj_users_daily_xlarge&quot;    &quot;sj_user_summary_small_f&quot; 
+## [23] &quot;sj_all_sessions_medium&quot;   &quot;sj_all_revenue_large&quot;    
+## [25] &quot;sj_user_summary_small&quot;    &quot;sj_users_daily_small_f&quot;  
+## [27] &quot;sj_user_summary_medium_f&quot; &quot;sj_all_sessions_medium_f&quot;
+## [29] &quot;sj_all_revenue_large_f&quot;   &quot;sj_user_summary_large&quot;   
+## [31] &quot;sj_all_revenue_xlarge&quot;    &quot;sj_all_sessions_xlarge&quot;</code></pre>
 <pre class="r"><code>tbl(con, &quot;sj_user_summary_small&quot;) %&gt;% glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 6
@@ -228,8 +435,15 @@ dbListTables(con)</code></pre>
 ## $ device_name &lt;chr&gt; &quot;Samsung Galaxy A7&quot;, &quot;Sony Experia Z1 Compact&quot;, &quot;Sony Expe…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
 </div>
-<div id="financial-aka-loan-application" class="section level1">
-<h1>Financial (aka Loan Application)</h1>
+<div id="financial-aka-loan-application" class="section level2">
+<h2>Financial (aka Loan Application)</h2>
+<p>Backends</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+PostgreSQL</li>
+<li><input type="checkbox" disabled="" checked="" />
+MariaDB</li>
+</ul>
 <p>A database that contains Financial dataset contains 606 successful
 and 76 not successful loans along with their information and
 transactions.</p>
@@ -239,7 +453,7 @@ Dataset Repository</a> where you can find the database schema and more
 information. The database full name is “PKDD’99 Financial Dataset or
 Loan Application”, and this particular version corresponds to
 Financial_ijs by Janez Kranjc.</p>
-<p>Check the structure of the tables in the next preview.</p>
+<p>Access these tables by adapting the next code:</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
 
@@ -252,8 +466,8 @@ con &lt;- dbConnect(
 )
 
 dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;disps&quot;     &quot;cards&quot;     &quot;clients&quot;   &quot;loans&quot;     &quot;orders&quot;    &quot;trans&quot;    
-## [7] &quot;tkeys&quot;     &quot;districts&quot; &quot;accounts&quot;</code></pre>
+<pre><code>## [1] &quot;accounts&quot;  &quot;cards&quot;     &quot;clients&quot;   &quot;disps&quot;     &quot;districts&quot; &quot;loans&quot;    
+## [7] &quot;orders&quot;    &quot;tkeys&quot;     &quot;trans&quot;</code></pre>
 <pre class="r"><code>tbl(con, &quot;clients&quot;) %&gt;% glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 4
@@ -263,39 +477,71 @@ dbListTables(con)</code></pre>
 ## $ district_id  &lt;int64&gt; 18, 1, 1, 5, 5, 12, 15, 51, 60, 57, 57, 40, 54, 76, 21,…
 ## $ tkey_id      &lt;int64&gt; NA, 21, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
 </div>
+<div id="censo-2017" class="section level2">
+<h2>CENSO 2017</h2>
+<p>Backends</p>
+<ul class="task-list">
+<li><input type="checkbox" disabled="" checked="" />
+PostgreSQL</li>
+<li><input type="checkbox" disabled="" />
+MariaDB</li>
+</ul>
+<p>This database combines two source, <a
+href="https://github.com/ropensci/censo2017">censo2017 R package</a>
+(uses DuckDB as locla backend) and <a
+href="https://github.com/ropensci/censo2017-cartografias">censo2017
+cartographies</a>.</p>
+<p>Please read the documentation in the mentioned sources. Because of
+GIS structure in some tables, I’m bounded to use PostgreSQL with
+PostGIS.</p>
+</div>
+</div>
 <div id="sql-dumps" class="section level1">
 <h1>SQL dumps</h1>
+<!-- 
+sudo -i -u postgres
+pg_dump -Fc intendo > intendo-postgres.sql.gz
+md5sum intendo.sql.gz > intendo.sql.gz.md5
+-->
+<p>All the dumps are available for PostgreSQL to promote its use. I had
+just too many problems with MariaDB/MySQL configuration and even more
+with SQL Server (see the <em>Problems with MySQL/Maria and SQL
+Server</em> section).</p>
+<div id="open-trade-statistics-1" class="section level2">
+<h2>Open Trade Statistics</h2>
+<ul>
+<li><a
+href="https://databases.pacha.dev/dumps/tradestatistics.sql.gz">PostgreSQL</a>
+(1.8 GB, check the download with the <a
+href="https://databases.pacha.dev/dumps/tradestatistics.sql.gz.md5">md5sum</a>)</li>
+</ul>
+</div>
 <div id="intendo-1" class="section level2">
 <h2>Intendo</h2>
 <ul>
-<li><p><a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql.gz">PostgreSQL</a>
-(15 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5">md5sum</a>)</p></li>
-<li><p><a
-href="https://databases.pacha.dev/dumps/intendo-mysql.sql.gz">MySQL/MariaDB</a>
-(16 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5">md5sum</a>)</p></li>
-<li><p><a
-href="https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz">SQL
-Server</a> (26 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5">md5sum</a>)</p></li>
+<li><a
+href="https://databases.pacha.dev/dumps/intendo.sql.gz">PostgreSQL</a>
+(554 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/intendo.sql.gz.md5">md5sum</a>)</li>
 </ul>
 </div>
 <div id="financial" class="section level2">
 <h2>Financial</h2>
 <ul>
-<li><p><a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz">PostgreSQL</a>
-(11 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5">md5sum</a>)</p></li>
-<li><p><a
-href="https://databases.pacha.dev/dumps/financial-mysql.sql.gz">MySQL/MariaDB</a>
-(178 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/financial-mysql.sql.gz.md5">md5sum</a>)</p></li>
-<li><p>SQL Server: Coming Soon</p></li>
+<li><a
+href="https://databases.pacha.dev/dumps/financial.sql.gz">PostgreSQL</a>
+(13 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/financial.sql.gz.md5">md5sum</a>)</li>
 </ul>
-<!-- * [SQL Server](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz.md5)) -->
+</div>
+<div id="censo2017" class="section level2">
+<h2>CENSO2017</h2>
+<ul>
+<li><a
+href="https://databases.pacha.dev/dumps/censo2017.sql.gz">PostgreSQL</a>
+(850 MB, check the download with the <a
+href="https://databases.pacha.dev/dumps/censo2017.sql.gz.md5">md5sum</a>)</li>
+</ul>
 </div>
 </div>
 <div id="using-the-dumps-locally" class="section level1">
@@ -304,30 +550,33 @@ href="https://databases.pacha.dev/dumps/financial-mysql.sql.gz.md5">md5sum</a>)<
 <h2>Restore dumps</h2>
 <div id="postgresql" class="section level3">
 <h3>PostgreSQL</h3>
-<!-- pg_dump intendo > intendo-postgres.sql -->
 <pre class="bash"><code>sudo -i -u postgres
 gunzip -c intendo-postgres.sql.gz | psql intendo</code></pre>
-</div>
-<div id="mysqlmariadb" class="section level3">
-<h3>MySQL/MariaDB</h3>
-<!-- mysqldump intendo > intendo-mysql.sql -->
-<p>From SQL:</p>
-<pre class="sql"><code># mysql 
-CREATE DATABASE intendo;</code></pre>
-<p>Then from bash:</p>
-<pre class="bash"><code>sudo su
-gunzip intendo-mysql.sql.gz
-mysql intendo &lt; intendo-mysql.sql</code></pre>
-</div>
-<div id="sql-server" class="section level3">
-<h3>SQL Server</h3>
-<!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
-<p>From bash:</p>
-<pre class="bash"><code>gunzip intendo-mysql.sql.gz
-sqlcmd -S localhost -U SA</code></pre>
-<p>Then in SQL:</p>
-<pre class="sql"><code>RESTORE DATABASE intendo FROM DISK = &#39;intendo-sqlserver.sql&#39;
-GO</code></pre>
+<!-- ### MySQL/MariaDB -->
+<!-- <!-- mysqldump intendo > intendo-mysql.sql -->
+<!-- From SQL: -->
+<!-- ``` SQL -->
+<!-- # mysql  -->
+<!-- CREATE DATABASE intendo; -->
+<!-- ``` -->
+<!-- Then from bash: -->
+<!-- ```bash -->
+<!-- sudo su -->
+<!-- gunzip intendo-mysql.sql.gz -->
+<!-- mysql intendo < intendo-mysql.sql -->
+<!-- ``` -->
+<!-- ### SQL Server -->
+<!-- <!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
+<!-- From bash: -->
+<!-- ```bash -->
+<!-- gunzip intendo-mysql.sql.gz -->
+<!-- sqlcmd -S localhost -U SA -->
+<!-- ``` -->
+<!-- Then in SQL: -->
+<!-- ```SQL -->
+<!-- RESTORE DATABASE intendo FROM DISK = 'intendo-sqlserver.sql' -->
+<!-- GO -->
+<!-- ``` -->
 </div>
 </div>
 <div id="create-users" class="section level2">
@@ -357,121 +606,144 @@ GRANT USAGE ON SCHEMA public TO teacher;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO teacher;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO teacher;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO teacher;
-GRANT CREATE ON SCHEMA public to teacher;</code></pre>
-</div>
-<div id="mysqlmariadb-1" class="section level3">
-<h3>MySQL/MariaDB</h3>
-<pre class="sql"><code># sudo mysql
-USE intendo;
-
-CREATE USER student IDENTIFIED BY &#39;SomePassword&#39;;
-CREATE USER teacher IDENTIFIED BY &#39;SomePassword&#39;;
-
-GRANT SELECT ON intendo.* TO student;
-
-GRANT SELECT ON intendo.* TO teacher;
-GRANT CREATE ON intendo.* TO teacher;
-GRANT INSERT ON intendo.* TO teacher;</code></pre>
-</div>
-<div id="sql-server-1" class="section level3">
-<h3>SQL Server</h3>
-<pre class="sql"><code># sqlcmd -S localhost -U SA
-
-USE intendo
-GO
-
-CREATE LOGIN student WITH PASSWORD = &#39;SomePassword&#39;
-GO
-CREATE USER student FOR LOGIN student
-GO
-GRANT SELECT ON SCHEMA :: dbo TO student
-GO
-
-CREATE LOGIN teacher WITH PASSWORD = &#39;SomePassword&#39;
-GO
-CREATE USER teacher FOR LOGIN teacher
-GO
-GRANT SELECT ON SCHEMA :: dbo TO teacher
-GO
-GRANT CREATE TABLE TO teacher
-GO
-GRANT ALTER,INSERT ON SCHEMA :: dbo TO teacher
-GO
-
-# You&#39;ll also want to limit SQL Server memory
-# This avoids strange crashes
-sp_configure &#39;show advanced options&#39;, 1;
-GO
-RECONFIGURE;
-GO
-sp_configure &#39;max server memory&#39;, 1024;
-GO
-RECONFIGURE;
-GO</code></pre>
+GRANT CREATE ON SCHEMA public TO teacher;</code></pre>
+<!-- ### MySQL/MariaDB -->
+<!-- ```SQL -->
+<!-- # sudo mysql -->
+<!-- USE intendo; -->
+<!-- CREATE USER student IDENTIFIED BY 'SomePassword'; -->
+<!-- CREATE USER teacher IDENTIFIED BY 'SomePassword'; -->
+<!-- GRANT SELECT ON intendo.* TO student; -->
+<!-- GRANT SELECT ON intendo.* TO teacher; -->
+<!-- GRANT CREATE ON intendo.* TO teacher; -->
+<!-- GRANT INSERT ON intendo.* TO teacher; -->
+<!-- GRANT ALTER ON intendo.* TO teacher; -->
+<!-- ``` -->
+<!-- ### SQL Server -->
+<!-- ```SQL -->
+<!-- # sqlcmd -S localhost -U SA -->
+<!-- USE intendo -->
+<!-- GO -->
+<!-- CREATE LOGIN student WITH PASSWORD = 'SomePassword' -->
+<!-- GO -->
+<!-- CREATE USER student FOR LOGIN student -->
+<!-- GO -->
+<!-- GRANT SELECT ON SCHEMA :: dbo TO student -->
+<!-- GO -->
+<!-- CREATE LOGIN teacher WITH PASSWORD = 'SomePassword' -->
+<!-- GO -->
+<!-- CREATE USER teacher FOR LOGIN teacher -->
+<!-- GO -->
+<!-- GRANT SELECT ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT CREATE TABLE TO teacher -->
+<!-- GO -->
+<!-- GRANT INSERT ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT ALTER ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT UPDATE ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- # You'll also want to limit SQL Server memory -->
+<!-- # This avoids strange crashes -->
+<!-- sp_configure 'show advanced options', 1; -->
+<!-- GO -->
+<!-- RECONFIGURE; -->
+<!-- GO -->
+<!-- sp_configure 'max server memory', 1024; -->
+<!-- GO -->
+<!-- RECONFIGURE; -->
+<!-- GO -->
+<!-- ``` -->
 </div>
 </div>
 <div id="allow-external-connections" class="section level2">
 <h2>Allow external connections</h2>
 <p>For this project I had to allow connections from outside the
 server.</p>
-<div id="postgres-version-12" class="section level3">
-<h3>Postgres (version 12)</h3>
+<div id="postgres-version-14" class="section level3">
+<h3>Postgres (version 14)</h3>
 <ol style="list-style-type: decimal">
-<li>Open <code>/etc/postgresql/12/main/postgresql.conf</code>, comment
+<li>Open <code>/etc/postgresql/14/main/postgresql.conf</code>, comment
 the line that says <code>listen_addresses = 'localhost'</code>, add
 <code>listen_address = '*'</code> below it.</li>
-<li>Open <code>/etc/postgresql/13/main/pg_hba.conf</code>, paste these
+<li>Open <code>/etc/postgresql/14/main/pg_hba.conf</code>, paste these
 lines at the end</li>
 </ol>
 <pre class="bash"><code># TYPE  DATABASE        USER    ADDRESS         METHOD
 host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Run <code>sudo systemctl restart postgres</code>.</li>
+<li>Run <code>sudo systemctl restart postgresql</code>.</li>
 <li>Open the port with <code>sudo ufw allow 5432/tcp</code>.</li>
 </ol>
-</div>
-<div id="mariadb-i.e.-mysql-replacement" class="section level3">
-<h3>MariaDB (i.e. MySQL replacement)</h3>
-<ol style="list-style-type: decimal">
-<li>Open <code>/etc/mysql/mariadb.conf.d/50-server.cnf</code>, comment
-the line that says <code>bind-address = 127.0.0.1</code>.</li>
-<li>Run <code>sudo systemctl mysql</code>.</li>
-<li>Open the port with <code>sudo ufw allow 3306/tcp</code>.</li>
-</ol>
-</div>
-<div id="sql-server-2" class="section level3">
-<h3>SQL Server</h3>
-<ol start="3" style="list-style-type: decimal">
-<li>Access as administrator and run</li>
-</ol>
-<pre class="sql"><code>EXEC sys.sp_configure N&#39;remote access&#39;, N&#39;1&#39;
-GO
-RECONFIGURE WITH OVERRIDE
-GO</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Open the ports with</li>
-</ol>
-<pre class="bash"><code>sudo ufw allow 1433/tcp
-sudo ufw allow 4022/tcp
-sudo ufw allow 135/tcp
-sudo ufw allow 1434/tcp
-sudo ufw allow 1434/udp</code></pre>
+<!-- ### MariaDB (i.e. MySQL replacement) -->
+<!-- 1. Open `/etc/mysql/mariadb.conf.d/50-server.cnf`, comment the line that says `bind-address = 127.0.0.1`. -->
+<!-- 2. Run `sudo systemctl restart mysql`. -->
+<!-- 3. Open the port with `sudo ufw allow 3306/tcp`. -->
+<!-- ### SQL Server -->
+<!-- 3. Access as administrator and run -->
+<!-- ```SQL -->
+<!-- EXEC sys.sp_configure N'remote access', N'1' -->
+<!-- GO -->
+<!-- RECONFIGURE WITH OVERRIDE -->
+<!-- GO -->
+<!-- ``` -->
+<!-- 2. Open the ports with  -->
+<!-- ```bash -->
+<!-- sudo ufw allow 1433/tcp -->
+<!-- sudo ufw allow 4022/tcp -->
+<!-- sudo ufw allow 135/tcp -->
+<!-- sudo ufw allow 1434/tcp -->
+<!-- sudo ufw allow 1434/udp -->
+<!-- ``` -->
 </div>
 </div>
+<div id="changing-database-location" class="section level2">
+<h2>Changing database location</h2>
+<div id="postgresql-2" class="section level3">
+<h3>PostgreSQL</h3>
+<p>Create a new dir, stop the service and copy the PostgreSQL data
+directory to the new location.</p>
+<pre class="bash"><code>sudo mkdir /postgres
+sudo chown -R postgres:postgres /postgres
+sudo systemctl stop postgresql
+sudo rsync -av /var/lib/postgresql/ /postgres
+sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
+<p>Then search <code>data_directory</code> to
+<code>/postgresql/14/main</code>.</p>
+<p>Finally start the service again.</p>
+<!-- ###  MySQL/MariaDB -->
+<!-- Create a new dir, stop the service and copy the MariaDB data directory to the new location. -->
+<!-- ```bash -->
+<!-- sudo mkdir /mysql -->
+<!-- sudo chown -R mysql:mysql /mysql -->
+<!-- sudo systemctl stop mariadb -->
+<!-- sudo cp -R -p /var/lib/mysql/* /mysql/ -->
+<!-- sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf -->
+<!-- ``` -->
+<!-- Then search `datadir` to `/mariadb`.  -->
+<!-- Finally start the service again. -->
+<!-- ```bash -->
+<!-- sudo systemctl start mariadb -->
+<!-- ``` -->
+<!-- With my MySQL is slightly different. -->
 </div>
-<div id="problems-with-mysqlmaria-sql-server" class="section level1">
-<h1>Problems with MySQL/Maria SQL Server</h1>
-<div id="mysqlmariadb-2" class="section level2">
+</div>
+</div>
+<div id="problems-with-mysqlmaria-and-sql-server"
+class="section level1">
+<h1>Problems with MySQL/Maria and SQL Server</h1>
+<div id="mysqlmariadb" class="section level2">
 <h2>MySQL/MariaDB</h2>
 <p>From R, the RMariaDB package copies around 20 times slower than
-RMySQL. Also using odbc for this SQL backend is not very efficient. Just
-use RMySQL even if (by any reason) you prefer it over MySQL.</p>
+RMySQL. Using odbc for this SQL backend is not very efficient. Just use
+RMySQL.</p>
 <p>When you backup, at least with MariaDB,
 <code>mysqldump intendo &gt; intendo-mysql.sql</code> is hundreds of
 times faster than <code>mysql intendo &gt; intendo-mysql.sql</code>.</p>
 </div>
-<div id="sql-server-3" class="section level2">
+<div id="sql-server" class="section level2">
 <h2>SQL Server</h2>
 <p>Beware that SQL Server shows strange problems with Linux and Mac! For
 example, when I connect from a Mac, I experience random disconnections
@@ -479,10 +751,10 @@ and the next error message:</p>
 <pre class="bash"><code>nanodbc/nanodbc.cpp:4483: 00000: [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure </code></pre>
 <p>With Ubuntu I get this another error message and RStudio crashes:</p>
 <pre class="bash"><code>terminate called after throwing an instance of &#39;nanodbc::database_error&#39;</code></pre>
-<p>Therefore, my preference for DB backends is not arbitrary.</p>
 <p>I had to divide my data and write in chunks of 50,000 rows or it just
 disconnects. PostgreSQL and MariaDB can write tables containing two
 million rows right away.</p>
+<p>Therefore, my preference for DB backends is not arbitrary.</p>
 </div>
 </div>
 <div id="cite-this-work" class="section level1">
@@ -505,8 +777,8 @@ Attribution 4.0 International (CC BY 4.0)</a>.</p>
 <div id="access-and-support" class="section level1">
 <h1>Access and support</h1>
 <p>If you need access to the online DBs (i.e., not configuring your
-local copy), send me an email to <em>ma vargas 11 at uc dot cl</em> or a
-tweet to <a
+local copy), send me an email to hello+spam [at] pacha.dev (replace with
++databases for a faster reply) or a tweet to <a
 href="https://twitter.com/pachadotdev">@pachadotdev</a>).</p>
 <p>I also have a <a href="https://www.buymeacoffee.com/pacha">Buy me a
 coffee</a> profile. If you like my work, buy me a coffee, it shall be

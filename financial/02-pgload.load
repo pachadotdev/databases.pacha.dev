@@ -1,0 +1,7 @@
+LOAD DATABASE
+     FROM     mysql://pgloader_my:mysql_password@localhost/financial
+     INTO     pgsql://pgloader_pg:postgresql_password@localhost/financial
+
+ WITH include drop, create tables
+
+ALTER SCHEMA 'financial' RENAME TO 'public';

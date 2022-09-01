@@ -12,24 +12,94 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
+*Update 2022-09-30: The SQL Server educational license expired. From now on,
+only PostgreSQL and MariaDB databases will be available.*
+
 # About
 
 <img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200">
 
-Publicly accessible databases often impose query limits or require registration. Even when I maintain public and limit-free APIs, I never wanted to host a public database because I tend to think that the connection strings are a problem for the user.
+Publicly accessible databases often impose query limits or require registration. 
+Even when I maintain public and limit-free APIs, I never wanted to host a public 
+database because I tend to think that the connection strings are a problem for 
+the user.
 
-I've decided to host different light/medium size by using PostgreSQL, MySQL and SQL Server backends (in strict descending order of preference!). 
+I've decided to host different light/medium size by using PostgreSQL and MariaDB 
+(a modern fork of MySQL) backends. I tend to prefer PostgreSQL because it easier
+to configure on client and server side, without strange tricks (see the 
+*Problems with MySQL/Maria and SQL Server* section).
 
-Why 3 database backends? I think there are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.
+Why these database backends? I think there are a ton of small edge cases when 
+moving between DB back ends and so testing lots with live databases is quite 
+valuable. With this resource you can benchmark speed, compression, and DDL 
+types.
 
-Please send me a tweet if you need the connection strings for your lectures or workshops. My Twitter username is [\@pachadotdev](https://twitter.com/pachadotdev).
+Please send me a tweet if you need the connection strings for your lectures or 
+workshops. My Twitter username is 
+[\@pachadotdev](https://twitter.com/pachadotdev).
 
-# Intendo
+# Available Databases
 
-It's a dummy database that originally we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this
+## Open Trade Statistics
+
+Backends
+
+- [x] PostgreSQL
+- [ ] MariaDB
+
+It's the database that powers [Open Trade Statistics](https://shiny.tradestatistics.io/countryprofiles) and 
+contains international trade data for commodities since 2002.
+
+This database can be helpful for evaluating the impact of free trade agreements, 
+and other policy relevant modelling. The database is a modified version of the 
+United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted
+for Latin American Universities, who often have limited or no access to the
+original resource.
+
+The full description for each table is:
+
+```{r echo=FALSE, results='asis'}
+knitr::kable(tradestatistics::ots_tables)
+```
+
+Access these tables by adapting the next code:
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "tradestatistics",
+  host = "databases.pacha.dev"
+)
+
+dbListTables(con)
+
+tbl(con, "yrpc") %>% glimpse()
+
+dbDisconnect(con)
+```
+
+## Intendo
+
+Backends
+
+- [x] PostgreSQL
+- [x] MariaDB
+
+It's a dummy database that originally we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains 
+managerial information of a company called Intendo, which creates mobile games. 
+The tables contain information for the 2015 year for all sorts of information 
+for their only game: Super Jetroid. See the recent updated to this
 database at [intendo](https://github.com/rich-iannone/intendo).
 
-This database can be helpful for workshops and showing how to create an R package focused on the particular needs of an organization, including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.
+This database can be helpful for workshops and showing how to create an R 
+package focused on the particular needs of an organization, including easier 
+data access, shared functions for data transformation and analysis, and a common
+look and feel for reporting.
 
 Check the structure of the tables in the next preview. The tables ending with
 "_f" contain deliberated errors.
@@ -53,13 +123,22 @@ tbl(con, "sj_user_summary_small") %>% glimpse()
 dbDisconnect(con)
 ```
 
-# Financial (aka Loan Application)
+## Financial (aka Loan Application)
 
-A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.
+Backends
 
-This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find the database schema and more information. The database full name is "PKDD'99 Financial Dataset or Loan Application", and this particular version corresponds to Financial_ijs by Janez Kranjc.
+- [x] PostgreSQL
+- [x] MariaDB
 
-Check the structure of the tables in the next preview.
+A database that contains Financial dataset contains 606 successful and 76 not 
+successful loans along with their information and transactions.
+
+This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find
+the database schema and more information. The database full name is "PKDD'99 
+Financial Dataset or Loan Application", and this particular version corresponds 
+to Financial_ijs by Janez Kranjc.
+
+Access these tables by adapting the next code:
 
 ```{r, message=FALSE}
 library(dplyr)
@@ -78,25 +157,46 @@ dbListTables(con)
 tbl(con, "clients") %>% glimpse()
 ```
 
+## CENSO 2017
+
+Backends
+
+- [x] PostgreSQL
+- [ ] MariaDB
+
+This database combines two source, [censo2017 R package](https://github.com/ropensci/censo2017) (uses DuckDB as locla backend)
+and [censo2017 cartographies](https://github.com/ropensci/censo2017-cartografias).
+
+Please read the documentation in the mentioned sources. Because of GIS structure
+in some tables, I'm bounded to use PostgreSQL with PostGIS.
+
 # SQL dumps
+
+<!-- 
+sudo -i -u postgres
+pg_dump -Fc intendo > intendo-postgres.sql.gz
+md5sum intendo.sql.gz > intendo.sql.gz.md5
+-->
+
+All the dumps are available for PostgreSQL to promote its use. I had just too 
+many problems with MariaDB/MySQL configuration and even more with SQL Server
+(see the *Problems with MySQL/Maria and SQL Server* section).
+
+## Open Trade Statistics
+
+* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics.sql.gz.md5))
 
 ## Intendo
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz) (15 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5))
-
-* [MySQL/MariaDB](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz) (16 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-mysql.sql.gz.md5))
-
-* [SQL Server](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz) (26 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-sqlserver.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/intendo.sql.gz) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo.sql.gz.md5))
 
 ## Financial
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql.gz) (11 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/financial.sql.gz) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial.sql.gz.md5))
 
-* [MySQL/MariaDB](https://databases.pacha.dev/dumps/financial-mysql.sql.gz) (178 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-mysql.sql.gz.md5))
+## CENSO2017
 
-* SQL Server: Coming Soon
-
-<!-- * [SQL Server](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz) (269 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-sqlserver.sql.gz.md5)) -->
+* [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql.gz) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.gz.md5))
 
 # Using the dumps locally
 
@@ -104,46 +204,44 @@ tbl(con, "clients") %>% glimpse()
 
 ### PostgreSQL
 
-<!-- pg_dump intendo > intendo-postgres.sql -->
- 
 ```bash
 sudo -i -u postgres
 gunzip -c intendo-postgres.sql.gz | psql intendo
 ```
 
-### MySQL/MariaDB
+<!-- ### MySQL/MariaDB -->
 
-<!-- mysqldump intendo > intendo-mysql.sql -->
+<!-- <!-- mysqldump intendo > intendo-mysql.sql -->
 
-From SQL:
+<!-- From SQL: -->
 
-``` SQL
-# mysql 
-CREATE DATABASE intendo;
-```
+<!-- ``` SQL -->
+<!-- # mysql  -->
+<!-- CREATE DATABASE intendo; -->
+<!-- ``` -->
 
-Then from bash:
-```bash
-sudo su
-gunzip intendo-mysql.sql.gz
-mysql intendo < intendo-mysql.sql
-```
+<!-- Then from bash: -->
+<!-- ```bash -->
+<!-- sudo su -->
+<!-- gunzip intendo-mysql.sql.gz -->
+<!-- mysql intendo < intendo-mysql.sql -->
+<!-- ``` -->
 
-### SQL Server
+<!-- ### SQL Server -->
 
-<!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
+<!-- <!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
 
-From bash:
-```bash
-gunzip intendo-mysql.sql.gz
-sqlcmd -S localhost -U SA
-```
+<!-- From bash: -->
+<!-- ```bash -->
+<!-- gunzip intendo-mysql.sql.gz -->
+<!-- sqlcmd -S localhost -U SA -->
+<!-- ``` -->
 
-Then in SQL:
-```SQL
-RESTORE DATABASE intendo FROM DISK = 'intendo-sqlserver.sql'
-GO
-```
+<!-- Then in SQL: -->
+<!-- ```SQL -->
+<!-- RESTORE DATABASE intendo FROM DISK = 'intendo-sqlserver.sql' -->
+<!-- GO -->
+<!-- ``` -->
 
 ## Create users
 
@@ -173,120 +271,164 @@ GRANT USAGE ON SCHEMA public TO teacher;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO teacher;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO teacher;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO teacher;
-GRANT CREATE ON SCHEMA public to teacher;
+GRANT CREATE ON SCHEMA public TO teacher;
 ```
 
-### MySQL/MariaDB
+<!-- ### MySQL/MariaDB -->
 
-```SQL
-# sudo mysql
-USE intendo;
+<!-- ```SQL -->
+<!-- # sudo mysql -->
+<!-- USE intendo; -->
 
-CREATE USER student IDENTIFIED BY 'SomePassword';
-CREATE USER teacher IDENTIFIED BY 'SomePassword';
+<!-- CREATE USER student IDENTIFIED BY 'SomePassword'; -->
+<!-- CREATE USER teacher IDENTIFIED BY 'SomePassword'; -->
 
-GRANT SELECT ON intendo.* TO student;
+<!-- GRANT SELECT ON intendo.* TO student; -->
 
-GRANT SELECT ON intendo.* TO teacher;
-GRANT CREATE ON intendo.* TO teacher;
-GRANT INSERT ON intendo.* TO teacher;
-GRANT ALTER ON intendo.* TO teacher;
-```
+<!-- GRANT SELECT ON intendo.* TO teacher; -->
+<!-- GRANT CREATE ON intendo.* TO teacher; -->
+<!-- GRANT INSERT ON intendo.* TO teacher; -->
+<!-- GRANT ALTER ON intendo.* TO teacher; -->
+<!-- ``` -->
 
-### SQL Server
+<!-- ### SQL Server -->
 
-```SQL
-# sqlcmd -S localhost -U SA
+<!-- ```SQL -->
+<!-- # sqlcmd -S localhost -U SA -->
 
-USE intendo
-GO
+<!-- USE intendo -->
+<!-- GO -->
 
-CREATE LOGIN student WITH PASSWORD = 'SomePassword'
-GO
-CREATE USER student FOR LOGIN student
-GO
-GRANT SELECT ON SCHEMA :: dbo TO student
-GO
+<!-- CREATE LOGIN student WITH PASSWORD = 'SomePassword' -->
+<!-- GO -->
+<!-- CREATE USER student FOR LOGIN student -->
+<!-- GO -->
+<!-- GRANT SELECT ON SCHEMA :: dbo TO student -->
+<!-- GO -->
 
-CREATE LOGIN teacher WITH PASSWORD = 'SomePassword'
-GO
-CREATE USER teacher FOR LOGIN teacher
-GO
-GRANT SELECT ON SCHEMA :: dbo TO teacher
-GO
-GRANT CREATE TABLE TO teacher
-GO
-GRANT INSERT ON SCHEMA :: dbo TO teacher
-GO
-GRANT ALTER ON SCHEMA :: dbo TO teacher
-GO
-GRANT UPDATE ON SCHEMA :: dbo TO teacher
-GO
+<!-- CREATE LOGIN teacher WITH PASSWORD = 'SomePassword' -->
+<!-- GO -->
+<!-- CREATE USER teacher FOR LOGIN teacher -->
+<!-- GO -->
+<!-- GRANT SELECT ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT CREATE TABLE TO teacher -->
+<!-- GO -->
+<!-- GRANT INSERT ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT ALTER ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
+<!-- GRANT UPDATE ON SCHEMA :: dbo TO teacher -->
+<!-- GO -->
 
-# You'll also want to limit SQL Server memory
-# This avoids strange crashes
-sp_configure 'show advanced options', 1;
-GO
-RECONFIGURE;
-GO
-sp_configure 'max server memory', 1024;
-GO
-RECONFIGURE;
-GO
-```
+<!-- # You'll also want to limit SQL Server memory -->
+<!-- # This avoids strange crashes -->
+<!-- sp_configure 'show advanced options', 1; -->
+<!-- GO -->
+<!-- RECONFIGURE; -->
+<!-- GO -->
+<!-- sp_configure 'max server memory', 1024; -->
+<!-- GO -->
+<!-- RECONFIGURE; -->
+<!-- GO -->
+<!-- ``` -->
 
 ## Allow external connections
 
 For this project I had to allow connections from outside the server.
 
-### Postgres (version 12)
+### Postgres (version 14)
 
-1. Open `/etc/postgresql/12/main/postgresql.conf`, comment the line that says `listen_addresses = 'localhost'`,
+1. Open `/etc/postgresql/14/main/postgresql.conf`, comment the line that says `listen_addresses = 'localhost'`,
 add `listen_address = '*'` below it.
-2. Open `/etc/postgresql/13/main/pg_hba.conf`, paste these lines at the end
+2. Open `/etc/postgresql/14/main/pg_hba.conf`, paste these lines at the end
 ```bash
 # TYPE  DATABASE        USER    ADDRESS         METHOD
 host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5
 ```
-3. Run `sudo systemctl restart postgres`.
+3. Run `sudo systemctl restart postgresql`.
 4. Open the port with `sudo ufw allow 5432/tcp`.
 
-### MariaDB (i.e. MySQL replacement)
+<!-- ### MariaDB (i.e. MySQL replacement) -->
 
-1. Open `/etc/mysql/mariadb.conf.d/50-server.cnf`, comment the line that says `bind-address = 127.0.0.1`.
-2. Run `sudo systemctl mysql`.
-3. Open the port with `sudo ufw allow 3306/tcp`.
+<!-- 1. Open `/etc/mysql/mariadb.conf.d/50-server.cnf`, comment the line that says `bind-address = 127.0.0.1`. -->
+<!-- 2. Run `sudo systemctl restart mysql`. -->
+<!-- 3. Open the port with `sudo ufw allow 3306/tcp`. -->
 
-### SQL Server
+<!-- ### SQL Server -->
 
-3. Access as administrator and run
-```SQL
-EXEC sys.sp_configure N'remote access', N'1'
-GO
-RECONFIGURE WITH OVERRIDE
-GO
-```
-2. Open the ports with 
+<!-- 3. Access as administrator and run -->
+<!-- ```SQL -->
+<!-- EXEC sys.sp_configure N'remote access', N'1' -->
+<!-- GO -->
+<!-- RECONFIGURE WITH OVERRIDE -->
+<!-- GO -->
+<!-- ``` -->
+<!-- 2. Open the ports with  -->
+<!-- ```bash -->
+<!-- sudo ufw allow 1433/tcp -->
+<!-- sudo ufw allow 4022/tcp -->
+<!-- sudo ufw allow 135/tcp -->
+<!-- sudo ufw allow 1434/tcp -->
+<!-- sudo ufw allow 1434/udp -->
+<!-- ``` -->
+
+## Changing database location
+
+### PostgreSQL
+
+Create a new dir, stop the service and copy the PostgreSQL data directory to the new location.
+
 ```bash
-sudo ufw allow 1433/tcp
-sudo ufw allow 4022/tcp
-sudo ufw allow 135/tcp
-sudo ufw allow 1434/tcp
-sudo ufw allow 1434/udp
+sudo mkdir /postgres
+sudo chown -R postgres:postgres /postgres
+sudo systemctl stop postgresql
+sudo rsync -av /var/lib/postgresql/ /postgres
+sudo nano /etc/postgresql/14/main/postgresql.conf
 ```
 
-# Problems with MySQL/Maria SQL Server
+Then search `data_directory` to `/postgresql/14/main`. 
+
+Finally start the service again.
+
+<!-- ###  MySQL/MariaDB -->
+
+<!-- Create a new dir, stop the service and copy the MariaDB data directory to the new location. -->
+
+<!-- ```bash -->
+<!-- sudo mkdir /mysql -->
+<!-- sudo chown -R mysql:mysql /mysql -->
+<!-- sudo systemctl stop mariadb -->
+<!-- sudo cp -R -p /var/lib/mysql/* /mysql/ -->
+<!-- sudo nano /etc/mysql/mariadb.conf.d/50-server.cnf -->
+<!-- ``` -->
+
+<!-- Then search `datadir` to `/mariadb`.  -->
+
+<!-- Finally start the service again. -->
+
+<!-- ```bash -->
+<!-- sudo systemctl start mariadb -->
+<!-- ``` -->
+
+<!-- With my MySQL is slightly different. -->
+
+# Problems with MySQL/Maria and SQL Server
 
 ## MySQL/MariaDB
 
-From R, the RMariaDB package copies around 20 times slower than RMySQL. Also using odbc for this SQL backend is not very efficient. Just use RMySQL even if (by any reason) you prefer it over MySQL.
+From R, the RMariaDB package copies around 20 times slower than RMySQL. Using 
+odbc for this SQL backend is not very efficient. Just use RMySQL.
 
-When you backup, at least with MariaDB, `mysqldump intendo > intendo-mysql.sql` is hundreds of times faster than `mysql intendo > intendo-mysql.sql`.
+When you backup, at least with MariaDB, `mysqldump intendo > intendo-mysql.sql` 
+is hundreds of times faster than `mysql intendo > intendo-mysql.sql`.
 
 ## SQL Server
 
-Beware that SQL Server shows strange problems with Linux and Mac! For example, when I connect from a Mac, I experience random disconnections and the next error message:
+Beware that SQL Server shows strange problems with Linux and Mac! For example, 
+when I connect from a Mac, I experience random disconnections and the next error
+message:
 ```bash
 nanodbc/nanodbc.cpp:4483: 00000: [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure 
 ```
@@ -294,9 +436,11 @@ With Ubuntu I get this another error message and RStudio crashes:
 ```bash
 terminate called after throwing an instance of 'nanodbc::database_error'
 ```
-Therefore, my preference for DB backends is not arbitrary.
+I had to divide my data and write in chunks of 50,000 rows or it just 
+disconnects. PostgreSQL and MariaDB can write tables containing two million rows
+right away.
 
-I had to divide my data and write in chunks of 50,000 rows or it just disconnects. PostgreSQL and MariaDB can write tables containing two million rows right away.
+Therefore, my preference for DB backends is not arbitrary.
 
 # Cite this work
 
@@ -319,7 +463,9 @@ BibTeX entry:
 # Access and support
 
 If you need access to the online DBs (i.e., not configuring your local copy), 
-send me an email to *ma vargas 11 at uc dot cl* or a tweet to 
-[\@pachadotdev](https://twitter.com/pachadotdev)).
+send me an email to hello+spam [at] pacha.dev (replace with +databases for a
+faster reply) or a tweet to [\@pachadotdev](https://twitter.com/pachadotdev)).
 
-I also have a [Buy me a coffee](https://www.buymeacoffee.com/pacha) profile. If you like my work, buy me a coffee, it shall be used to produce more of it. Thank you for your support!
+I also have a [Buy me a coffee](https://www.buymeacoffee.com/pacha) profile. If 
+you like my work, buy me a coffee, it shall be used to produce more of it. Thank
+you for your support!
