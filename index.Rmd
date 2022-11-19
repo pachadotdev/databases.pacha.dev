@@ -35,8 +35,8 @@ valuable. With this resource you can benchmark speed, compression, and DDL
 types.
 
 Please send me a tweet if you need the connection strings for your lectures or 
-workshops. My Twitter username is 
-[\@pachadotdev](https://twitter.com/pachadotdev).
+workshops. My <a rel="me" href="https://mastodonsocial.ca/@pacha">Mastodon</a> 
+username is [\@pacha](https://mastodonsocial.ca/pacha).
 
 # Available Databases
 
