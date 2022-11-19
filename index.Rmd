@@ -38,6 +38,10 @@ Please send me a tweet if you need the connection strings for your lectures or
 workshops. My <a rel="me" href="https://mastodonsocial.ca/@pacha">Mastodon</a> 
 username is [\@pacha](https://mastodonsocial.ca/pacha).
 
+You can contribute to keep it up with the hosting costs here:
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
 # Available Databases
 
 ## Open Trade Statistics
