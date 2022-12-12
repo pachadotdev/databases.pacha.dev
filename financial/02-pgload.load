@@ -1,7 +1,5 @@
 LOAD DATABASE
-     FROM     mysql://pgloader_my:mysql_password@localhost/financial
-     INTO     pgsql://pgloader_pg:postgresql_password@localhost/financial
+     FROM     mysql://guest:relational@relational.fit.cvut.cz/Financial_ijs
+     INTO     pgsql://teacher:REDACTED@databases.pacha.dev/financial
 
  WITH include drop, create tables
-
-ALTER SCHEMA 'financial' RENAME TO 'public';

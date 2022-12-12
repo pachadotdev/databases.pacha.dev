@@ -1,7 +1,7 @@
 ---
 title: "SQL Databases for Students and Educators"
 author: "Pachá"
-date: "2021-02-02"
+date: "2022-12-12"
 output:
   rmdformats::downcute:    
     self_contained: false
@@ -12,50 +12,39 @@ output:
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
+*Update 2022-12-12: I'm using just PostgreSQL. I just had too many heaches
+with MariaDB/MySQL. Also, the server is quite modest and I prefer to provide
+good PostgreSQL access than bad access to PostgreSQL and MariaDB.*
+
 *Update 2022-09-30: The SQL Server educational license expired. From now on,
 only PostgreSQL and MariaDB databases will be available.*
 
 # About
-
-<img src="https://opensource.nyc3.cdn.digitaloceanspaces.com/attribution/assets/PoweredByDO/DO_Powered_by_Badge_blue.svg" width="200">
 
 Publicly accessible databases often impose query limits or require registration. 
 Even when I maintain public and limit-free APIs, I never wanted to host a public 
 database because I tend to think that the connection strings are a problem for 
 the user.
 
-I've decided to host different light/medium size by using PostgreSQL and MariaDB 
-(a modern fork of MySQL) backends. I tend to prefer PostgreSQL because it easier
-to configure on client and server side, without strange tricks (see the 
-*Problems with MySQL/Maria and SQL Server* section).
+I've decided to host different light/medium size by using PostgreSQL. I tend to 
+prefer PostgreSQL because it easier to configure on client and server side, 
+without strange tricks (see the *Problems with MySQL/MariaDB and SQL Server* 
+section).
 
-Why these database backends? I think there are a ton of small edge cases when 
-moving between DB back ends and so testing lots with live databases is quite 
-valuable. With this resource you can benchmark speed, compression, and DDL 
-types.
-
-Please send me a tweet if you need the connection strings for your lectures or 
-workshops. My <a rel="me" href="https://mastodonsocial.ca/@pacha">Mastodon</a> 
-username is [\@pacha](https://mastodonsocial.ca/pacha).
-
-You can contribute to keep it up with the hosting costs here:
-
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+There are a ton of small edge cases when moving between DB back ends and so 
+testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types. As I can secure funding for this,
+I will make the same databases available under different backends (even
+MariaDB **and** MySQL at the same time)
 
 # Available Databases
 
 ## Open Trade Statistics
 
-Backends
-
-- [x] PostgreSQL
-- [ ] MariaDB
-
-It's the database that powers [Open Trade Statistics](https://shiny.tradestatistics.io/countryprofiles) and 
+This is the database that powers [Open Trade Statistics](https://shiny.tradestatistics.io/countryprofiles) and
 contains international trade data for commodities since 2002.
 
-This database can be helpful for evaluating the impact of free trade agreements, 
-and other policy relevant modelling. The database is a modified version of the 
+This database can be helpful for evaluating the impact of free trade agreements,
+and other policy relevant modelling. The database is a modified version of the
 United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted
 for Latin American Universities, who often have limited or no access to the
 original resource.
@@ -88,11 +77,6 @@ dbDisconnect(con)
 ```
 
 ## Intendo
-
-Backends
-
-- [x] PostgreSQL
-- [x] MariaDB
 
 It's a dummy database that originally we used at the [My Organization's First R Package](https://github.com/rstudio-conf-2020/my-org-first-pkg) and contains 
 managerial information of a company called Intendo, which creates mobile games. 
@@ -129,11 +113,6 @@ dbDisconnect(con)
 
 ## Financial (aka Loan Application)
 
-Backends
-
-- [x] PostgreSQL
-- [x] MariaDB
-
 A database that contains Financial dataset contains 606 successful and 76 not 
 successful loans along with their information and transactions.
 
@@ -161,18 +140,18 @@ dbListTables(con)
 tbl(con, "clients") %>% glimpse()
 ```
 
-## CENSO 2017
+<!-- ## CENSO 2017 -->
 
-Backends
+<!-- Backends -->
 
-- [x] PostgreSQL
-- [ ] MariaDB
+<!-- - [x] PostgreSQL -->
+<!-- - [ ] MariaDB -->
 
-This database combines two source, [censo2017 R package](https://github.com/ropensci/censo2017) (uses DuckDB as locla backend)
-and [censo2017 cartographies](https://github.com/ropensci/censo2017-cartografias).
+<!-- This database combines two source, [censo2017 R package](https://github.com/ropensci/censo2017) (uses DuckDB as locla backend) -->
+<!-- and [censo2017 cartographies](https://github.com/ropensci/censo2017-cartografias). -->
 
-Please read the documentation in the mentioned sources. Because of GIS structure
-in some tables, I'm bounded to use PostgreSQL with PostGIS.
+<!-- Please read the documentation in the mentioned sources. Because of GIS structure -->
+<!-- in some tables, I'm bounded to use PostgreSQL with PostGIS. -->
 
 # SQL dumps
 
@@ -186,9 +165,9 @@ All the dumps are available for PostgreSQL to promote its use. I had just too
 many problems with MariaDB/MySQL configuration and even more with SQL Server
 (see the *Problems with MySQL/Maria and SQL Server* section).
 
-## Open Trade Statistics
+<!-- ## Open Trade Statistics -->
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics.sql.gz.md5))
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics.sql.gz.md5)) -->
 
 ## Intendo
 
@@ -198,9 +177,9 @@ many problems with MariaDB/MySQL configuration and even more with SQL Server
 
 * [PostgreSQL](https://databases.pacha.dev/dumps/financial.sql.gz) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial.sql.gz.md5))
 
-## CENSO2017
+<!-- ## CENSO2017 -->
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql.gz) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.gz.md5))
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql.gz) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.gz.md5)) -->
 
 # Using the dumps locally
 
@@ -258,8 +237,8 @@ You can create a generic user (let's say `student`) and grant read-only access.
 # psql -d intendo
 CREATE ROLE student;
 CREATE ROLE teacher;
-ALTER ROLE student WITH PASSWORD 'SomePassword';
-ALTER ROLE teacher WITH PASSWORD 'SomePassword';
+ALTER ROLE student WITH ENCRYPTED PASSWORD 'SomePassword';
+ALTER ROLE teacher WITH ENCRYPTED PASSWORD 'SomePassword';
 ALTER ROLE student WITH LOGIN;
 ALTER ROLE teacher WITH LOGIN;
 
@@ -464,12 +443,14 @@ BibTeX entry:
 }
 ```
 
-# Access and support
+# Support
 
-If you need access to the online DBs (i.e., not configuring your local copy), 
-send me an email to hello+spam [at] pacha.dev (replace with +databases for a
-faster reply) or a tweet to [\@pachadotdev](https://twitter.com/pachadotdev)).
+If you need access to the online DBs (i.e., not configuring your local copy) or
+you need technical support, send me an email to 
+m.sepulveda+spam@mail.utoronto.ca (replace with +databases for a faster reply).
 
-I also have a [Buy me a coffee](https://www.buymeacoffee.com/pacha) profile. If 
-you like my work, buy me a coffee, it shall be used to produce more of it. Thank
-you for your support!
+# Donate
+
+You can contribute to keep it up with the hosting costs here:
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>

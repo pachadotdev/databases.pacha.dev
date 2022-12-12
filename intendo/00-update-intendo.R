@@ -1,13 +1,19 @@
-# All the need to partition tables and connect/disconnect a lot is because of SQL Server backend
-# see https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
+# All the need to partition tables and connect/disconnect a lot is because of 
+# SQL Server backend
+# see 
+# https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15
+
+# clone
+# git@github.com:rich-iannone/intendo.git
+# before running this
 
 # CHANGE THIS ACCORDINGLY: small, medium, large, xlarge
-select_engine <- "mysql"
+select_engine <- "postgres"
 size <- "xlarge"
 
 if (select_engine == "postgres") library(RPostgres)
 if (select_engine == "mysql") library(RMySQL) # library(RMariaDB) for some reason copies really slow
-if (select_engine == "sqlserver") library(odbc)
+# if (select_engine == "sqlserver") library(odbc)
 library(dplyr)
 library(tidyr)
 library(glue)
@@ -32,7 +38,7 @@ fun_con <- function(type) {
       user = Sys.getenv("dbedu_usr"),
       password = Sys.getenv("dbedu_pwd"),
       dbname = "intendo",
-      host = "178.62.218.144"
+      host = "databases.pacha.dev"
     )
   } 
   
