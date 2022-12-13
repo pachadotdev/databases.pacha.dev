@@ -165,17 +165,17 @@ All the dumps are available for PostgreSQL to promote its use. I had just too
 many problems with MariaDB/MySQL configuration and even more with SQL Server
 (see the *Problems with MySQL/Maria and SQL Server* section).
 
-<!-- ## Open Trade Statistics -->
+## Open Trade Statistics
 
-<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics.sql.gz.md5)) -->
+* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz.md5))
 
 ## Intendo
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/intendo.sql.gz) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5))
 
 ## Financial
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/financial.sql.gz) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql.gz) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5))
 
 <!-- ## CENSO2017 -->
 
