@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
 ```
 
 *Update 2022-12-12: I'm using just PostgreSQL. I just had too many heaches
-with MariaDB/MySQL. Also, the server is quite modest and I prefer to provide
+with MariaDB/MySQL. Also, the server is quite modest and I prefer to provide 
 good PostgreSQL access than bad access to PostgreSQL and MariaDB.*
 
 *Update 2022-09-30: The SQL Server educational license expired. From now on,
@@ -35,6 +35,15 @@ There are a ton of small edge cases when moving between DB back ends and so
 testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types. As I can secure funding for this,
 I will make the same databases available under different backends (even
 MariaDB **and** MySQL at the same time)
+
+If you need access to the online DBs (i.e., not configuring your local copy) or
+you need technical support, send me an email to 
+m.sepulveda+spam@mail.utoronto.ca (replace with +databases for a faster reply).
+
+You can contribute to keep it up with the hosting costs here:
+
+<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
+
 
 # Available Databases
 
@@ -442,15 +451,3 @@ BibTeX entry:
   note = {Accessed: Month DD, YYYY}
 }
 ```
-
-# Support
-
-If you need access to the online DBs (i.e., not configuring your local copy) or
-you need technical support, send me an email to 
-m.sepulveda+spam@mail.utoronto.ca (replace with +databases for a faster reply).
-
-# Donate
-
-You can contribute to keep it up with the hosting costs here:
-
-<script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
