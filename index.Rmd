@@ -31,10 +31,11 @@ prefer PostgreSQL because it easier to configure on client and server side,
 without strange tricks (see the *Problems with MySQL/MariaDB and SQL Server* 
 section).
 
-There are a ton of small edge cases when moving between DB back ends and so 
-testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types. As I can secure funding for this,
-I will make the same databases available under different backends (even
-MariaDB **and** MySQL at the same time)
+If I can secure funding for this, I will make the same databases available under
+different backends (even MariaDB **and** MySQL at the same time). There are a 
+ton of small edge cases when moving between DB back ends and so testing lots with
+live databases is quite valuable. With this resource you can benchmark speed, 
+compression, and DDL types.
 
 If you need access to the online DBs (i.e., not configuring your local copy) or
 you need technical support, send me an email to 
@@ -43,7 +44,6 @@ m.sepulveda+spam@mail.utoronto.ca (replace with +databases for a faster reply).
 You can contribute to keep it up with the hosting costs here:
 
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
-
 
 # Available Databases
 
@@ -57,12 +57,6 @@ and other policy relevant modelling. The database is a modified version of the
 United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted
 for Latin American Universities, who often have limited or no access to the
 original resource.
-
-The full description for each table is:
-
-```{r echo=FALSE, results='asis'}
-knitr::kable(tradestatistics::ots_tables)
-```
 
 Access these tables by adapting the next code:
 
@@ -81,6 +75,34 @@ con <- dbConnect(
 dbListTables(con)
 
 tbl(con, "yrpc") %>% glimpse()
+
+dbDisconnect(con)
+```
+
+## Base Hansard
+
+A complete PostgreSQL database of the Canadian Hansard dataset, including 
+supplementary data. It covers the Canadian Hansard from 1901 to 2019 and
+was obtained from [LiPaD](https://www.lipad.ca/) with the intention of
+providing a live SQL database for users interested in this data. The
+original site provides a SQL dump that requires you to configure PostreSQL
+on your own laptop or server.
+
+```{r, message=FALSE}
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  Postgres(),
+  user = Sys.getenv("dbedu_usr"),
+  password = Sys.getenv("dbedu_pwd"),
+  dbname = "basehansard",
+  host = "databases.pacha.dev"
+)
+
+dbListTables(con)
+
+tbl(con, "dilipadsite_basehansard") %>% glimpse()
 
 dbDisconnect(con)
 ```
@@ -166,8 +188,8 @@ tbl(con, "clients") %>% glimpse()
 
 <!-- 
 sudo -i -u postgres
-pg_dump -Fc intendo > intendo-postgres.sql.gz
-md5sum intendo.sql.gz > intendo.sql.gz.md5
+pg_dump -Fc intendo > intendo-postgres.sql
+md5sum intendo.sql > intendo.sql.md5
 -->
 
 All the dumps are available for PostgreSQL to promote its use. I had just too 
@@ -176,19 +198,19 @@ many problems with MariaDB/MySQL configuration and even more with SQL Server
 
 ## Open Trade Statistics
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5))
 
 ## Intendo
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.md5))
 
 ## Financial
 
-* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql.gz) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5))
+* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.md5))
 
 <!-- ## CENSO2017 -->
 
-<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql.gz) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.gz.md5)) -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.md5)) -->
 
 # Using the dumps locally
 
@@ -198,7 +220,7 @@ many problems with MariaDB/MySQL configuration and even more with SQL Server
 
 ```bash
 sudo -i -u postgres
-gunzip -c intendo-postgres.sql.gz | psql intendo
+pg_restore intendo.sql -d intendo
 ```
 
 <!-- ### MySQL/MariaDB -->
@@ -215,7 +237,7 @@ gunzip -c intendo-postgres.sql.gz | psql intendo
 <!-- Then from bash: -->
 <!-- ```bash -->
 <!-- sudo su -->
-<!-- gunzip intendo-mysql.sql.gz -->
+<!-- gunzip intendo-mysql.sql -->
 <!-- mysql intendo < intendo-mysql.sql -->
 <!-- ``` -->
 
@@ -225,7 +247,7 @@ gunzip -c intendo-postgres.sql.gz | psql intendo
 
 <!-- From bash: -->
 <!-- ```bash -->
-<!-- gunzip intendo-mysql.sql.gz -->
+<!-- gunzip intendo-mysql.sql -->
 <!-- sqlcmd -S localhost -U SA -->
 <!-- ``` -->
 
@@ -380,7 +402,7 @@ sudo rsync -av /var/lib/postgresql/ /postgres
 sudo nano /etc/postgresql/14/main/postgresql.conf
 ```
 
-Then search `data_directory` to `/postgresql/14/main`. 
+Then search `data_directory` and change the location to `/postgresql/14/main`. 
 
 Finally start the service again.
 

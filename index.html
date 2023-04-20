@@ -11,7 +11,7 @@
     
     <title>SQL Databases for Students and Educators</title>
 
-        <script src="index_files/header-attrs-2.18/header-attrs.js"></script>
+        <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
         <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="index_files/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -123,6 +123,8 @@
             <li><a href="#open-trade-statistics"
             id="toc-open-trade-statistics">Open Trade
             Statistics</a></li>
+            <li><a href="#base-hansard" id="toc-base-hansard">Base
+            Hansard</a></li>
             <li><a href="#intendo" id="toc-intendo">Intendo</a></li>
             <li><a href="#financial-aka-loan-application"
             id="toc-financial-aka-loan-application">Financial (aka Loan
@@ -201,12 +203,12 @@ connection strings are a problem for the user.</p>
 I tend to prefer PostgreSQL because it easier to configure on client and
 server side, without strange tricks (see the <em>Problems with
 MySQL/MariaDB and SQL Server</em> section).</p>
-<p>There are a ton of small edge cases when moving between DB back ends
-and so testing lots with live databases is quite valuable. With this
-resource you can benchmark speed, compression, and DDL types. As I can
-secure funding for this, I will make the same databases available under
-different backends (even MariaDB <strong>and</strong> MySQL at the same
-time)</p>
+<p>If I can secure funding for this, I will make the same databases
+available under different backends (even MariaDB <strong>and</strong>
+MySQL at the same time). There are a ton of small edge cases when moving
+between DB back ends and so testing lots with live databases is quite
+valuable. With this resource you can benchmark speed, compression, and
+DDL types.</p>
 <p>If you need access to the online DBs (i.e., not configuring your
 local copy) or you need technical support, send me an email to <a
 href="mailto:m.sepulveda+spam@mail.utoronto.ca"
@@ -228,114 +230,6 @@ agreements, and other policy relevant modelling. The database is a
 modified version of the United Nations Commodity Trade Statistics
 Database (UN COMTRADE) and is targeted for Latin American Universities,
 who often have limited or no access to the original resource.</p>
-<p>The full description for each table is:</p>
-<table>
-<colgroup>
-<col width="9%" />
-<col width="68%" />
-<col width="22%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">table</th>
-<th align="left">description</th>
-<th align="left">source</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">commodities</td>
-<td align="left">Commodities metadata (HS codes, 6 digits long)</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="even">
-<td align="left">commodities_short</td>
-<td align="left">Commodities metadata (HS codes, 4 digits long)</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="odd">
-<td align="left">countries</td>
-<td align="left">Countries metadata</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="even">
-<td align="left">distances</td>
-<td align="left">Distance between countries, alongside continuity,
-common language and if the countries were the same once</td>
-<td align="left">CEPII (with modifications)</td>
-</tr>
-<tr class="odd">
-<td align="left">partners</td>
-<td align="left">Partners for a given year</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="even">
-<td align="left">reporters</td>
-<td align="left">Reporters for a given year</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="odd">
-<td align="left">sections</td>
-<td align="left">Sections metadata (HS codes)</td>
-<td align="left">UN Comtrade (with modifications)</td>
-</tr>
-<tr class="even">
-<td align="left">sections_colors</td>
-<td align="left">Colors for sections (i.e. useful to visualize
-data)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="odd">
-<td align="left">rtas</td>
-<td align="left">Regional Trade Agreements per pair of countries and
-year</td>
-<td align="left">Design of Trade Agreements (DESTA) Database</td>
-</tr>
-<tr class="even">
-<td align="left">tariffs</td>
-<td align="left">Most Favoured Nation tarrifs (Year, Reporter and
-Commodity Code)</td>
-<td align="left">World Integrated Trade Solution</td>
-</tr>
-<tr class="odd">
-<td align="left">years</td>
-<td align="left">Minimum and maximum years with available data</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="even">
-<td align="left">yc</td>
-<td align="left">Commodity trade at aggregated level (Year and
-Commodity), raw trade flows (i.e. with transportation costs)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="odd">
-<td align="left">yr</td>
-<td align="left">Reporter trade at aggregated level (Year and Reporter),
-raw trade flows (i.e. with transportation costs)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="even">
-<td align="left">yrc</td>
-<td align="left">Reporter trade at commodity level (Year, Reporter and
-Commodity Code), raw trade flows (i.e. with transportation costs)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="odd">
-<td align="left">yrp</td>
-<td align="left">Reporter-Partner trade at aggregated level (Year,
-Reporter and Partner), raw trade flows (i.e. with transportation
-costs)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-<tr class="even">
-<td align="left">yrpc</td>
-<td align="left">Reporter-Partner trade at commodity level (Year,
-Reporter, Partner and Commodity Code), raw trade flows (i.e. with
-transportation costs)</td>
-<td align="left">Open Trade Statistics</td>
-</tr>
-</tbody>
-</table>
 <p>Access these tables by adapting the next code:</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
@@ -366,6 +260,62 @@ dbListTables(con)</code></pre>
 ## $ commodity_code      &lt;chr&gt; &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, …
 ## $ trade_value_usd_imp &lt;dbl&gt; 242559, 0, 346, 659, 2056, 71380, 1112, 95223, 102…
 ## $ trade_value_usd_exp &lt;dbl&gt; 38553, 2313, 1006, 419, 0, 0, 0, 0, 0, 0, 0, 40553…</code></pre>
+<pre class="r"><code>dbDisconnect(con)</code></pre>
+</div>
+<div id="base-hansard" class="section level2">
+<h2>Base Hansard</h2>
+<p>A complete PostgreSQL database of the Canadian Hansard dataset,
+including supplementary data. It covers the Canadian Hansard from 1901
+to 2019 and was obtained from <a href="https://www.lipad.ca/">LiPaD</a>
+with the intention of providing a live SQL database for users interested
+in this data. The original site provides a SQL dump that requires you to
+configure PostreSQL on your own laptop or server.</p>
+<pre class="r"><code>library(dplyr)
+library(RPostgres)
+
+con &lt;- dbConnect(
+  Postgres(),
+  user = Sys.getenv(&quot;dbedu_usr&quot;),
+  password = Sys.getenv(&quot;dbedu_pwd&quot;),
+  dbname = &quot;basehansard&quot;,
+  host = &quot;databases.pacha.dev&quot;
+)
+
+dbListTables(con)</code></pre>
+<pre><code>##  [1] &quot;andablog_entryimage&quot;         &quot;contactme_contact_msg&quot;      
+##  [3] &quot;dilipadsite_datenav&quot;         &quot;dilipadsite_constituency&quot;   
+##  [5] &quot;dilipadsite_basehansard&quot;     &quot;auth_group&quot;                 
+##  [7] &quot;auth_group_permissions&quot;      &quot;auth_user_user_permissions&quot; 
+##  [9] &quot;auth_user_groups&quot;            &quot;better500s_caughterror&quot;     
+## [11] &quot;dilipadsite_basehansard_bak&quot; &quot;dilipadsite_blogger&quot;        
+## [13] &quot;auth_user&quot;                   &quot;auth_permission&quot;            
+## [15] &quot;dilipadsite_datenav_bak&quot;     &quot;dilipadsite_datepickle&quot;     
+## [17] &quot;dilipadsite_parlsess&quot;        &quot;dilipadsite_member&quot;         
+## [19] &quot;django_admin_log&quot;            &quot;django_migrations&quot;          
+## [21] &quot;django_content_type&quot;         &quot;dilipadsite_position&quot;       
+## [23] &quot;django_session&quot;              &quot;downtime_period&quot;            
+## [25] &quot;taggit_templatetags_amodel&quot;  &quot;taggit_taggeditem&quot;          
+## [27] &quot;taggit_tag&quot;                  &quot;andablog_entry&quot;             
+## [29] &quot;django_site&quot;                 &quot;dilipadsite_party&quot;</code></pre>
+<pre class="r"><code>tbl(con, &quot;dilipadsite_basehansard&quot;) %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: ??
+## Columns: 15
+## Database: postgres  [teacher@databases.pacha.dev:5432/basehansard]
+## $ basepk          &lt;int&gt; 2691572, 2691576, 514587, 14, 21, 4043, 514588, 3, 4, …
+## $ hid             &lt;chr&gt; &quot;ca.proc.d.1970-11-13.28.1.89&quot;, &quot;ca.proc.d.1970-11-13.…
+## $ speechdate      &lt;date&gt; 1970-11-13, 1970-11-13, 1918-05-20, 1901-02-06, 1901-…
+## $ pid             &lt;chr&gt; &quot;7f5ea10f-f4c5-4350-b707-6c6522149e5f&quot;, &quot;intervention&quot;…
+## $ opid            &lt;chr&gt; &quot;ca.m.3511&quot;, &quot;&quot;, &quot;ca.m.4097&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;ca.m.4942&quot;,…
+## $ speakeroldname  &lt;chr&gt; &quot;Mr. Cafik:&quot;, &quot;&quot;, &quot;Sir GEORGE FOSTER:&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;M…
+## $ speakerposition &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;topic&quot;, &quot;stagedirection&quot;, &quot;&quot;, &quot;&quot;, &quot;topic&quot;…
+## $ maintopic       &lt;chr&gt; &quot;GOVERNMENT ORDERS&quot;, &quot;GOVERNMENT ORDERS&quot;, &quot;SUPPLY.-&quot;, …
+## $ subtopic        &lt;chr&gt; &quot;PUBLIC ORDER (TEMPORARY MEASURES) ACT, 1970 PROVISION…
+## $ speechtext      &lt;chr&gt; &quot;Let me point out to the hon. member for Matane that I…
+## $ speakerparty    &lt;chr&gt; &quot;Liberal&quot;, &quot;&quot;, &quot;Conservative (1867-1942)&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,…
+## $ speakerriding   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
+## $ speakername     &lt;chr&gt; &quot;Norman Augustine Cafik&quot;, &quot;An hon. Member:&quot;, &quot;George G…
+## $ speakerurl      &lt;chr&gt; &quot;http://www.parl.gc.ca/parlinfo/Files/Parliamentarian.…
+## $ subsubtopic     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
 </div>
 <div id="intendo" class="section level2">
@@ -400,17 +350,17 @@ dbListTables(con)</code></pre>
 ##  [5] &quot;sj_users_daily_large_f&quot;   &quot;sj_all_sessions_xlarge_f&quot;
 ##  [7] &quot;sj_user_summary_xlarge_f&quot; &quot;sj_users_daily_xlarge_f&quot; 
 ##  [9] &quot;sj_all_revenue_small&quot;     &quot;sj_all_revenue_medium_f&quot; 
-## [11] &quot;sj_all_sessions_small&quot;    &quot;sj_users_daily_medium_f&quot; 
-## [13] &quot;sj_all_sessions_large&quot;    &quot;sj_users_daily_large&quot;    
-## [15] &quot;sj_all_sessions_small_f&quot;  &quot;sj_all_revenue_medium&quot;   
-## [17] &quot;sj_users_daily_medium&quot;    &quot;sj_user_summary_large_f&quot; 
-## [19] &quot;sj_all_revenue_xlarge_f&quot;  &quot;sj_user_summary_xlarge&quot;  
-## [21] &quot;sj_users_daily_xlarge&quot;    &quot;sj_user_summary_small_f&quot; 
-## [23] &quot;sj_all_sessions_medium&quot;   &quot;sj_all_revenue_large&quot;    
-## [25] &quot;sj_user_summary_small&quot;    &quot;sj_users_daily_small_f&quot;  
-## [27] &quot;sj_user_summary_medium_f&quot; &quot;sj_all_sessions_medium_f&quot;
-## [29] &quot;sj_all_revenue_large_f&quot;   &quot;sj_user_summary_large&quot;   
-## [31] &quot;sj_all_revenue_xlarge&quot;    &quot;sj_all_sessions_xlarge&quot;</code></pre>
+## [11] &quot;sj_users_daily_medium_f&quot;  &quot;sj_all_sessions_large&quot;   
+## [13] &quot;sj_users_daily_large&quot;     &quot;sj_all_sessions_small_f&quot; 
+## [15] &quot;sj_all_revenue_medium&quot;    &quot;sj_users_daily_medium&quot;   
+## [17] &quot;sj_user_summary_large_f&quot;  &quot;sj_all_revenue_xlarge_f&quot; 
+## [19] &quot;sj_all_sessions_small&quot;    &quot;sj_all_sessions_medium_f&quot;
+## [21] &quot;sj_all_revenue_large_f&quot;   &quot;sj_user_summary_large&quot;   
+## [23] &quot;sj_all_revenue_xlarge&quot;    &quot;sj_all_sessions_xlarge&quot;  
+## [25] &quot;sj_user_summary_xlarge&quot;   &quot;sj_users_daily_xlarge&quot;   
+## [27] &quot;sj_user_summary_small_f&quot;  &quot;sj_all_sessions_medium&quot;  
+## [29] &quot;sj_all_revenue_large&quot;     &quot;sj_user_summary_small&quot;   
+## [31] &quot;sj_users_daily_small_f&quot;   &quot;sj_user_summary_medium_f&quot;</code></pre>
 <pre class="r"><code>tbl(con, &quot;sj_user_summary_small&quot;) %&gt;% glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 6
@@ -471,8 +421,8 @@ dbListTables(con)</code></pre>
 <h1>SQL dumps</h1>
 <!-- 
 sudo -i -u postgres
-pg_dump -Fc intendo > intendo-postgres.sql.gz
-md5sum intendo.sql.gz > intendo.sql.gz.md5
+pg_dump -Fc intendo > intendo-postgres.sql
+md5sum intendo.sql > intendo.sql.md5
 -->
 <p>All the dumps are available for PostgreSQL to promote its use. I had
 just too many problems with MariaDB/MySQL configuration and even more
@@ -482,30 +432,30 @@ Server</em> section).</p>
 <h2>Open Trade Statistics</h2>
 <ul>
 <li><a
-href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz">PostgreSQL</a>
+href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql">PostgreSQL</a>
 (1.8 GB, check the download with the <a
-href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.gz.md5">md5sum</a>)</li>
+href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 </div>
 <div id="intendo-1" class="section level2">
 <h2>Intendo</h2>
 <ul>
 <li><a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql.gz">PostgreSQL</a>
+href="https://databases.pacha.dev/dumps/intendo-postgres.sql">PostgreSQL</a>
 (554 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql.gz.md5">md5sum</a>)</li>
+href="https://databases.pacha.dev/dumps/intendo-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 </div>
 <div id="financial" class="section level2">
 <h2>Financial</h2>
 <ul>
 <li><a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz">PostgreSQL</a>
+href="https://databases.pacha.dev/dumps/financial-postgres.sql">PostgreSQL</a>
 (13 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5">md5sum</a>)</li>
+href="https://databases.pacha.dev/dumps/financial-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 <!-- ## CENSO2017 -->
-<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql.gz) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.gz.md5)) -->
+<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.md5)) -->
 </div>
 </div>
 <div id="using-the-dumps-locally" class="section level1">
@@ -515,7 +465,7 @@ href="https://databases.pacha.dev/dumps/financial-postgres.sql.gz.md5">md5sum</a
 <div id="postgresql" class="section level3">
 <h3>PostgreSQL</h3>
 <pre class="bash"><code>sudo -i -u postgres
-gunzip -c intendo-postgres.sql.gz | psql intendo</code></pre>
+pg_restore intendo.sql -d intendo</code></pre>
 <!-- ### MySQL/MariaDB -->
 <!-- <!-- mysqldump intendo > intendo-mysql.sql -->
 <!-- From SQL: -->
@@ -526,14 +476,14 @@ gunzip -c intendo-postgres.sql.gz | psql intendo</code></pre>
 <!-- Then from bash: -->
 <!-- ```bash -->
 <!-- sudo su -->
-<!-- gunzip intendo-mysql.sql.gz -->
+<!-- gunzip intendo-mysql.sql -->
 <!-- mysql intendo < intendo-mysql.sql -->
 <!-- ``` -->
 <!-- ### SQL Server -->
 <!-- <!-- BACKUP DATABASE intendo TO DISK = 'filepath';  -->
 <!-- From bash: -->
 <!-- ```bash -->
-<!-- gunzip intendo-mysql.sql.gz -->
+<!-- gunzip intendo-mysql.sql -->
 <!-- sqlcmd -S localhost -U SA -->
 <!-- ``` -->
 <!-- Then in SQL: -->
@@ -674,7 +624,7 @@ sudo chown -R postgres:postgres /postgres
 sudo systemctl stop postgresql
 sudo rsync -av /var/lib/postgresql/ /postgres
 sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
-<p>Then search <code>data_directory</code> to
+<p>Then search <code>data_directory</code> and change the location to
 <code>/postgresql/14/main</code>.</p>
 <p>Finally start the service again.</p>
 <!-- ###  MySQL/MariaDB -->
