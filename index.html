@@ -584,8 +584,7 @@ the line that says <code>listen_addresses = 'localhost'</code>, add
 <li>Open <code>/etc/postgresql/14/main/pg_hba.conf</code>, paste these
 lines at the end</li>
 </ol>
-<pre class="bash"><code># TYPE  DATABASE        USER    ADDRESS         METHOD
-host    all             all     0.0.0.0/0       md5
+<pre class="bash"><code>host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Run <code>sudo systemctl restart postgresql</code>.</li>

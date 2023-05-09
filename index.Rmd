@@ -357,7 +357,6 @@ For this project I had to allow connections from outside the server.
 add `listen_address = '*'` below it.
 2. Open `/etc/postgresql/14/main/pg_hba.conf`, paste these lines at the end
 ```bash
-# TYPE  DATABASE        USER    ADDRESS         METHOD
 host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5
 ```
