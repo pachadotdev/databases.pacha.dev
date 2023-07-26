@@ -79,7 +79,7 @@ tbl(con, "yrpc") %>% glimpse()
 dbDisconnect(con)
 ```
 
-## Base Hansard
+## Canadian Hansard
 
 A complete PostgreSQL database of the Canadian Hansard dataset, including 
 supplementary data. It covers the Canadian Hansard from 1901 to 2019 and
@@ -96,7 +96,7 @@ con <- dbConnect(
   Postgres(),
   user = Sys.getenv("dbedu_usr"),
   password = Sys.getenv("dbedu_pwd"),
-  dbname = "basehansard",
+  dbname = "canadianhansard",
   host = "databases.pacha.dev"
 )
 

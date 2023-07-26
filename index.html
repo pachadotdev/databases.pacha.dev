@@ -11,7 +11,7 @@
     
     <title>SQL Databases for Students and Educators</title>
 
-        <script src="index_files/header-attrs-2.21/header-attrs.js"></script>
+        <script src="index_files/header-attrs-2.23/header-attrs.js"></script>
         <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="index_files/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -116,54 +116,33 @@
         <div class="Sidebar">
           <div class="SidebarItems" id="toc">
             <ul>
-            <li><a href="#about" id="toc-about">About</a></li>
-            <li><a href="#available-databases"
-            id="toc-available-databases">Available Databases</a>
+            <li><a href="#about">About</a></li>
+            <li><a href="#available-databases">Available Databases</a>
             <ul>
-            <li><a href="#open-trade-statistics"
-            id="toc-open-trade-statistics">Open Trade
-            Statistics</a></li>
-            <li><a href="#base-hansard" id="toc-base-hansard">Base
-            Hansard</a></li>
-            <li><a href="#intendo" id="toc-intendo">Intendo</a></li>
-            <li><a href="#financial-aka-loan-application"
-            id="toc-financial-aka-loan-application">Financial (aka Loan
-            Application)</a></li>
+            <li><a href="#open-trade-statistics">Open Trade Statistics</a></li>
+            <li><a href="#canadian-hansard">Canadian Hansard</a></li>
+            <li><a href="#intendo">Intendo</a></li>
+            <li><a href="#financial-aka-loan-application">Financial (aka Loan Application)</a></li>
             </ul></li>
-            <li><a href="#sql-dumps" id="toc-sql-dumps">SQL dumps</a>
+            <li><a href="#sql-dumps">SQL dumps</a>
             <ul>
-            <li><a href="#open-trade-statistics-1"
-            id="toc-open-trade-statistics-1">Open Trade
-            Statistics</a></li>
-            <li><a href="#intendo-1" id="toc-intendo-1">Intendo</a></li>
-            <li><a href="#financial"
-            id="toc-financial">Financial</a></li>
+            <li><a href="#open-trade-statistics-1">Open Trade Statistics</a></li>
+            <li><a href="#intendo-1">Intendo</a></li>
+            <li><a href="#financial">Financial</a></li>
             </ul></li>
-            <li><a href="#using-the-dumps-locally"
-            id="toc-using-the-dumps-locally">Using the dumps locally</a>
+            <li><a href="#using-the-dumps-locally">Using the dumps locally</a>
             <ul>
-            <li><a href="#restore-dumps" id="toc-restore-dumps">Restore
-            dumps</a></li>
-            <li><a href="#create-users" id="toc-create-users">Create
-            users</a></li>
-            <li><a href="#allow-external-connections"
-            id="toc-allow-external-connections">Allow external
-            connections</a></li>
-            <li><a href="#changing-database-location"
-            id="toc-changing-database-location">Changing database
-            location</a></li>
+            <li><a href="#restore-dumps">Restore dumps</a></li>
+            <li><a href="#create-users">Create users</a></li>
+            <li><a href="#allow-external-connections">Allow external connections</a></li>
+            <li><a href="#changing-database-location">Changing database location</a></li>
             </ul></li>
-            <li><a href="#problems-with-mysqlmaria-and-sql-server"
-            id="toc-problems-with-mysqlmaria-and-sql-server">Problems
-            with MySQL/Maria and SQL Server</a>
+            <li><a href="#problems-with-mysqlmaria-and-sql-server">Problems with MySQL/Maria and SQL Server</a>
             <ul>
-            <li><a href="#mysqlmariadb"
-            id="toc-mysqlmariadb">MySQL/MariaDB</a></li>
-            <li><a href="#sql-server" id="toc-sql-server">SQL
-            Server</a></li>
+            <li><a href="#mysqlmariadb">MySQL/MariaDB</a></li>
+            <li><a href="#sql-server">SQL Server</a></li>
             </ul></li>
-            <li><a href="#cite-this-work" id="toc-cite-this-work">Cite
-            this work</a></li>
+            <li><a href="#cite-this-work">Cite this work</a></li>
             </ul>
           </div>
           <div data-position="sidebar:post-end" class="InjectedComponents"><div class="dark-theme-toggler"><div class="toggle checked"><div class="toggle-track"><div class="toggle-track-check"><img  src="data:image/png;base64,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" role="presentation" style="pointer-events: none;" width="16" height="16"></div> <div class="toggle-track-x"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAVlpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IlhNUCBDb3JlIDUuNC4wIj4KICAgPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICAgICAgPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIKICAgICAgICAgICAgeG1sbnM6dGlmZj0iaHR0cDovL25zLmFkb2JlLmNvbS90aWZmLzEuMC8iPgogICAgICAgICA8dGlmZjpPcmllbnRhdGlvbj4xPC90aWZmOk9yaWVudGF0aW9uPgogICAgICA8L3JkZjpEZXNjcmlwdGlvbj4KICAgPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KTMInWQAABwNJREFUWAmtV1tsFFUY/s6Z2d22zLYlZakUCRVaQcqlWIiCiS1gTEB9UAO+GR9En3iQGI0xJiSiRB98MjEq8cEQTSBeHhQM0V7whtEGDWC90BYitxahtNtu25058/v/ZzvLbilawJNM5+yZ89+//1LgJhYRNLW1uDfBAvpGiIk2O5auvfFxqIH3ZJ8/u06GN6Z9+wVl5SjcD1IbZa/UPkPyYl2uR4dreoD2bnbYxTlBBRytkHXtAREphP5KuH4lddx9h70yxX05t7yYXwGb6W8nx1jibpl2rFlGBxcG9M18okOrn7Bnk/BAO/4bI0UeEE1zjBp3UmvjOxJXJdaKN/ZiIu4tOZrAb4aTdZAZArKmWeiiJZ6jt5tiagdCS9+6cgO1Ne6Mvhe+ixTIfyDVhipnK9p+P0Edqx9RW/YZtQVGmOLChRxNNlyPsTEgPQKMB3dbEHa0h1awYmQ83enTd2vmUtvKd1Glv2RkzBb+kZGRrKtjzG60Wguhd/lJZBingbcfWWe72vjT75bJDrhYtvA0hrurETDr5HyF2Knb1MM4ab//xIoOqueA0edRnkkinTyJdYvqLFDZO4zUPFCvVoDjJq4T7TE61IWh4x5KqxX5KVKkX8WZ/t2ov2cb3MHt4dhIyOxIJxJOOF6xRx/99BksXLoecWcXytILMNBDqKpnGZWPquYfPxY8iXGR9fK+SgFrgcRPXPjVqhehL+3EmZ5RGJQi1QBU8TPThQnOQzm+5UXGIcetUeEAfP13VwzpI+w1jGJWdSliNfvVhiMPiOsllJag4M/UGHiqM6dlBb2OTLKHHV6KkvogrJ4XhBWniWK/Gp1MQyf93FOeUXKmKk/FzJxbQtKLjFXYT4USupy8fQVir2ynVEBiZMG0qtOHMS/AW4Gwrk7BG3C1F0B5nqNKE0CME4MfVRLPnXkBKe+ipvoFhNQywOhdghvLi0F8ReyVXV4BKTBRbbe5f64zR/DHsdZw1hJfeWlHl/GNRJzDxrd5m192z78TMaVnKELZoINZS4BzQ7vtnZljSnha/pPCbkuxzXcupYwI5tIeCpGc0Yp9tWHZQy/rmYhRfNgg4bHJBYLzGkxsRJF4XKlE2jBOHNSv3kY7Tj6vthzPFl61BrYwqFlmEQhtSVXmLiksxLmtRgYXI1ULU61JJ4eVKmG3/5sCVgpbMT6OMJ2E08/29Xf3w6v4FnHdCjfWgXu/O8Z5mLdCkeRs2khHe1DqOtQwbHWTAnM5S2HNmhALYo5KjkPFrMMKjZl6HxhWIAb0BqE+/73GrBRQUsKYiBu4JX8ycI6wtw+i5ef3NZpsrKVSHYCP37jwGDgeE1SA0S/xtl5SU2fs1ApEp0qTLVRjgyycDSsLHMSwmFltZMStR3uLLg6BdLhDa5dC6ryU2pHBe1BVO9tUcwfitJt2CLJZUHoG6T7Op75u0IyK31TCPcwFqgPk/KCaD3dFOuZBCO7xvCT/j048b3I3c7F2+WuOW7qdgkucFYlcQ4qop3yzTX7WaKfOCccye3Ts1Etq0+a/BHCF1yPgF3tAUkR6OrtGmo6gl94qqcXKh3rDyrOkPa58URoWcov2Mo6M+0QjrqKB+b7++oMa9Sz+ZkM0mie6aAtnGUvhmxaI+TogPOSQedgWioGSHFLn3v4kLh4HRspNmOGv41k+55siLFp2z6xYeJjhljFcbmxJlr4ga06TbevSByz/glQq4BJx46/c+237PbBqEYKxX3HpmKZEnQnr65X20hqJYaNcLoFOLiJk2LuBbyg7Q0OEn+hm0P3honxFD6rdxYorKpeIoi4YSSvyQHQIbM5t4+YNxLj/OxhVOOE4585qGpjnq+wSx6Q9CtNxTjd5klB+g6Mv36r0+b9cZFi44WYkHdG2ZWb3TtOUOXyVAlKlpGvJIAJ3eBMyfYS5C0qRZGtC85j+4sOasDe9xznPYezhhO/2Q6eP2fSOvYHOjtuQ1a9Q1VKynVDaMc8E0tptdxUsTFpFIYjcZKcbnoaQTNdiqCwNlL4G7oziSqGnT1ALf34vhk4R5zU3qYV9ONp9K88RtouShE68JwaU8dFw5W617shWa9ykeaBIn2hcsvPgL00k45QdTCZuSVcTRNs+8fnyLvooQfR5iujAnR9bxfY2xOVOxFS8SK3Le0l48VyYu1M8HRe5JD8wKPTjYnifaK3Wfn/GChYQ8ZAi6WRzWgqLV5YrsVLnZaVSoXU1g9gOIDwFySiGi+Zdrnzr7J3r+SMuszlcQCRn8lNGcTuSy2jOI7o9mxjZo+vR3ej3tN+ifRSOyUTS0+VMOid93cCubeiy/6TImS0QxRSCq2vxKr45zV+FQnjWH6D2xg+E9EatLcLAdHTgtGGD80D6jM0+aOl4wJgO/f96R2aJKCQ3yvgftRhdFMOpd6oAAAAASUVORK5CYII=" role="presentation" style="pointer-events: none;" width="16" height="16"></div></div> <div class="toggle-thumb"></div></div> <input type="checkbox" aria-label="Switch between Dark and Default theme" class="toggler-screen-reader-only"></div></div>
@@ -186,34 +165,14 @@
    
 <!-- Don't indent these lines or it will mess pre blocks indentation --> 
 <div class="page-content has-page-title">
-<p><em>Update 2022-12-12: I’m using just PostgreSQL. I just had too many
-heaches with MariaDB/MySQL. Also, the server is quite modest and I
-prefer to provide good PostgreSQL access than bad access to PostgreSQL
-and MariaDB.</em></p>
-<p><em>Update 2022-09-30: The SQL Server educational license expired.
-From now on, only PostgreSQL and MariaDB databases will be
-available.</em></p>
+<p><em>Update 2022-12-12: I’m using just PostgreSQL. I just had too many heaches with MariaDB/MySQL. Also, the server is quite modest and I prefer to provide good PostgreSQL access than bad access to PostgreSQL and MariaDB.</em></p>
+<p><em>Update 2022-09-30: The SQL Server educational license expired. From now on, only PostgreSQL and MariaDB databases will be available.</em></p>
 <div id="about" class="section level1">
 <h1>About</h1>
-<p>Publicly accessible databases often impose query limits or require
-registration. Even when I maintain public and limit-free APIs, I never
-wanted to host a public database because I tend to think that the
-connection strings are a problem for the user.</p>
-<p>I’ve decided to host different light/medium size by using PostgreSQL.
-I tend to prefer PostgreSQL because it easier to configure on client and
-server side, without strange tricks (see the <em>Problems with
-MySQL/MariaDB and SQL Server</em> section).</p>
-<p>If I can secure funding for this, I will make the same databases
-available under different backends (even MariaDB <strong>and</strong>
-MySQL at the same time). There are a ton of small edge cases when moving
-between DB back ends and so testing lots with live databases is quite
-valuable. With this resource you can benchmark speed, compression, and
-DDL types.</p>
-<p>If you need access to the online DBs (i.e., not configuring your
-local copy) or you need technical support, send me an email to <a
-href="mailto:m.sepulveda+spam@mail.utoronto.ca"
-class="email">m.sepulveda+spam@mail.utoronto.ca</a> (replace with
-+databases for a faster reply).</p>
+<p>Publicly accessible databases often impose query limits or require registration. Even when I maintain public and limit-free APIs, I never wanted to host a public database because I tend to think that the connection strings are a problem for the user.</p>
+<p>I’ve decided to host different light/medium size by using PostgreSQL. I tend to prefer PostgreSQL because it easier to configure on client and server side, without strange tricks (see the <em>Problems with MySQL/MariaDB and SQL Server</em> section).</p>
+<p>If I can secure funding for this, I will make the same databases available under different backends (even MariaDB <strong>and</strong> MySQL at the same time). There are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.</p>
+<p>If you need access to the online DBs (i.e., not configuring your local copy) or you need technical support, send me an email to <a href="mailto:m.sepulveda+spam@mail.utoronto.ca" class="email">m.sepulveda+spam@mail.utoronto.ca</a> (replace with +databases for a faster reply).</p>
 <p>You can contribute to keep it up with the hosting costs here:</p>
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
 </div>
@@ -221,15 +180,8 @@ class="email">m.sepulveda+spam@mail.utoronto.ca</a> (replace with
 <h1>Available Databases</h1>
 <div id="open-trade-statistics" class="section level2">
 <h2>Open Trade Statistics</h2>
-<p>This is the database that powers <a
-href="https://shiny.tradestatistics.io/countryprofiles">Open Trade
-Statistics</a> and contains international trade data for commodities
-since 2002.</p>
-<p>This database can be helpful for evaluating the impact of free trade
-agreements, and other policy relevant modelling. The database is a
-modified version of the United Nations Commodity Trade Statistics
-Database (UN COMTRADE) and is targeted for Latin American Universities,
-who often have limited or no access to the original resource.</p>
+<p>This is the database that powers <a href="https://shiny.tradestatistics.io/countryprofiles">Open Trade Statistics</a> and contains international trade data for commodities since 2002.</p>
+<p>This database can be helpful for evaluating the impact of free trade agreements, and other policy relevant modelling. The database is a modified version of the United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted for Latin American Universities, who often have limited or no access to the original resource.</p>
 <p>Access these tables by adapting the next code:</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
@@ -262,14 +214,9 @@ dbListTables(con)</code></pre>
 ## $ trade_value_usd_exp &lt;dbl&gt; 38553, 2313, 1006, 419, 0, 0, 0, 0, 0, 0, 0, 40553…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
 </div>
-<div id="base-hansard" class="section level2">
-<h2>Base Hansard</h2>
-<p>A complete PostgreSQL database of the Canadian Hansard dataset,
-including supplementary data. It covers the Canadian Hansard from 1901
-to 2019 and was obtained from <a href="https://www.lipad.ca/">LiPaD</a>
-with the intention of providing a live SQL database for users interested
-in this data. The original site provides a SQL dump that requires you to
-configure PostreSQL on your own laptop or server.</p>
+<div id="canadian-hansard" class="section level2">
+<h2>Canadian Hansard</h2>
+<p>A complete PostgreSQL database of the Canadian Hansard dataset, including supplementary data. It covers the Canadian Hansard from 1901 to 2019 and was obtained from <a href="https://www.lipad.ca/">LiPaD</a> with the intention of providing a live SQL database for users interested in this data. The original site provides a SQL dump that requires you to configure PostreSQL on your own laptop or server.</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
 
@@ -277,7 +224,7 @@ con &lt;- dbConnect(
   Postgres(),
   user = Sys.getenv(&quot;dbedu_usr&quot;),
   password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;basehansard&quot;,
+  dbname = &quot;canadianhansard&quot;,
   host = &quot;databases.pacha.dev&quot;
 )
 
@@ -300,7 +247,7 @@ dbListTables(con)</code></pre>
 <pre class="r"><code>tbl(con, &quot;dilipadsite_basehansard&quot;) %&gt;% glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 15
-## Database: postgres  [teacher@databases.pacha.dev:5432/basehansard]
+## Database: postgres  [teacher@databases.pacha.dev:5432/canadianhansard]
 ## $ basepk          &lt;int&gt; 2691572, 2691576, 514587, 14, 21, 4043, 514588, 3, 4, …
 ## $ hid             &lt;chr&gt; &quot;ca.proc.d.1970-11-13.28.1.89&quot;, &quot;ca.proc.d.1970-11-13.…
 ## $ speechdate      &lt;date&gt; 1970-11-13, 1970-11-13, 1918-05-20, 1901-02-06, 1901-…
@@ -320,19 +267,9 @@ dbListTables(con)</code></pre>
 </div>
 <div id="intendo" class="section level2">
 <h2>Intendo</h2>
-<p>It’s a dummy database that originally we used at the <a
-href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My
-Organization’s First R Package</a> and contains managerial information
-of a company called Intendo, which creates mobile games. The tables
-contain information for the 2015 year for all sorts of information for
-their only game: Super Jetroid. See the recent updated to this database
-at <a href="https://github.com/rich-iannone/intendo">intendo</a>.</p>
-<p>This database can be helpful for workshops and showing how to create
-an R package focused on the particular needs of an organization,
-including easier data access, shared functions for data transformation
-and analysis, and a common look and feel for reporting.</p>
-<p>Check the structure of the tables in the next preview. The tables
-ending with “_f” contain deliberated errors.</p>
+<p>It’s a dummy database that originally we used at the <a href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My Organization’s First R Package</a> and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this database at <a href="https://github.com/rich-iannone/intendo">intendo</a>.</p>
+<p>This database can be helpful for workshops and showing how to create an R package focused on the particular needs of an organization, including easier data access, shared functions for data transformation and analysis, and a common look and feel for reporting.</p>
+<p>Check the structure of the tables in the next preview. The tables ending with "_f" contain deliberated errors.</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
 
@@ -375,15 +312,8 @@ dbListTables(con)</code></pre>
 </div>
 <div id="financial-aka-loan-application" class="section level2">
 <h2>Financial (aka Loan Application)</h2>
-<p>A database that contains Financial dataset contains 606 successful
-and 76 not successful loans along with their information and
-transactions.</p>
-<p>This database comes from the <a
-href="https://relational.fit.cvut.cz/dataset/Financial">Relational
-Dataset Repository</a> where you can find the database schema and more
-information. The database full name is “PKDD’99 Financial Dataset or
-Loan Application”, and this particular version corresponds to
-Financial_ijs by Janez Kranjc.</p>
+<p>A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.</p>
+<p>This database comes from the <a href="https://relational.fit.cvut.cz/dataset/Financial">Relational Dataset Repository</a> where you can find the database schema and more information. The database full name is “PKDD’99 Financial Dataset or Loan Application”, and this particular version corresponds to Financial_ijs by Janez Kranjc.</p>
 <p>Access these tables by adapting the next code:</p>
 <pre class="r"><code>library(dplyr)
 library(RPostgres)
@@ -424,35 +354,23 @@ sudo -i -u postgres
 pg_dump -Fc intendo > intendo-postgres.sql
 md5sum intendo.sql > intendo.sql.md5
 -->
-<p>All the dumps are available for PostgreSQL to promote its use. I had
-just too many problems with MariaDB/MySQL configuration and even more
-with SQL Server (see the <em>Problems with MySQL/Maria and SQL
-Server</em> section).</p>
+<p>All the dumps are available for PostgreSQL to promote its use. I had just too many problems with MariaDB/MySQL configuration and even more with SQL Server (see the <em>Problems with MySQL/Maria and SQL Server</em> section).</p>
 <div id="open-trade-statistics-1" class="section level2">
 <h2>Open Trade Statistics</h2>
 <ul>
-<li><a
-href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql">PostgreSQL</a>
-(1.8 GB, check the download with the <a
-href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5">md5sum</a>)</li>
+<li><a href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql">PostgreSQL</a> (1.8 GB, check the download with the <a href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 </div>
 <div id="intendo-1" class="section level2">
 <h2>Intendo</h2>
 <ul>
-<li><a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql">PostgreSQL</a>
-(554 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/intendo-postgres.sql.md5">md5sum</a>)</li>
+<li><a href="https://databases.pacha.dev/dumps/intendo-postgres.sql">PostgreSQL</a> (554 MB, check the download with the <a href="https://databases.pacha.dev/dumps/intendo-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 </div>
 <div id="financial" class="section level2">
 <h2>Financial</h2>
 <ul>
-<li><a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql">PostgreSQL</a>
-(13 MB, check the download with the <a
-href="https://databases.pacha.dev/dumps/financial-postgres.sql.md5">md5sum</a>)</li>
+<li><a href="https://databases.pacha.dev/dumps/financial-postgres.sql">PostgreSQL</a> (13 MB, check the download with the <a href="https://databases.pacha.dev/dumps/financial-postgres.sql.md5">md5sum</a>)</li>
 </ul>
 <!-- ## CENSO2017 -->
 <!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.md5)) -->
@@ -495,8 +413,7 @@ pg_restore intendo.sql -d intendo</code></pre>
 </div>
 <div id="create-users" class="section level2">
 <h2>Create users</h2>
-<p>You can create a generic user (let’s say <code>student</code>) and
-grant read-only access.</p>
+<p>You can create a generic user (let’s say <code>student</code>) and grant read-only access.</p>
 <div id="postgresql-1" class="section level3">
 <h3>PostgreSQL</h3>
 <pre class="sql"><code># sudo -i -u postgres 
@@ -573,16 +490,12 @@ GRANT CREATE ON SCHEMA public TO teacher;</code></pre>
 </div>
 <div id="allow-external-connections" class="section level2">
 <h2>Allow external connections</h2>
-<p>For this project I had to allow connections from outside the
-server.</p>
+<p>For this project I had to allow connections from outside the server.</p>
 <div id="postgres-version-14" class="section level3">
 <h3>Postgres (version 14)</h3>
 <ol style="list-style-type: decimal">
-<li>Open <code>/etc/postgresql/14/main/postgresql.conf</code>, comment
-the line that says <code>listen_addresses = 'localhost'</code>, add
-<code>listen_address = '*'</code> below it.</li>
-<li>Open <code>/etc/postgresql/14/main/pg_hba.conf</code>, paste these
-lines at the end</li>
+<li>Open <code>/etc/postgresql/14/main/postgresql.conf</code>, comment the line that says <code>listen_addresses = 'localhost'</code>, add <code>listen_address = '*'</code> below it.</li>
+<li>Open <code>/etc/postgresql/14/main/pg_hba.conf</code>, paste these lines at the end</li>
 </ol>
 <pre class="bash"><code>host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5</code></pre>
@@ -616,15 +529,13 @@ host    all             all     :/0             md5</code></pre>
 <h2>Changing database location</h2>
 <div id="postgresql-2" class="section level3">
 <h3>PostgreSQL</h3>
-<p>Create a new dir, stop the service and copy the PostgreSQL data
-directory to the new location.</p>
+<p>Create a new dir, stop the service and copy the PostgreSQL data directory to the new location.</p>
 <pre class="bash"><code>sudo mkdir /postgres
 sudo chown -R postgres:postgres /postgres
 sudo systemctl stop postgresql
 sudo rsync -av /var/lib/postgresql/ /postgres
 sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
-<p>Then search <code>data_directory</code> and change the location to
-<code>/postgresql/14/main</code>.</p>
+<p>Then search <code>data_directory</code> and change the location to <code>/postgresql/14/main</code>.</p>
 <p>Finally start the service again.</p>
 <!-- ###  MySQL/MariaDB -->
 <!-- Create a new dir, stop the service and copy the MariaDB data directory to the new location. -->
@@ -644,37 +555,26 @@ sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
 </div>
 </div>
 </div>
-<div id="problems-with-mysqlmaria-and-sql-server"
-class="section level1">
+<div id="problems-with-mysqlmaria-and-sql-server" class="section level1">
 <h1>Problems with MySQL/Maria and SQL Server</h1>
 <div id="mysqlmariadb" class="section level2">
 <h2>MySQL/MariaDB</h2>
-<p>From R, the RMariaDB package copies around 20 times slower than
-RMySQL. Using odbc for this SQL backend is not very efficient. Just use
-RMySQL.</p>
-<p>When you backup, at least with MariaDB,
-<code>mysqldump intendo &gt; intendo-mysql.sql</code> is hundreds of
-times faster than <code>mysql intendo &gt; intendo-mysql.sql</code>.</p>
+<p>From R, the RMariaDB package copies around 20 times slower than RMySQL. Using odbc for this SQL backend is not very efficient. Just use RMySQL.</p>
+<p>When you backup, at least with MariaDB, <code>mysqldump intendo &gt; intendo-mysql.sql</code> is hundreds of times faster than <code>mysql intendo &gt; intendo-mysql.sql</code>.</p>
 </div>
 <div id="sql-server" class="section level2">
 <h2>SQL Server</h2>
-<p>Beware that SQL Server shows strange problems with Linux and Mac! For
-example, when I connect from a Mac, I experience random disconnections
-and the next error message:</p>
+<p>Beware that SQL Server shows strange problems with Linux and Mac! For example, when I connect from a Mac, I experience random disconnections and the next error message:</p>
 <pre class="bash"><code>nanodbc/nanodbc.cpp:4483: 00000: [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure </code></pre>
 <p>With Ubuntu I get this another error message and RStudio crashes:</p>
 <pre class="bash"><code>terminate called after throwing an instance of &#39;nanodbc::database_error&#39;</code></pre>
-<p>I had to divide my data and write in chunks of 50,000 rows or it just
-disconnects. PostgreSQL and MariaDB can write tables containing two
-million rows right away.</p>
+<p>I had to divide my data and write in chunks of 50,000 rows or it just disconnects. PostgreSQL and MariaDB can write tables containing two million rows right away.</p>
 <p>Therefore, my preference for DB backends is not arbitrary.</p>
 </div>
 </div>
 <div id="cite-this-work" class="section level1">
 <h1>Cite this work</h1>
-<p>This work is licensed under <a
-href="https://creativecommons.org/licenses/by/4.0/">Creative Commons
-Attribution 4.0 International (CC BY 4.0)</a>.</p>
+<p>This work is licensed under <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC BY 4.0)</a>.</p>
 <p>BibTeX entry:</p>
 <pre><code>@misc{databases_pacha,
   title = {SQL Databases for Students and Educators},
