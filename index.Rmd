@@ -1,7 +1,7 @@
 ---
 title: "SQL Databases for Students and Educators"
 author: "Pachá"
-date: "2022-12-12"
+date: "2024-04-08"
 output:
   rmdformats::downcute:    
     self_contained: false
@@ -26,19 +26,16 @@ Even when I maintain public and limit-free APIs, I never wanted to host a public
 database because I tend to think that the connection strings are a problem for 
 the user.
 
-I've decided to host different light/medium size by using PostgreSQL. I tend to 
-prefer PostgreSQL because it easier to configure on client and server side, 
-without strange tricks (see the *Problems with MySQL/MariaDB and SQL Server* 
-section).
+I've decided to host different light/medium size by using PostgreSQL, MariaDB
+and SQL Server. I tend to  prefer PostgreSQL because it easier to configure on
+client and server side, without strange tricks (see the *Problems with
+MySQL/MariaDB and SQL Server* section).
 
-If I can secure funding for this, I will make the same databases available under
-different backends (even MariaDB **and** MySQL at the same time). There are a 
-ton of small edge cases when moving between DB back ends and so testing lots with
-live databases is quite valuable. With this resource you can benchmark speed, 
-compression, and DDL types.
+There are a ton of small edge cases when moving between DB back ends and so
+testing lots with live databases is quite valuable. With this resource you can
+benchmark speed, compression, and DDL types.
 
-If you need access to the online DBs (i.e., not configuring your local copy) or
-you need technical support, send me an email to 
+If you need access to the databases or need a SQL dump , send me an email to 
 m.sepulveda+spam@mail.utoronto.ca (replace with +databases for a faster reply).
 
 You can contribute to keep it up with the hosting costs here:
@@ -46,66 +43,6 @@ You can contribute to keep it up with the hosting costs here:
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
 
 # Available Databases
-
-## Open Trade Statistics
-
-This is the database that powers [Open Trade Statistics](https://shiny.tradestatistics.io/countryprofiles) and
-contains international trade data for commodities since 2002.
-
-This database can be helpful for evaluating the impact of free trade agreements,
-and other policy relevant modelling. The database is a modified version of the
-United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted
-for Latin American Universities, who often have limited or no access to the
-original resource.
-
-Access these tables by adapting the next code:
-
-```{r, message=FALSE}
-library(dplyr)
-library(RPostgres)
-
-con <- dbConnect(
-  Postgres(),
-  user = Sys.getenv("dbedu_usr"),
-  password = Sys.getenv("dbedu_pwd"),
-  dbname = "tradestatistics",
-  host = "databases.pacha.dev"
-)
-
-dbListTables(con)
-
-tbl(con, "yrpc") %>% glimpse()
-
-dbDisconnect(con)
-```
-
-## Canadian Hansard
-
-A complete PostgreSQL database of the Canadian Hansard dataset, including 
-supplementary data. It covers the Canadian Hansard from 1901 to 2019 and
-was obtained from [LiPaD](https://www.lipad.ca/) with the intention of
-providing a live SQL database for users interested in this data. The
-original site provides a SQL dump that requires you to configure PostreSQL
-on your own laptop or server.
-
-```{r, message=FALSE}
-library(dplyr)
-library(RPostgres)
-
-con <- dbConnect(
-  Postgres(),
-  user = Sys.getenv("dbedu_usr"),
-  password = Sys.getenv("dbedu_pwd"),
-  dbname = "canadianhansard",
-  host = "databases.pacha.dev"
-)
-
-dbListTables(con)
-
-tbl(con, "dilipadsite_basehansard") %>% glimpse()
-
-dbDisconnect(con)
-```
 
 ## Intendo
 
@@ -137,82 +74,20 @@ con <- dbConnect(
 
 dbListTables(con)
 
-tbl(con, "sj_user_summary_small") %>% glimpse()
+tbl(con, "sj_user_summary_small") %>%
+  glimpse()
 
 dbDisconnect(con)
 ```
 
-## Financial (aka Loan Application)
-
-A database that contains Financial dataset contains 606 successful and 76 not 
-successful loans along with their information and transactions.
-
-This database comes from the [Relational Dataset Repository](https://relational.fit.cvut.cz/dataset/Financial) where you can find
-the database schema and more information. The database full name is "PKDD'99 
-Financial Dataset or Loan Application", and this particular version corresponds 
-to Financial_ijs by Janez Kranjc.
-
-Access these tables by adapting the next code:
-
-```{r, message=FALSE}
-library(dplyr)
-library(RPostgres)
-
-con <- dbConnect(
-  Postgres(),
-  user = Sys.getenv("dbedu_usr"),
-  password = Sys.getenv("dbedu_pwd"),
-  dbname = "financial",
-  host = "databases.pacha.dev"
-)
-
-dbListTables(con)
-
-tbl(con, "clients") %>% glimpse()
-```
-
-<!-- ## CENSO 2017 -->
-
-<!-- Backends -->
-
-<!-- - [x] PostgreSQL -->
-<!-- - [ ] MariaDB -->
-
-<!-- This database combines two source, [censo2017 R package](https://github.com/ropensci/censo2017) (uses DuckDB as locla backend) -->
-<!-- and [censo2017 cartographies](https://github.com/ropensci/censo2017-cartografias). -->
-
-<!-- Please read the documentation in the mentioned sources. Because of GIS structure -->
-<!-- in some tables, I'm bounded to use PostgreSQL with PostGIS. -->
-
-# SQL dumps
-
 <!-- 
+# Create SQL dump
 sudo -i -u postgres
 pg_dump -Fc intendo > intendo-postgres.sql
 md5sum intendo.sql > intendo.sql.md5
 -->
 
-All the dumps are available for PostgreSQL to promote its use. I had just too 
-many problems with MariaDB/MySQL configuration and even more with SQL Server
-(see the *Problems with MySQL/Maria and SQL Server* section).
-
-## Open Trade Statistics
-
-* [PostgreSQL](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql) (1.8 GB, check the download with the [md5sum](https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5))
-
-## Intendo
-
-* [PostgreSQL](https://databases.pacha.dev/dumps/intendo-postgres.sql) (554 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/intendo-postgres.sql.md5))
-
-## Financial
-
-* [PostgreSQL](https://databases.pacha.dev/dumps/financial-postgres.sql) (13 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/financial-postgres.sql.md5))
-
-<!-- ## CENSO2017 -->
-
-<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.md5)) -->
-
-# Using the dumps locally
+<!-- # Using the dumps locally
 
 ## Restore dumps
 
@@ -221,7 +96,7 @@ many problems with MariaDB/MySQL configuration and even more with SQL Server
 ```bash
 sudo -i -u postgres
 pg_restore intendo.sql -d intendo
-```
+``` -->
 
 <!-- ### MySQL/MariaDB -->
 
@@ -257,7 +132,7 @@ pg_restore intendo.sql -d intendo
 <!-- GO -->
 <!-- ``` -->
 
-## Create users
+<!-- ## Create users
 
 You can create a generic user (let's say `student`) and grant read-only access.
 
@@ -286,7 +161,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO teacher;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO teacher;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO teacher;
 GRANT CREATE ON SCHEMA public TO teacher;
-```
+``` -->
 
 <!-- ### MySQL/MariaDB -->
 
@@ -347,7 +222,7 @@ GRANT CREATE ON SCHEMA public TO teacher;
 <!-- GO -->
 <!-- ``` -->
 
-## Allow external connections
+<!-- ## Allow external connections
 
 For this project I had to allow connections from outside the server.
 
@@ -361,7 +236,7 @@ host    all             all     0.0.0.0/0       md5
 host    all             all     :/0             md5
 ```
 3. Run `sudo systemctl restart postgresql`.
-4. Open the port with `sudo ufw allow 5432/tcp`.
+4. Open the port with `sudo ufw allow 5432/tcp`. -->
 
 <!-- ### MariaDB (i.e. MySQL replacement) -->
 
@@ -387,7 +262,7 @@ host    all             all     :/0             md5
 <!-- sudo ufw allow 1434/udp -->
 <!-- ``` -->
 
-## Changing database location
+<!-- ## Changing database location
 
 ### PostgreSQL
 
@@ -403,7 +278,7 @@ sudo nano /etc/postgresql/14/main/postgresql.conf
 
 Then search `data_directory` and change the location to `/postgresql/14/main`. 
 
-Finally start the service again.
+Finally start the service again. -->
 
 <!-- ###  MySQL/MariaDB -->
 
@@ -439,21 +314,26 @@ is hundreds of times faster than `mysql intendo > intendo-mysql.sql`.
 
 ## SQL Server
 
-Beware that SQL Server shows strange problems with Linux and Mac! For example, 
-when I connect from a Mac, I experience random disconnections and the next error
+Beware that SQL Server shows strange problems with Linux and Mac!
+
+When I connect from a Mac, I experience random disconnections and the next error
 message:
+
 ```bash
 nanodbc/nanodbc.cpp:4483: 00000: [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure 
 ```
+
 With Ubuntu I get this another error message and RStudio crashes:
+
 ```bash
 terminate called after throwing an instance of 'nanodbc::database_error'
 ```
+
 I had to divide my data and write in chunks of 50,000 rows or it just 
 disconnects. PostgreSQL and MariaDB can write tables containing two million rows
 right away.
 
-Therefore, my preference for DB backends is not arbitrary.
+Therefore, my preference for PostgreSQL is not arbitrary.
 
 # Cite this work
 

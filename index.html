@@ -7,11 +7,11 @@
 
         <meta name="author" content="Pachá" />
     
-        <meta name="date" content="2022-12-12" />
+        <meta name="date" content="2024-04-08" />
     
     <title>SQL Databases for Students and Educators</title>
 
-        <script src="index_files/header-attrs-2.23/header-attrs.js"></script>
+        <script src="index_files/header-attrs-2.25/header-attrs.js"></script>
         <script src="index_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link href="index_files/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet" />
@@ -119,23 +119,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#available-databases">Available Databases</a>
             <ul>
-            <li><a href="#open-trade-statistics">Open Trade Statistics</a></li>
-            <li><a href="#canadian-hansard">Canadian Hansard</a></li>
             <li><a href="#intendo">Intendo</a></li>
-            <li><a href="#financial-aka-loan-application">Financial (aka Loan Application)</a></li>
-            </ul></li>
-            <li><a href="#sql-dumps">SQL dumps</a>
-            <ul>
-            <li><a href="#open-trade-statistics-1">Open Trade Statistics</a></li>
-            <li><a href="#intendo-1">Intendo</a></li>
-            <li><a href="#financial">Financial</a></li>
-            </ul></li>
-            <li><a href="#using-the-dumps-locally">Using the dumps locally</a>
-            <ul>
-            <li><a href="#restore-dumps">Restore dumps</a></li>
-            <li><a href="#create-users">Create users</a></li>
-            <li><a href="#allow-external-connections">Allow external connections</a></li>
-            <li><a href="#changing-database-location">Changing database location</a></li>
             </ul></li>
             <li><a href="#problems-with-mysqlmaria-and-sql-server">Problems with MySQL/Maria and SQL Server</a>
             <ul>
@@ -157,7 +141,7 @@
       <p class="authors">
            <span class="glyphicon glyphicon-user"></span> Pachá
       </p>
-         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2022-12-12</p>
+         <p class="date"><span class="glyphicon glyphicon-calendar"></span> 2024-04-08</p>
            
 
    
@@ -170,101 +154,14 @@
 <div id="about" class="section level1">
 <h1>About</h1>
 <p>Publicly accessible databases often impose query limits or require registration. Even when I maintain public and limit-free APIs, I never wanted to host a public database because I tend to think that the connection strings are a problem for the user.</p>
-<p>I’ve decided to host different light/medium size by using PostgreSQL. I tend to prefer PostgreSQL because it easier to configure on client and server side, without strange tricks (see the <em>Problems with MySQL/MariaDB and SQL Server</em> section).</p>
-<p>If I can secure funding for this, I will make the same databases available under different backends (even MariaDB <strong>and</strong> MySQL at the same time). There are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.</p>
-<p>If you need access to the online DBs (i.e., not configuring your local copy) or you need technical support, send me an email to <a href="mailto:m.sepulveda+spam@mail.utoronto.ca" class="email">m.sepulveda+spam@mail.utoronto.ca</a> (replace with +databases for a faster reply).</p>
+<p>I’ve decided to host different light/medium size by using PostgreSQL, MariaDB and SQL Server. I tend to prefer PostgreSQL because it easier to configure on client and server side, without strange tricks (see the <em>Problems with MySQL/MariaDB and SQL Server</em> section).</p>
+<p>There are a ton of small edge cases when moving between DB back ends and so testing lots with live databases is quite valuable. With this resource you can benchmark speed, compression, and DDL types.</p>
+<p>If you need access to the databases or need a SQL dump , send me an email to <a href="mailto:m.sepulveda+spam@mail.utoronto.ca" class="email">m.sepulveda+spam@mail.utoronto.ca</a> (replace with +databases for a faster reply).</p>
 <p>You can contribute to keep it up with the hosting costs here:</p>
 <script type="text/javascript" src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js" data-name="bmc-button" data-slug="pacha" data-color="#FFDD00" data-emoji=""  data-font="Cookie" data-text="Buy me a coffee" data-outline-color="#000000" data-font-color="#000000" data-coffee-color="#ffffff" ></script>
 </div>
 <div id="available-databases" class="section level1">
 <h1>Available Databases</h1>
-<div id="open-trade-statistics" class="section level2">
-<h2>Open Trade Statistics</h2>
-<p>This is the database that powers <a href="https://shiny.tradestatistics.io/countryprofiles">Open Trade Statistics</a> and contains international trade data for commodities since 2002.</p>
-<p>This database can be helpful for evaluating the impact of free trade agreements, and other policy relevant modelling. The database is a modified version of the United Nations Commodity Trade Statistics Database (UN COMTRADE) and is targeted for Latin American Universities, who often have limited or no access to the original resource.</p>
-<p>Access these tables by adapting the next code:</p>
-<pre class="r"><code>library(dplyr)
-library(RPostgres)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;tradestatistics&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>##  [1] &quot;distances&quot;         &quot;sections_colors&quot;   &quot;yr&quot;               
-##  [4] &quot;yrc&quot;               &quot;yrp&quot;               &quot;yrpc&quot;             
-##  [7] &quot;rtas&quot;              &quot;tariffs&quot;           &quot;gdp&quot;              
-## [10] &quot;gdp_deflator&quot;      &quot;vaccine_inputs&quot;    &quot;commodities&quot;      
-## [13] &quot;commodities_short&quot; &quot;yc&quot;                &quot;countries&quot;        
-## [16] &quot;countries_colors&quot;  &quot;sections&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;yrpc&quot;) %&gt;% glimpse()</code></pre>
-<pre><code>## Rows: ??
-## Columns: 7
-## Database: postgres  [teacher@databases.pacha.dev:5432/tradestatistics]
-## $ year                &lt;int&gt; 2002, 2002, 2002, 2002, 2002, 2002, 2002, 2002, 20…
-## $ reporter_iso        &lt;chr&gt; &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;abw&quot;, &quot;…
-## $ partner_iso         &lt;chr&gt; &quot;ant&quot;, &quot;arg&quot;, &quot;atg&quot;, &quot;aus&quot;, &quot;aut&quot;, &quot;bra&quot;, &quot;brb&quot;, &quot;…
-## $ section_code        &lt;chr&gt; &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;99&quot;, &quot;9…
-## $ commodity_code      &lt;chr&gt; &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, &quot;999999&quot;, …
-## $ trade_value_usd_imp &lt;dbl&gt; 242559, 0, 346, 659, 2056, 71380, 1112, 95223, 102…
-## $ trade_value_usd_exp &lt;dbl&gt; 38553, 2313, 1006, 419, 0, 0, 0, 0, 0, 0, 0, 40553…</code></pre>
-<pre class="r"><code>dbDisconnect(con)</code></pre>
-</div>
-<div id="canadian-hansard" class="section level2">
-<h2>Canadian Hansard</h2>
-<p>A complete PostgreSQL database of the Canadian Hansard dataset, including supplementary data. It covers the Canadian Hansard from 1901 to 2019 and was obtained from <a href="https://www.lipad.ca/">LiPaD</a> with the intention of providing a live SQL database for users interested in this data. The original site provides a SQL dump that requires you to configure PostreSQL on your own laptop or server.</p>
-<pre class="r"><code>library(dplyr)
-library(RPostgres)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;canadianhansard&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>##  [1] &quot;andablog_entryimage&quot;         &quot;contactme_contact_msg&quot;      
-##  [3] &quot;dilipadsite_datenav&quot;         &quot;dilipadsite_constituency&quot;   
-##  [5] &quot;dilipadsite_basehansard&quot;     &quot;auth_group&quot;                 
-##  [7] &quot;auth_group_permissions&quot;      &quot;auth_user_user_permissions&quot; 
-##  [9] &quot;auth_user_groups&quot;            &quot;better500s_caughterror&quot;     
-## [11] &quot;dilipadsite_basehansard_bak&quot; &quot;dilipadsite_blogger&quot;        
-## [13] &quot;auth_user&quot;                   &quot;auth_permission&quot;            
-## [15] &quot;dilipadsite_datenav_bak&quot;     &quot;dilipadsite_datepickle&quot;     
-## [17] &quot;dilipadsite_parlsess&quot;        &quot;dilipadsite_member&quot;         
-## [19] &quot;django_admin_log&quot;            &quot;django_migrations&quot;          
-## [21] &quot;django_content_type&quot;         &quot;dilipadsite_position&quot;       
-## [23] &quot;django_session&quot;              &quot;downtime_period&quot;            
-## [25] &quot;taggit_templatetags_amodel&quot;  &quot;taggit_taggeditem&quot;          
-## [27] &quot;taggit_tag&quot;                  &quot;andablog_entry&quot;             
-## [29] &quot;django_site&quot;                 &quot;dilipadsite_party&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;dilipadsite_basehansard&quot;) %&gt;% glimpse()</code></pre>
-<pre><code>## Rows: ??
-## Columns: 15
-## Database: postgres  [teacher@databases.pacha.dev:5432/canadianhansard]
-## $ basepk          &lt;int&gt; 2691572, 2691576, 514587, 14, 21, 4043, 514588, 3, 4, …
-## $ hid             &lt;chr&gt; &quot;ca.proc.d.1970-11-13.28.1.89&quot;, &quot;ca.proc.d.1970-11-13.…
-## $ speechdate      &lt;date&gt; 1970-11-13, 1970-11-13, 1918-05-20, 1901-02-06, 1901-…
-## $ pid             &lt;chr&gt; &quot;7f5ea10f-f4c5-4350-b707-6c6522149e5f&quot;, &quot;intervention&quot;…
-## $ opid            &lt;chr&gt; &quot;ca.m.3511&quot;, &quot;&quot;, &quot;ca.m.4097&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;ca.m.4942&quot;,…
-## $ speakeroldname  &lt;chr&gt; &quot;Mr. Cafik:&quot;, &quot;&quot;, &quot;Sir GEORGE FOSTER:&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;M…
-## $ speakerposition &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;topic&quot;, &quot;stagedirection&quot;, &quot;&quot;, &quot;&quot;, &quot;topic&quot;…
-## $ maintopic       &lt;chr&gt; &quot;GOVERNMENT ORDERS&quot;, &quot;GOVERNMENT ORDERS&quot;, &quot;SUPPLY.-&quot;, …
-## $ subtopic        &lt;chr&gt; &quot;PUBLIC ORDER (TEMPORARY MEASURES) ACT, 1970 PROVISION…
-## $ speechtext      &lt;chr&gt; &quot;Let me point out to the hon. member for Matane that I…
-## $ speakerparty    &lt;chr&gt; &quot;Liberal&quot;, &quot;&quot;, &quot;Conservative (1867-1942)&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;,…
-## $ speakerriding   &lt;chr&gt; &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;…
-## $ speakername     &lt;chr&gt; &quot;Norman Augustine Cafik&quot;, &quot;An hon. Member:&quot;, &quot;George G…
-## $ speakerurl      &lt;chr&gt; &quot;http://www.parl.gc.ca/parlinfo/Files/Parliamentarian.…
-## $ subsubtopic     &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…</code></pre>
-<pre class="r"><code>dbDisconnect(con)</code></pre>
-</div>
 <div id="intendo" class="section level2">
 <h2>Intendo</h2>
 <p>It’s a dummy database that originally we used at the <a href="https://github.com/rstudio-conf-2020/my-org-first-pkg">My Organization’s First R Package</a> and contains managerial information of a company called Intendo, which creates mobile games. The tables contain information for the 2015 year for all sorts of information for their only game: Super Jetroid. See the recent updated to this database at <a href="https://github.com/rich-iannone/intendo">intendo</a>.</p>
@@ -282,23 +179,20 @@ con &lt;- dbConnect(
 )
 
 dbListTables(con)</code></pre>
-<pre><code>##  [1] &quot;sj_all_revenue_small_f&quot;   &quot;sj_users_daily_small&quot;    
-##  [3] &quot;sj_user_summary_medium&quot;   &quot;sj_all_sessions_large_f&quot; 
-##  [5] &quot;sj_users_daily_large_f&quot;   &quot;sj_all_sessions_xlarge_f&quot;
-##  [7] &quot;sj_user_summary_xlarge_f&quot; &quot;sj_users_daily_xlarge_f&quot; 
-##  [9] &quot;sj_all_revenue_small&quot;     &quot;sj_all_revenue_medium_f&quot; 
-## [11] &quot;sj_users_daily_medium_f&quot;  &quot;sj_all_sessions_large&quot;   
-## [13] &quot;sj_users_daily_large&quot;     &quot;sj_all_sessions_small_f&quot; 
-## [15] &quot;sj_all_revenue_medium&quot;    &quot;sj_users_daily_medium&quot;   
-## [17] &quot;sj_user_summary_large_f&quot;  &quot;sj_all_revenue_xlarge_f&quot; 
-## [19] &quot;sj_all_sessions_small&quot;    &quot;sj_all_sessions_medium_f&quot;
-## [21] &quot;sj_all_revenue_large_f&quot;   &quot;sj_user_summary_large&quot;   
-## [23] &quot;sj_all_revenue_xlarge&quot;    &quot;sj_all_sessions_xlarge&quot;  
-## [25] &quot;sj_user_summary_xlarge&quot;   &quot;sj_users_daily_xlarge&quot;   
-## [27] &quot;sj_user_summary_small_f&quot;  &quot;sj_all_sessions_medium&quot;  
-## [29] &quot;sj_all_revenue_large&quot;     &quot;sj_user_summary_small&quot;   
-## [31] &quot;sj_users_daily_small_f&quot;   &quot;sj_user_summary_medium_f&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;sj_user_summary_small&quot;) %&gt;% glimpse()</code></pre>
+<pre><code>##  [1] &quot;sj_all_sessions_medium&quot;   &quot;sj_users_daily_large&quot;    
+##  [3] &quot;sj_users_daily_large_f&quot;   &quot;sj_user_summary_medium&quot;  
+##  [5] &quot;sj_all_sessions_large&quot;    &quot;sj_all_revenue_medium_f&quot; 
+##  [7] &quot;sj_all_revenue_large_f&quot;   &quot;sj_users_daily_medium&quot;   
+##  [9] &quot;sj_user_summary_small&quot;    &quot;sj_all_revenue_small_f&quot;  
+## [11] &quot;sj_all_sessions_medium_f&quot; &quot;sj_all_revenue_medium&quot;   
+## [13] &quot;sj_all_sessions_small_f&quot;  &quot;sj_user_summary_medium_f&quot;
+## [15] &quot;sj_all_sessions_large_f&quot;  &quot;sj_all_revenue_large&quot;    
+## [17] &quot;sj_user_summary_small_f&quot;  &quot;sj_users_daily_small&quot;    
+## [19] &quot;sj_user_summary_large&quot;    &quot;sj_users_daily_small_f&quot;  
+## [21] &quot;sj_users_daily_medium_f&quot;  &quot;sj_all_sessions_small&quot;   
+## [23] &quot;sj_user_summary_large_f&quot;  &quot;sj_all_revenue_small&quot;</code></pre>
+<pre class="r"><code>tbl(con, &quot;sj_user_summary_small&quot;) %&gt;%
+  glimpse()</code></pre>
 <pre><code>## Rows: ??
 ## Columns: 6
 ## Database: postgres  [teacher@databases.pacha.dev:5432/intendo]
@@ -309,81 +203,22 @@ dbListTables(con)</code></pre>
 ## $ acquisition &lt;chr&gt; &quot;organic&quot;, &quot;apple&quot;, &quot;organic&quot;, &quot;organic&quot;, &quot;google&quot;, &quot;apple…
 ## $ device_name &lt;chr&gt; &quot;Samsung Galaxy A7&quot;, &quot;Sony Experia Z1 Compact&quot;, &quot;Sony Expe…</code></pre>
 <pre class="r"><code>dbDisconnect(con)</code></pre>
-</div>
-<div id="financial-aka-loan-application" class="section level2">
-<h2>Financial (aka Loan Application)</h2>
-<p>A database that contains Financial dataset contains 606 successful and 76 not successful loans along with their information and transactions.</p>
-<p>This database comes from the <a href="https://relational.fit.cvut.cz/dataset/Financial">Relational Dataset Repository</a> where you can find the database schema and more information. The database full name is “PKDD’99 Financial Dataset or Loan Application”, and this particular version corresponds to Financial_ijs by Janez Kranjc.</p>
-<p>Access these tables by adapting the next code:</p>
-<pre class="r"><code>library(dplyr)
-library(RPostgres)
-
-con &lt;- dbConnect(
-  Postgres(),
-  user = Sys.getenv(&quot;dbedu_usr&quot;),
-  password = Sys.getenv(&quot;dbedu_pwd&quot;),
-  dbname = &quot;financial&quot;,
-  host = &quot;databases.pacha.dev&quot;
-)
-
-dbListTables(con)</code></pre>
-<pre><code>## [1] &quot;accounts&quot;  &quot;cards&quot;     &quot;clients&quot;   &quot;disps&quot;     &quot;districts&quot; &quot;loans&quot;    
-## [7] &quot;orders&quot;    &quot;tkeys&quot;     &quot;trans&quot;</code></pre>
-<pre class="r"><code>tbl(con, &quot;clients&quot;) %&gt;% glimpse()</code></pre>
-<pre><code>## Rows: ??
-## Columns: 4
-## Database: postgres  [teacher@databases.pacha.dev:5432/financial]
-## $ id           &lt;int64&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, …
-## $ birth_number &lt;chr&gt; &quot;706213    &quot;, &quot;450204    &quot;, &quot;406009    &quot;, &quot;561201    &quot;, &quot;…
-## $ district_id  &lt;int64&gt; 18, 1, 1, 5, 5, 12, 15, 51, 60, 57, 57, 40, 54, 76, 21,…
-## $ tkey_id      &lt;int64&gt; NA, 21, 21, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
-<!-- ## CENSO 2017 -->
-<!-- Backends -->
-<!-- - [x] PostgreSQL -->
-<!-- - [ ] MariaDB -->
-<!-- This database combines two source, [censo2017 R package](https://github.com/ropensci/censo2017) (uses DuckDB as locla backend) -->
-<!-- and [censo2017 cartographies](https://github.com/ropensci/censo2017-cartografias). -->
-<!-- Please read the documentation in the mentioned sources. Because of GIS structure -->
-<!-- in some tables, I'm bounded to use PostgreSQL with PostGIS. -->
-</div>
-</div>
-<div id="sql-dumps" class="section level1">
-<h1>SQL dumps</h1>
 <!-- 
+# Create SQL dump
 sudo -i -u postgres
 pg_dump -Fc intendo > intendo-postgres.sql
 md5sum intendo.sql > intendo.sql.md5
 -->
-<p>All the dumps are available for PostgreSQL to promote its use. I had just too many problems with MariaDB/MySQL configuration and even more with SQL Server (see the <em>Problems with MySQL/Maria and SQL Server</em> section).</p>
-<div id="open-trade-statistics-1" class="section level2">
-<h2>Open Trade Statistics</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql">PostgreSQL</a> (1.8 GB, check the download with the <a href="https://databases.pacha.dev/dumps/tradestatistics-postgres.sql.md5">md5sum</a>)</li>
-</ul>
-</div>
-<div id="intendo-1" class="section level2">
-<h2>Intendo</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/intendo-postgres.sql">PostgreSQL</a> (554 MB, check the download with the <a href="https://databases.pacha.dev/dumps/intendo-postgres.sql.md5">md5sum</a>)</li>
-</ul>
-</div>
-<div id="financial" class="section level2">
-<h2>Financial</h2>
-<ul>
-<li><a href="https://databases.pacha.dev/dumps/financial-postgres.sql">PostgreSQL</a> (13 MB, check the download with the <a href="https://databases.pacha.dev/dumps/financial-postgres.sql.md5">md5sum</a>)</li>
-</ul>
-<!-- ## CENSO2017 -->
-<!-- * [PostgreSQL](https://databases.pacha.dev/dumps/censo2017.sql) (850 MB, check the download with the [md5sum](https://databases.pacha.dev/dumps/censo2017.sql.md5)) -->
-</div>
-</div>
-<div id="using-the-dumps-locally" class="section level1">
-<h1>Using the dumps locally</h1>
-<div id="restore-dumps" class="section level2">
-<h2>Restore dumps</h2>
-<div id="postgresql" class="section level3">
-<h3>PostgreSQL</h3>
-<pre class="bash"><code>sudo -i -u postgres
-pg_restore intendo.sql -d intendo</code></pre>
+<!-- # Using the dumps locally
+
+## Restore dumps
+
+### PostgreSQL
+
+```bash
+sudo -i -u postgres
+pg_restore intendo.sql -d intendo
+``` -->
 <!-- ### MySQL/MariaDB -->
 <!-- <!-- mysqldump intendo > intendo-mysql.sql -->
 <!-- From SQL: -->
@@ -409,19 +244,19 @@ pg_restore intendo.sql -d intendo</code></pre>
 <!-- RESTORE DATABASE intendo FROM DISK = 'intendo-sqlserver.sql' -->
 <!-- GO -->
 <!-- ``` -->
-</div>
-</div>
-<div id="create-users" class="section level2">
-<h2>Create users</h2>
-<p>You can create a generic user (let’s say <code>student</code>) and grant read-only access.</p>
-<div id="postgresql-1" class="section level3">
-<h3>PostgreSQL</h3>
-<pre class="sql"><code># sudo -i -u postgres 
+<!-- ## Create users
+
+You can create a generic user (let's say `student`) and grant read-only access.
+
+### PostgreSQL
+
+```SQL
+# sudo -i -u postgres 
 # psql -d intendo
 CREATE ROLE student;
 CREATE ROLE teacher;
-ALTER ROLE student WITH ENCRYPTED PASSWORD &#39;SomePassword&#39;;
-ALTER ROLE teacher WITH ENCRYPTED PASSWORD &#39;SomePassword&#39;;
+ALTER ROLE student WITH ENCRYPTED PASSWORD 'SomePassword';
+ALTER ROLE teacher WITH ENCRYPTED PASSWORD 'SomePassword';
 ALTER ROLE student WITH LOGIN;
 ALTER ROLE teacher WITH LOGIN;
 
@@ -437,7 +272,8 @@ GRANT USAGE ON SCHEMA public TO teacher;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO teacher;
 GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO teacher;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO teacher;
-GRANT CREATE ON SCHEMA public TO teacher;</code></pre>
+GRANT CREATE ON SCHEMA public TO teacher;
+``` -->
 <!-- ### MySQL/MariaDB -->
 <!-- ```SQL -->
 <!-- # sudo mysql -->
@@ -486,23 +322,21 @@ GRANT CREATE ON SCHEMA public TO teacher;</code></pre>
 <!-- RECONFIGURE; -->
 <!-- GO -->
 <!-- ``` -->
-</div>
-</div>
-<div id="allow-external-connections" class="section level2">
-<h2>Allow external connections</h2>
-<p>For this project I had to allow connections from outside the server.</p>
-<div id="postgres-version-14" class="section level3">
-<h3>Postgres (version 14)</h3>
-<ol style="list-style-type: decimal">
-<li>Open <code>/etc/postgresql/14/main/postgresql.conf</code>, comment the line that says <code>listen_addresses = 'localhost'</code>, add <code>listen_address = '*'</code> below it.</li>
-<li>Open <code>/etc/postgresql/14/main/pg_hba.conf</code>, paste these lines at the end</li>
-</ol>
-<pre class="bash"><code>host    all             all     0.0.0.0/0       md5
-host    all             all     :/0             md5</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Run <code>sudo systemctl restart postgresql</code>.</li>
-<li>Open the port with <code>sudo ufw allow 5432/tcp</code>.</li>
-</ol>
+<!-- ## Allow external connections
+
+For this project I had to allow connections from outside the server.
+
+### Postgres (version 14)
+
+1. Open `/etc/postgresql/14/main/postgresql.conf`, comment the line that says `listen_addresses = 'localhost'`,
+add `listen_address = '*'` below it.
+2. Open `/etc/postgresql/14/main/pg_hba.conf`, paste these lines at the end
+```bash
+host    all             all     0.0.0.0/0       md5
+host    all             all     :/0             md5
+```
+3. Run `sudo systemctl restart postgresql`.
+4. Open the port with `sudo ufw allow 5432/tcp`. -->
 <!-- ### MariaDB (i.e. MySQL replacement) -->
 <!-- 1. Open `/etc/mysql/mariadb.conf.d/50-server.cnf`, comment the line that says `bind-address = 127.0.0.1`. -->
 <!-- 2. Run `sudo systemctl restart mysql`. -->
@@ -523,20 +357,23 @@ host    all             all     :/0             md5</code></pre>
 <!-- sudo ufw allow 1434/tcp -->
 <!-- sudo ufw allow 1434/udp -->
 <!-- ``` -->
-</div>
-</div>
-<div id="changing-database-location" class="section level2">
-<h2>Changing database location</h2>
-<div id="postgresql-2" class="section level3">
-<h3>PostgreSQL</h3>
-<p>Create a new dir, stop the service and copy the PostgreSQL data directory to the new location.</p>
-<pre class="bash"><code>sudo mkdir /postgres
+<!-- ## Changing database location
+
+### PostgreSQL
+
+Create a new dir, stop the service and copy the PostgreSQL data directory to the new location.
+
+```bash
+sudo mkdir /postgres
 sudo chown -R postgres:postgres /postgres
 sudo systemctl stop postgresql
 sudo rsync -av /var/lib/postgresql/ /postgres
-sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
-<p>Then search <code>data_directory</code> and change the location to <code>/postgresql/14/main</code>.</p>
-<p>Finally start the service again.</p>
+sudo nano /etc/postgresql/14/main/postgresql.conf
+```
+
+Then search `data_directory` and change the location to `/postgresql/14/main`. 
+
+Finally start the service again. -->
 <!-- ###  MySQL/MariaDB -->
 <!-- Create a new dir, stop the service and copy the MariaDB data directory to the new location. -->
 <!-- ```bash -->
@@ -554,7 +391,6 @@ sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
 <!-- With my MySQL is slightly different. -->
 </div>
 </div>
-</div>
 <div id="problems-with-mysqlmaria-and-sql-server" class="section level1">
 <h1>Problems with MySQL/Maria and SQL Server</h1>
 <div id="mysqlmariadb" class="section level2">
@@ -564,12 +400,13 @@ sudo nano /etc/postgresql/14/main/postgresql.conf</code></pre>
 </div>
 <div id="sql-server" class="section level2">
 <h2>SQL Server</h2>
-<p>Beware that SQL Server shows strange problems with Linux and Mac! For example, when I connect from a Mac, I experience random disconnections and the next error message:</p>
+<p>Beware that SQL Server shows strange problems with Linux and Mac!</p>
+<p>When I connect from a Mac, I experience random disconnections and the next error message:</p>
 <pre class="bash"><code>nanodbc/nanodbc.cpp:4483: 00000: [Microsoft][ODBC Driver 18 for SQL Server]Communication link failure </code></pre>
 <p>With Ubuntu I get this another error message and RStudio crashes:</p>
 <pre class="bash"><code>terminate called after throwing an instance of &#39;nanodbc::database_error&#39;</code></pre>
 <p>I had to divide my data and write in chunks of 50,000 rows or it just disconnects. PostgreSQL and MariaDB can write tables containing two million rows right away.</p>
-<p>Therefore, my preference for DB backends is not arbitrary.</p>
+<p>Therefore, my preference for PostgreSQL is not arbitrary.</p>
 </div>
 </div>
 <div id="cite-this-work" class="section level1">
