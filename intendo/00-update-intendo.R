@@ -8,7 +8,7 @@
 
 # CHANGE THIS ACCORDINGLY: small, medium, large, xlarge, small_f, medium_f, large_f, xlarge_f
 select_engine <- "postgres"
-size <- "large_f"
+size <- paste0(c("large", "medium", "small"), "_f")
 
 if (select_engine == "postgres") library(RPostgres)
 if (select_engine == "mysql") library(RMySQL) # library(RMariaDB) for some reason copies really slow
@@ -16,15 +16,6 @@ if (select_engine == "mysql") library(RMySQL) # library(RMariaDB) for some reaso
 library(dplyr)
 library(tidyr)
 library(glue)
-
-datasets <- c(
-  glue("../intendo/data-{ gsub('_f', '', size) }/sj_all_revenue_{ size }.rds"),
-  glue("../intendo/data-{ gsub('_f', '', size) }/sj_all_sessions_{ size }.rds"),
-  glue("../intendo/data-{ gsub('_f', '', size) }/sj_user_summary_{ size }.rds"),
-  glue("../intendo/data-{ gsub('_f', '', size) }/sj_users_daily_{ size }.rds")
-)
-
-tbl_names <- gsub(".*/|\\.rds", "", datasets)
 
 fun_con <- function(type) {
   if (type == "postgres") {
@@ -62,81 +53,186 @@ fun_con <- function(type) {
   return(con)
 }
 
-# con <- fun_con(select_engine)
-# if(any(class(con) %in% c("MySQLConnection", "Microsoft SQL Server"))) {
-#   # MYSQL/SQL SERVER ONLY
-#   dbSendQuery(con, "USE intendo")
-# }
-# tbls <- dbListTables(con)
-# tbls <- grep("^daily_users$|^revenue$|^users$|^sj_", tbls, value = T)
-# for (t in tbls) {
-#   dbGetQuery(con, glue("DROP TABLE {t}"))
-# }
-# dbDisconnect(con)
+for (s in size) {
+  datasets <- c(
+    glue("../intendo/data-{ gsub('_f', '', s) }/sj_all_revenue_{ s }.rds"),
+    glue("../intendo/data-{ gsub('_f', '', s) }/sj_all_sessions_{ s }.rds"),
+    glue("../intendo/data-{ gsub('_f', '', s) }/sj_user_summary_{ s }.rds"),
+    glue("../intendo/data-{ gsub('_f', '', s) }/sj_users_daily_{ s }.rds")
+  )
 
-for (j in seq_along(datasets)) {
-  cat(paste0(datasets[j], "\n"))
-  tictoc::tic()
-  d <- readRDS(datasets[j]) %>%
-    mutate(n = row_number() %/% 50000) %>%
-    group_by(n) %>%
-    nest()
-  for (i in d$n) {
-    cat(paste0(i, " "))
-    con <- fun_con(select_engine)
-    dbWriteTable(
-      con,
-      tbl_names[j],
-      d %>%
-        ungroup() %>%
-        filter(n == i) %>%
-        select(data) %>%
-        unnest(cols = c(data)),
-      temporary = F, overwrite = F, append = T
-    )
-    dbDisconnect(con)
+  # con <- fun_con(select_engine)
+  # if(any(class(con) %in% c("MySQLConnection", "Microsoft SQL Server"))) {
+  #   # MYSQL/SQL SERVER ONLY
+  #   dbSendQuery(con, "USE intendo")
+  # }
+  # tbls <- dbListTables(con)
+  # tbls <- grep("^daily_users$|^revenue$|^users$|^sj_", tbls, value = T)
+  # for (t in tbls) {
+  #   dbGetQuery(con, glue("DROP TABLE {t}"))
+  # }
+  # dbDisconnect(con)
+
+  con <- fun_con(select_engine)
+
+  revenue <- readRDS(datasets[1])
+
+  if (s == "large") {
+    items <- revenue %>%
+      distinct(item_name) %>%
+      arrange(item_name) %>%
+      mutate(item_id = row_number())
+
+    items_type <- revenue %>%
+      distinct(item_type) %>%
+      arrange(item_type) %>%
+      mutate(item_type_id = row_number())
+
+    acquisitions <- revenue %>%
+      distinct(acquisition) %>%
+      arrange(acquisition) %>%
+      mutate(acquisition_id = row_number())
+
+    countries <- revenue %>%
+      distinct(country) %>%
+      arrange(country) %>%
+      mutate(country_id = row_number())
   }
-  rm(d)
-  tictoc::toc()
-}
 
-# indexes
+  sessions <- readRDS(datasets[2])
 
-con <- fun_con(select_engine)
+  summary <- readRDS(datasets[3])
 
-if (select_engine == "postgres") {
-  dbSendQuery(
-    con,
-    glue("CREATE INDEX idx_sj_all_revenue_{ size }_user_id ON sj_all_revenue_{ size } (player_id)")
-  )
-  dbSendQuery(
-    con,
-    glue("CREATE INDEX idx_sj_all_sessions_{ size }_user_id ON sj_all_sessions_{ size } (player_id)")
-  )
-  dbSendQuery(
-    con,
-    glue("CREATE INDEX idx_sj_user_summary_{ size }_user_id ON sj_user_summary_{ size } (player_id)")
-  )
-  dbSendQuery(
-    con,
-    glue("CREATE INDEX idx_sj_users_daily_{ size }_user_id ON sj_users_daily_{ size } (player_id)")
-  )
+  if (s == "large") {
+    acquisitions2 <- summary %>%
+      distinct(acquisition) %>%
+      arrange(acquisition) %>%
+      mutate(acquisition_id = row_number())
 
-  dbSendQuery(
-    con,
-    glue("ALTER TABLE sj_user_summary_{ size } ADD CONSTRAINT unique_player_id_{ size } UNIQUE (player_id)")
-  )
+    acquisitions3 <- anti_join(acquisitions, acquisitions2)
 
-  dbSendQuery(
-    con,
-    glue("ALTER TABLE sj_all_revenue_{ size } ADD CONSTRAINT fk_sj_all_revenue_{ size }_user_id FOREIGN KEY (player_id) REFERENCES sj_user_summary_{ size } (player_id)")
-  )
-  dbSendQuery(
-    con,
-    glue("ALTER TABLE sj_all_sessions_{ size } ADD CONSTRAINT fk_sj_all_sessions_{ size }_user_id FOREIGN KEY (player_id) REFERENCES sj_user_summary_{ size } (player_id)")
-  )
-  dbSendQuery(
-    con,
-    glue("ALTER TABLE sj_users_daily_{ size } ADD CONSTRAINT fk_sj_users_daily_{ size }_user_id FOREIGN KEY (player_id) REFERENCES sj_user_summary_{ size } (player_id)")
-  )
+    if (nrow(acquisitions3) > 0) {
+      acquisitions <- acquisitions %>%
+        bind_rows(acquisitions3) %>%
+        select(-acquisition_id) %>%
+        distinct(acquisition) %>%
+        arrange(acquisition) %>%
+        mutate(acquisition_id = row_number())
+    }
+
+    countries2 <- summary %>%
+      distinct(country) %>%
+      arrange(country) %>%
+      mutate(country_id = row_number())
+
+    countries3 <- anti_join(countries, countries2)
+
+    if (nrow(countries3) > 0) {
+      countries <- countries %>%
+        bind_rows(countries3) %>%
+        select(-country_id) %>%
+        distinct(country) %>%
+        arrange(country) %>%
+        mutate(country_id = row_number())
+    }
+
+    devices <- summary %>%
+      distinct(device_name) %>%
+      arrange(device_name) %>%
+      mutate(device_id = row_number())
+  }
+
+  daily <- readRDS(datasets[4])
+
+  if (s == "large") {
+    countries4 <- daily %>%
+      distinct(country) %>%
+      arrange(country) %>%
+      mutate(country_id = row_number())
+
+    countries5 <- anti_join(countries, countries4)
+
+    if (nrow(countries5) > 0) {
+      countries <- countries %>%
+        bind_rows(countries5) %>%
+        select(-country_id) %>%
+        distinct(country) %>%
+        arrange(country) %>%
+        mutate(country_id = row_number())
+    }
+
+    acquisitions4 <- daily %>%
+      distinct(acquisition) %>%
+      arrange(acquisition) %>%
+      mutate(acquisition_id = row_number())
+
+    acquisitions5 <- anti_join(acquisitions, acquisitions4)
+
+    if (nrow(acquisitions5) > 0) {
+      acquisitions <- acquisitions %>%
+        bind_rows(acquisitions5) %>%
+        select(-acquisition_id) %>%
+        distinct(acquisition) %>%
+        arrange(acquisition) %>%
+        mutate(acquisition_id = row_number())
+    }
+  }
+
+  revenue <- revenue %>%
+    left_join(items, by = "item_name") %>%
+    left_join(items_type, by = "item_type") %>%
+    left_join(acquisitions, by = "acquisition") %>%
+    left_join(countries, by = "country") %>%
+    select(
+      player_id:time, item_type_id, item_id, item_revenue,
+      session_duration, start_day, acquisition_id, country_id
+    )
+
+  summary <- summary %>%
+    left_join(acquisitions, by = "acquisition") %>%
+    left_join(countries, by = "country") %>%
+    left_join(devices, by = "device_name") %>%
+    select(player_id:start_day, country_id, acquisition_id, device_id)
+
+  daily <- daily %>%
+    left_join(acquisitions, by = "acquisition") %>%
+    left_join(countries, by = "country") %>%
+    select(player_id:rev_all_total, country_id, acquisition_id)
+
+  if (s == "large") {
+    dbWriteTable(con, glue("items"), items, row.names = F)
+    dbWriteTable(con, glue("items_type"), items_type, row.names = F)
+    dbWriteTable(con, glue("acquisitions"), acquisitions, row.names = F)
+    dbWriteTable(con, glue("countries"), countries, row.names = F)
+    dbWriteTable(con, glue("devices"), devices, row.names = F)
+  }
+
+  dbWriteTable(con, glue("revenue_{ s }"), revenue, row.names = F)
+  dbWriteTable(con, glue("sessions_{ s }"), sessions, row.names = F)
+  dbWriteTable(con, glue("summary_{ s }"), summary, row.names = F)
+  dbWriteTable(con, glue("daily_{ s }"), daily, row.names = F)
+
+  # constraints
+  if (s == "large") {
+    dbSendQuery(con, glue("ALTER TABLE items ADD CONSTRAINT items_{ s }_pk PRIMARY KEY (item_id)"))
+    dbSendQuery(con, glue("ALTER TABLE items_type ADD CONSTRAINT items_type_{ s }_pk PRIMARY KEY (item_type_id)"))
+    dbSendQuery(con, glue("ALTER TABLE acquisitions ADD CONSTRAINT acquisitions_{ s }_pk PRIMARY KEY (acquisition_id)"))
+    dbSendQuery(con, glue("ALTER TABLE countries ADD CONSTRAINT countries_{ s }_pk PRIMARY KEY (country_id)"))
+    dbSendQuery(con, glue("ALTER TABLE devices ADD CONSTRAINT devices_{ s }_pk PRIMARY KEY (device_id)"))
+  }
+
+  # foreign keys
+  dbSendQuery(con, glue("ALTER TABLE revenue_{ s } ADD CONSTRAINT revenue_items_{ s }_fk FOREIGN KEY (item_id) REFERENCES items(item_id)"))
+  dbSendQuery(con, glue("ALTER TABLE revenue_{ s } ADD CONSTRAINT revenue_items_type_{ s }_fk FOREIGN KEY (item_type_id) REFERENCES items_type(item_type_id)"))
+  dbSendQuery(con, glue("ALTER TABLE revenue_{ s } ADD CONSTRAINT revenue_acquisitions_{ s }_fk FOREIGN KEY (acquisition_id) REFERENCES acquisitions(acquisition_id)"))
+  dbSendQuery(con, glue("ALTER TABLE revenue_{ s } ADD CONSTRAINT revenue_countries_{ s }_fk FOREIGN KEY (country_id) REFERENCES countries(country_id)"))
+
+  dbSendQuery(con, glue("ALTER TABLE summary_{ s } ADD CONSTRAINT summary_acquisitions_{ s }_fk FOREIGN KEY (acquisition_id) REFERENCES acquisitions(acquisition_id)"))
+  dbSendQuery(con, glue("ALTER TABLE summary_{ s } ADD CONSTRAINT summary_countries_{ s }_fk FOREIGN KEY (country_id) REFERENCES countries(country_id)"))
+  dbSendQuery(con, glue("ALTER TABLE summary_{ s } ADD CONSTRAINT summary_devices_{ s }_fk FOREIGN KEY (device_id) REFERENCES devices(device_id)"))
+
+  dbSendQuery(con, glue("ALTER TABLE daily_{ s } ADD CONSTRAINT daily_acquisitions_{ s }_fk FOREIGN KEY (acquisition_id) REFERENCES acquisitions(acquisition_id)"))
+  dbSendQuery(con, glue("ALTER TABLE daily_{ s } ADD CONSTRAINT daily_countries_{ s }_fk FOREIGN KEY (country_id) REFERENCES countries(country_id)"))
+
+  dbDisconnect(con)
 }
