@@ -1,6 +1,8 @@
 # Create SQL dump
 
 sudo -i -u postgres
+# if text dump then
+# psql -U <username> -d <database-name> -h <host-name> -f <backup.sql>
 pg_dump -Fc intendo > intendo-postgres.sql
 md5sum intendo.sql > intendo.sql.md5
 
